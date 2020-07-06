@@ -39,8 +39,6 @@ public class SpectrumAnalyzerTest : MonoBehaviour
             analyzer.OnAnalyzeBands64.addListener(handleSpectralAnalysis);
         }
 
-        Debug.Log(bands);
-
         spawnVisualizers();
     }
 

@@ -20,15 +20,15 @@ public class SpectrumAnalyzer : MonoBehaviour
     [SerializeField]
     private FFTWindow FFTWindow = FFTWindow.Hamming;
     
-    private float[] sampleData;
+    private float[] sampleData = new float[512];
 
-    public float[] freqBands8;
-    private float[] freqBandBuffer8;
-    private float[] freqBandBuffer8Decrease;
+    private float[] freqBands8 = new float[8];
+    private float[] freqBandBuffer8 = new float[8];
+    private float[] freqBandBuffer8Decrease = new float[8];
 
-    public float[] freqBands64;
-    private float[] freqBandBuffer64;
-    private float[] freqBandBuffer64Decrease;
+    private float[] freqBands64 = new float[64];
+    private float[] freqBandBuffer64 = new float[64];
+    private float[] freqBandBuffer64Decrease = new float[64];
 
     public class SpectralAnalysisEventSampler : DynamicEventSampler<SpectralAnalysisData>
     {
@@ -72,16 +72,6 @@ public class SpectrumAnalyzer : MonoBehaviour
 
     private void Start()
     {
-        sampleData = new float[512];
-
-        freqBands8 = new float[8];
-        freqBandBuffer8 = new float[8];
-        freqBandBuffer8Decrease = new float[8];
-
-        freqBands64 = new float[64];
-        freqBandBuffer64 = new float[64];
-        freqBandBuffer64Decrease = new float[64];
-
         Debug.Log("Clip channels: " + audioSource.clip.channels);
     }
 
@@ -90,16 +80,19 @@ public class SpectrumAnalyzer : MonoBehaviour
         audioSource.GetSpectrumData(sampleData, channel, FFTWindow);
     }
 
+    #region 8 Band Analysis
+
     private SpectralAnalysisEventSampler.EventSampleResult sample8BandAnalysis()
     {
         createFrequencyBands8();
+        bufferFrequencyBands8();
 
         return new SpectralAnalysisEventSampler.EventSampleResult
         {
             eventOccurred = true,
             eventParam = new SpectralAnalysisData
             {
-                audioBands = freqBands8
+                audioBands = freqBandBuffer8
             }
         };
     }    
@@ -127,23 +120,45 @@ public class SpectrumAnalyzer : MonoBehaviour
         }
     }
 
+    private void bufferFrequencyBands8()
+    {
+        for (int i = 0; i < freqBandBuffer8.Length; i++)
+        {
+            if (freqBands8[i] > freqBandBuffer8[i])
+            {
+                freqBandBuffer8[i] = freqBands8[i];
+                freqBandBuffer8Decrease[i] = 0.005f;
+            }
+
+            if (freqBands8[i] < freqBandBuffer8[i])
+            {
+                freqBandBuffer8[i] -= freqBandBuffer8Decrease[i];
+                freqBandBuffer8Decrease[i] *= 1.2f;
+            }
+        }
+    }
+
+    #endregion 8 Band Analysis
+
+    #region 64 Band Analysis
+
     private SpectralAnalysisEventSampler.EventSampleResult sample64BandAnalysis()
     {
         createFrequencyBands64();
+        bufferFrequencyBands64();
 
         return new SpectralAnalysisEventSampler.EventSampleResult
         {
             eventOccurred = true,
             eventParam = new SpectralAnalysisData
             {
-                audioBands = freqBands64
+                audioBands = freqBandBuffer64
             }
         };
     }
 
     private void createFrequencyBands64()
     {
-
         int count = 0;
         int sampleCount = 1;
         int power = 0;
@@ -171,6 +186,26 @@ public class SpectrumAnalyzer : MonoBehaviour
             freqBands64[i] = average * 80;
         }
     }
+
+    private void bufferFrequencyBands64()
+    {
+        for (int i = 0; i < freqBandBuffer64.Length; i++)
+        {
+            if (freqBands64[i] > freqBandBuffer64[i])
+            {
+                freqBandBuffer64[i] = freqBands64[i];
+                freqBandBuffer64Decrease[i] = 0.005f;
+            }
+
+            if (freqBands64[i] < freqBandBuffer64[i])
+            {
+                freqBandBuffer64[i] -= freqBandBuffer64Decrease[i];
+                freqBandBuffer64Decrease[i] *= 1.2f;
+            }
+        }
+    }
+
+    #endregion 64 Band Analysis
 
     private void Update()
     {
