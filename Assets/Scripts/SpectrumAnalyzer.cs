@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,136 +8,183 @@ public class SpectrumAnalyzer : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
-    [Header("Spectrum Analysis")]
-
-    [SerializeField]
-    private int samples = 512; //Must be a power of 2
-
     /// <summary>
     /// 0 - Stereo
     /// 1 - Left
     /// 2 - Right
     /// </summary>
     [SerializeField]
-    private int spectrumChannel = 0; //0 is average?? other channels specify ambisonic channel, wxyz??
+    private int channel = 0; //0 is average?? other channels specify ambisonic channel, wxyz??
 
     //Documentation: https://docs.unity3d.com/ScriptReference/FFTWindow.html
     [SerializeField]
     private FFTWindow FFTWindow = FFTWindow.Hamming;
-
-    [Header("Frequency Bands")]
-
-    [SerializeField]
-    private int frequencyBands = 8; //Must be a power of 2
-
-    public int FrequencyBandCount
-    {
-        get
-        {
-            return frequencyBands;
-        }
-    }
-
+    
     private float[] sampleData;
-    public float[] freqBands;
 
-    private float[] freqBandBuffer;
-    private float[] freqBandBufferDecrease;
+    public float[] freqBands8;
+    private float[] freqBandBuffer8;
+    private float[] freqBandBuffer8Decrease;
 
-    public float[] FrequencyBands
+    public float[] freqBands64;
+    private float[] freqBandBuffer64;
+    private float[] freqBandBuffer64Decrease;
+
+    public class SpectralAnalysisEventSampler : DynamicEventSampler<SpectralAnalysisData>
+    {
+        public SpectralAnalysisEventSampler(Func<EventSampleResult> eventSampler) : base(eventSampler) { }
+    }
+
+    private SpectralAnalysisEventSampler analysisBandsSampler8;
+    public SpectralAnalysisEventSampler OnAnalyzeBands8
     {
         get
         {
-            return freqBands;
+            if (analysisBandsSampler8 == null)
+                analysisBandsSampler8 = new SpectralAnalysisEventSampler(sample8BandAnalysis);
+            return analysisBandsSampler8;
         }
     }
 
-    public bool old = true;
+    private SpectralAnalysisEventSampler analysisBandsSampler64;
+    public SpectralAnalysisEventSampler OnAnalyzeBands64
+    {
+        get
+        {
+            if (analysisBandsSampler64 == null)
+                analysisBandsSampler64 = new SpectralAnalysisEventSampler(sample64BandAnalysis);
+            return analysisBandsSampler64;
+        }
+    }
 
     private void OnValidate()
-    {
-        // Samples should be power 2 also between 64 and 8192??
-
-        // Frequency bands should be power 2
-
-        // Validate against audioSource.audioClip.channels
+    {        
+        if (audioSource.clip)
+        {
+            //Constrain channel to a value between 0 and the number of channels in the clip
+            int clipChannels = audioSource.clip.channels;
+            if (channel > clipChannels - 1)
+                channel = clipChannels - 1;
+            else if (channel < 0)
+                channel = 0;
+        }
     }
 
     private void Start()
     {
-        sampleData = new float[samples];
+        sampleData = new float[512];
 
-        freqBands = new float[frequencyBands];
-        freqBandBuffer = new float[frequencyBands];
-        freqBandBufferDecrease = new float[frequencyBands];
+        freqBands8 = new float[8];
+        freqBandBuffer8 = new float[8];
+        freqBandBuffer8Decrease = new float[8];
+
+        freqBands64 = new float[64];
+        freqBandBuffer64 = new float[64];
+        freqBandBuffer64Decrease = new float[64];
 
         Debug.Log("Clip channels: " + audioSource.clip.channels);
     }
 
     private void getSampleData()
     {
-        audioSource.GetSpectrumData(sampleData, spectrumChannel, FFTWindow);
+        audioSource.GetSpectrumData(sampleData, channel, FFTWindow);
     }
 
-    private void setFrequencyBands()
+    private SpectralAnalysisEventSampler.EventSampleResult sample8BandAnalysis()
     {
-        if (old)
+        createFrequencyBands8();
+
+        return new SpectralAnalysisEventSampler.EventSampleResult
         {
-            int count = 0;
-            for (int i = 0; i < frequencyBands; i++)
+            eventOccurred = true,
+            eventParam = new SpectralAnalysisData
             {
-                float average = 0;
-                int sampleCount = (int)Mathf.Pow(2, i) * 2;
-
-                if (i == 7) //Sum of frequencies is 510, get to 512
-                    sampleCount += 2;
-
-                for (int j = 0; j < sampleCount; j++)
-                {
-                    average += sampleData[count] * (count + 1);
-                    count++;
-                }
-
-                average /= count;
-
-                //frequencyBands[i] = average * 10;
-                freqBands[i] = average * 1.25f * frequencyBands;
+                audioBands = freqBands8
             }
-        }
-        else
+        };
+    }    
+
+    private void createFrequencyBands8()
+    {
+        int count = 0;
+        for (int i = 0; i < freqBands8.Length; i++)
         {
-            int band = 0;
-            for (int i = 0; i < freqBands.Length; i++)
+            float average = 0;
+            int sampleCount = (int)Mathf.Pow(2, i) * 2;
+
+            if (i == 7) //Sum of frequencies is 510, get to 512
+                sampleCount += 2;
+
+            for (int j = 0; j < sampleCount; j++)
             {
-                float average = 0;
-
-                /* As you increment on Frequency bands to set, get number of samples
-                 * looking to get average of next based on for loop progress percentage */
-                //int sampleCount = (int)Mathf.Lerp(2f, sampleData.Length - 1, i / ((float)freqBands.Length - 1));
-                int sampleCount = (int)Mathf.Lerp(2f, sampleData.Length / 2, i / ((float)freqBands.Length - 1));
-
-                /* always start the j index at the current value of band here
-                 * if you always start from 0, band++ will increment out of _samples bounds */
-                for (int j = band; j < sampleCount; j++)
-                {
-                    average += sampleData[band] * (band + 1);
-                    band++;
-                }
-
-                average /= sampleCount;
-
-                //freqBands[i] = average;
-                freqBands[i] = average * 1.25f * frequencyBands;
+                average += sampleData[count] * (count + 1);
+                count++;
             }
+
+            average /= count;
+            
+            freqBands8[i] = average * 10;
         }
     }
-    
+
+    private SpectralAnalysisEventSampler.EventSampleResult sample64BandAnalysis()
+    {
+        createFrequencyBands64();
+
+        return new SpectralAnalysisEventSampler.EventSampleResult
+        {
+            eventOccurred = true,
+            eventParam = new SpectralAnalysisData
+            {
+                audioBands = freqBands64
+            }
+        };
+    }
+
+    private void createFrequencyBands64()
+    {
+
+        int count = 0;
+        int sampleCount = 1;
+        int power = 0;
+
+        for (int i = 0; i < freqBands64.Length; i++)
+        {
+            float average = 0;
+            if (i == 16 || i == 32 || i == 40 || i == 48 || i == 56)
+            {
+                power++;
+                sampleCount = (int)Mathf.Pow(2, power);
+
+                if (power == 3)
+                    sampleCount -= 2;
+            }
+
+            for (int j = 0; j < sampleCount; j++)
+            {
+                average += sampleData[count] * (count + 1);
+                count++;
+            }
+
+            average /= count;
+
+            freqBands64[i] = average * 80;
+        }
+    }
+
     private void Update()
     {
         if (audioSource.isPlaying)
         {
             getSampleData();
-            setFrequencyBands();
+
+            OnAnalyzeBands8.update();
+            OnAnalyzeBands64.update();
         }
     }
+}
+
+public struct SpectralAnalysisData
+{
+    public float[] audioBands;
 }
