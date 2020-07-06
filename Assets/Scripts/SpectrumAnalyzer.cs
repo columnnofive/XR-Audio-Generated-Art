@@ -122,9 +122,9 @@ public class SpectrumAnalyzer : MonoBehaviour
         SpectralAnalysisData data = fireEvent ?
             new SpectralAnalysisData
             {
-                audioBands = audioBands8,
+                audioBandsRaw = audioBands8,
                 audioBandBuffer = audioBand8Buffer,
-                amplitude = amplitude8,
+                amplitudeRaw = amplitude8,
                 amplitudeBuffer = amplitudeBuffer8
             } :
             default;
@@ -230,9 +230,9 @@ public class SpectrumAnalyzer : MonoBehaviour
         SpectralAnalysisData data = fireEvent ?
             new SpectralAnalysisData
             {
-                audioBands = audioBands64,
+                audioBandsRaw = audioBands64,
                 audioBandBuffer = audioBand64Buffer,
-                amplitude = amplitude8,
+                amplitudeRaw = amplitude8,
                 amplitudeBuffer = amplitudeBuffer8
             } :
             default;
@@ -346,7 +346,7 @@ public struct SpectralAnalysisData
     /// <summary>
     /// Values between 0 and 1 representing raw frequency bands.
     /// </summary>
-    public float[] audioBands;
+    public float[] audioBandsRaw;
 
     /// <summary>
     /// Values between 0 and 1 representing smoothed frequency band values.
@@ -356,7 +356,7 @@ public struct SpectralAnalysisData
     /// <summary>
     /// Average amplitude of the audio bands.
     /// </summary>
-    public float amplitude;
+    public float amplitudeRaw;
 
     /// <summary>
     /// Average amplitude of the audio band buffer.

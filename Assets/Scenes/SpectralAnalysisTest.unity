@@ -151,14 +151,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   analyzer: {fileID: 373500748}
+  analysisMode: 0
+  audioBandDataType: 1
+  amplitudeDataType: 1
   visualizerPrefab: {fileID: 296981671784484144, guid: 90a440c500dd6964aa22b3c1dd59e825,
     type: 3}
   spacing: 0.5
   scaleFactor: 10
   rotationFactor: 3
   rotationDirectionCutoff: 0.126
-  analysisMode: 0
-  analysisDataMode: 1
 --- !u!4 &197822663
 Transform:
   m_ObjectHideFlags: 0
@@ -217,14 +218,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   analyzer: {fileID: 1285608415}
+  analysisMode: 1
+  audioBandDataType: 1
+  amplitudeDataType: 1
   visualizerPrefab: {fileID: 296981671784484144, guid: e1744fef8eb52c941bfdc5bb176fb854,
     type: 3}
   spacing: 0.5
   scaleFactor: 10
   rotationFactor: 2
   rotationDirectionCutoff: 0.2
-  analysisMode: 1
-  analysisDataMode: 1
 --- !u!1 &373500746
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +259,7 @@ MonoBehaviour:
   audioSource: {fileID: 394872384}
   channel: 0
   FFTWindow: 4
-  audioProfile: 0
+  audioProfile: 2
   freqBand8Highest:
   - 0
   - 0
@@ -453,7 +455,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1703e71badca8894e8ce1b3334e2aba1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d5d6d4461de6569439f28bf09bc2818e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -565,7 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c76a466c8625814f9cd93e54cff4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipTime: 0.261
+  clipTime: 0
 --- !u!1 &566849944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,14 +1065,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   analyzer: {fileID: 1285608415}
+  analysisMode: 0
+  audioBandDataType: 1
+  amplitudeDataType: 1
   visualizerPrefab: {fileID: 296981671784484144, guid: 90a440c500dd6964aa22b3c1dd59e825,
     type: 3}
   spacing: 0.5
   scaleFactor: 10
   rotationFactor: 1
   rotationDirectionCutoff: 0.304
-  analysisMode: 0
-  analysisDataMode: 1
 --- !u!4 &1974286788
 Transform:
   m_ObjectHideFlags: 0

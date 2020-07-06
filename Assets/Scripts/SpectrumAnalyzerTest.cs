@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpectrumAnalyzerTest : MonoBehaviour
+public class SpectrumAnalyzerTest : AudioVisualizer
 {
-    public SpectrumAnalyzer analyzer;
     public GameObject visualizerPrefab;
     public float spacing = 0.1f;
     public float scaleFactor = 1f;
@@ -15,35 +14,9 @@ public class SpectrumAnalyzerTest : MonoBehaviour
 
     private Transform[] visualizers;
 
-    public enum AnalysisMode
+    protected override void Start()
     {
-        Bands8,
-        Bands64
-    }
-    public AnalysisMode analysisMode;
-
-    public enum AnalysisDataMode
-    {
-        AudioBand,
-        AudioBandBuffer
-    }
-    public AnalysisDataMode analysisDataMode = AnalysisDataMode.AudioBandBuffer;
-
-    private int bands;
-
-    private void Start()
-    {
-        if (analysisMode == AnalysisMode.Bands8)
-        {
-            bands = 8;
-            analyzer.OnAnalyzeBands8.addListener(handleSpectralAnalysis);
-        }
-        else //Bands64
-        {
-            bands = 64;
-            analyzer.OnAnalyzeBands64.addListener(handleSpectralAnalysis);
-        }
-
+        base.Start();
         spawnVisualizers();
     }
 
@@ -63,19 +36,10 @@ public class SpectrumAnalyzerTest : MonoBehaviour
         }
     }
 
-    private void handleSpectralAnalysis(SpectralAnalysisData data)
+    protected override void handleVisualizationData(VisualizationData data)
     {
-        switch (analysisDataMode)
-        {
-            case AnalysisDataMode.AudioBand:
-                scaleVisualizers(data.audioBands);
-                break;
-            case AnalysisDataMode.AudioBandBuffer:
-                scaleVisualizers(data.audioBandBuffer);
-                break;
-        }
-
-        rotateVisualizers(data.amplitudeBuffer);
+        scaleVisualizers(data.audioBands);
+        rotateVisualizers(data.amplitude);
     }
 
     private void setPositionsFromScale()
