@@ -4,31 +4,32 @@ using UnityEngine;
 
 public class SpectrumAnalyzerTest : MonoBehaviour
 {
-    public AudioSource audioSource;
     public SpectrumAnalyzer analyzer;
     public GameObject visualizerPrefab;
     public float spacing = 0.1f;
     public float scaleFactor = 1f;
 
-    [Range(0, 1)]
-    public float clipStartTimeFraction = 0;
-
     private Transform[] visualizers;
 
-    public enum VisualizeMode
+    public enum AnalysisMode
     {
         Bands8,
         Bands64
     }
-    public VisualizeMode visualizeMode;
+    public AnalysisMode analysisMode;
+
+    public enum AnalysisDataMode
+    {
+        AudioBand,
+        AudioBandBuffer
+    }
+    public AnalysisDataMode analysisDataMode = AnalysisDataMode.AudioBandBuffer;
 
     private int bands;
 
     private void Start()
     {
-        audioSource.time = audioSource.clip.length * clipStartTimeFraction;
-
-        if (visualizeMode == VisualizeMode.Bands8)
+        if (analysisMode == AnalysisMode.Bands8)
         {
             bands = 8;
             analyzer.OnAnalyzeBands8.addListener(handleSpectralAnalysis);
@@ -60,7 +61,15 @@ public class SpectrumAnalyzerTest : MonoBehaviour
 
     private void handleSpectralAnalysis(SpectralAnalysisData data)
     {
-        scaleVisualizers(data.audioBands);
+        switch (analysisDataMode)
+        {
+            case AnalysisDataMode.AudioBand:
+                scaleVisualizers(data.audioBands);
+                break;
+            case AnalysisDataMode.AudioBandBuffer:
+                scaleVisualizers(data.audioBandBuffer);
+                break;
+        }
     }
 
     private void setPositionsFromScale()

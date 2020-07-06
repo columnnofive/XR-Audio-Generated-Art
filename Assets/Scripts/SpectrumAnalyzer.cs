@@ -22,18 +22,19 @@ public class SpectrumAnalyzer : MonoBehaviour
     
     private float[] sampleData = new float[512];
 
-    private float[] freqBands8 = new float[8];
-    private float[] freqBandBuffer8 = new float[8];
-    private float[] freqBandBuffer8Decrease = new float[8];
-
-    private float[] freqBands64 = new float[64];
-    private float[] freqBandBuffer64 = new float[64];
-    private float[] freqBandBuffer64Decrease = new float[64];
-
     public class SpectralAnalysisEventSampler : DynamicEventSampler<SpectralAnalysisData>
     {
         public SpectralAnalysisEventSampler(Func<EventSampleResult> eventSampler) : base(eventSampler) { }
     }
+
+    #region 8 Band Analysis
+
+    private float[] freqBands8 = new float[8];
+    private float[] freqBand8Buffer = new float[8];
+    private float[] freqBandBuffer8Decrease = new float[8];
+    private float[] freqBand8Max = new float[8];
+    private float[] audioBands8 = new float[8];
+    private float[] audioBand8Buffer = new float[8];
 
     private SpectralAnalysisEventSampler analysisBandsSampler8;
     public SpectralAnalysisEventSampler OnAnalyzeBands8
@@ -46,6 +47,17 @@ public class SpectrumAnalyzer : MonoBehaviour
         }
     }
 
+    #endregion 8 Band Analysis
+
+    #region 64 Band Analysis
+
+    private float[] freqBands64 = new float[64];
+    private float[] freqBand64Buffer = new float[64];
+    private float[] freqBandBuffer64Decrease = new float[64];
+    private float[] freqBand64Max = new float[64];
+    private float[] audioBands64 = new float[64];
+    private float[] audioBand64Buffer = new float[64];
+
     private SpectralAnalysisEventSampler analysisBandsSampler64;
     public SpectralAnalysisEventSampler OnAnalyzeBands64
     {
@@ -56,6 +68,8 @@ public class SpectrumAnalyzer : MonoBehaviour
             return analysisBandsSampler64;
         }
     }
+
+    #endregion 64 Band Analysis
 
     private void OnValidate()
     {        
@@ -86,14 +100,38 @@ public class SpectrumAnalyzer : MonoBehaviour
     {
         createFrequencyBands8();
         bufferFrequencyBands8();
+        createRangedAudioBands8();
+
+        //Only fire event if data does not contain float.NaN
+        bool fireEvent = !arrayContains(audioBands8, float.NaN) &&
+            !arrayContains(audioBand8Buffer, float.NaN);
+
+        //Only populate if event should be fired
+        SpectralAnalysisData data = fireEvent ?
+            new SpectralAnalysisData
+            {
+                audioBands = audioBands8,
+                audioBandBuffer = audioBand8Buffer
+            } :
+            default;
+
+        //Only fire event if data does not contain float.NaN
+        //bool fireEvent = !arrayContains(freqBands8, float.NaN) &&
+        //    !arrayContains(freqBand8Buffer, float.NaN);
+
+        ////Only populate if event should be fired
+        //SpectralAnalysisData data = fireEvent ?
+        //    new SpectralAnalysisData
+        //    {
+        //        audioBands = freqBands8,
+        //        audioBandBuffer = freqBand8Buffer
+        //    } :
+        //    default;
 
         return new SpectralAnalysisEventSampler.EventSampleResult
         {
-            eventOccurred = true,
-            eventParam = new SpectralAnalysisData
-            {
-                audioBands = freqBandBuffer8
-            }
+            eventOccurred = fireEvent,
+            eventParam = data
         };
     }    
 
@@ -116,25 +154,38 @@ public class SpectrumAnalyzer : MonoBehaviour
 
             average /= count;
             
-            freqBands8[i] = average * 10;
+            freqBands8[i] = average;
         }
     }
 
     private void bufferFrequencyBands8()
     {
-        for (int i = 0; i < freqBandBuffer8.Length; i++)
+        for (int i = 0; i < freqBand8Buffer.Length; i++)
         {
-            if (freqBands8[i] > freqBandBuffer8[i])
+            if (freqBands8[i] > freqBand8Buffer[i])
             {
-                freqBandBuffer8[i] = freqBands8[i];
+                freqBand8Buffer[i] = freqBands8[i];
                 freqBandBuffer8Decrease[i] = 0.005f;
             }
 
-            if (freqBands8[i] < freqBandBuffer8[i])
+            if (freqBands8[i] < freqBand8Buffer[i])
             {
-                freqBandBuffer8[i] -= freqBandBuffer8Decrease[i];
-                freqBandBuffer8Decrease[i] *= 1.2f;
+                freqBandBuffer8Decrease[i] = (freqBand8Buffer[i] - freqBands8[i]) / freqBand8Buffer.Length;
+                freqBand8Buffer[i] -= freqBandBuffer8Decrease[i];
             }
+        }
+    }
+
+    private void createRangedAudioBands8()
+    {
+        for (int i = 0; i < freqBands8.Length; i++)
+        {
+            if (freqBands8[i] > freqBand8Max[i]) //Track max value of frequency band
+                freqBand8Max[i] = freqBands8[i];
+
+            //Set audio bands to value between 0 and 1
+            audioBands8[i] = freqBands8[i] / freqBand8Max[i];
+            audioBand8Buffer[i] = freqBand8Buffer[i] / freqBand8Max[i];
         }
     }
 
@@ -146,14 +197,25 @@ public class SpectrumAnalyzer : MonoBehaviour
     {
         createFrequencyBands64();
         bufferFrequencyBands64();
+        createRangedAudioBands64();
+
+        //Only fire event if data does not contain float.NaN
+        bool fireEvent = !arrayContains(audioBands64, float.NaN) &&
+            !arrayContains(audioBand64Buffer, float.NaN);
+
+        //Only populate if event should be fired
+        SpectralAnalysisData data = fireEvent ?
+            new SpectralAnalysisData
+            {
+                audioBands = audioBands64,
+                audioBandBuffer = audioBand64Buffer
+            } :
+            default;
 
         return new SpectralAnalysisEventSampler.EventSampleResult
         {
-            eventOccurred = true,
-            eventParam = new SpectralAnalysisData
-            {
-                audioBands = freqBandBuffer64
-            }
+            eventOccurred = fireEvent,
+            eventParam = data
         };
     }
 
@@ -183,29 +245,47 @@ public class SpectrumAnalyzer : MonoBehaviour
 
             average /= count;
 
-            freqBands64[i] = average * 80;
+            freqBands64[i] = average;
         }
     }
 
     private void bufferFrequencyBands64()
     {
-        for (int i = 0; i < freqBandBuffer64.Length; i++)
+        for (int i = 0; i < freqBand64Buffer.Length; i++)
         {
-            if (freqBands64[i] > freqBandBuffer64[i])
+            if (freqBands64[i] > freqBand64Buffer[i])
             {
-                freqBandBuffer64[i] = freqBands64[i];
+                freqBand64Buffer[i] = freqBands64[i];
                 freqBandBuffer64Decrease[i] = 0.005f;
             }
 
-            if (freqBands64[i] < freqBandBuffer64[i])
+            if (freqBands64[i] < freqBand64Buffer[i])
             {
-                freqBandBuffer64[i] -= freqBandBuffer64Decrease[i];
-                freqBandBuffer64Decrease[i] *= 1.2f;
+                freqBandBuffer64Decrease[i] = (freqBand64Buffer[i] - freqBands64[i]) / freqBand64Buffer.Length;
+                freqBand64Buffer[i] -= freqBandBuffer64Decrease[i];
             }
         }
     }
 
+    private void createRangedAudioBands64()
+    {
+        for (int i = 0; i < freqBands64.Length; i++)
+        {
+            if (freqBands64[i] > freqBand64Max[i]) //Track max value of frequency band
+                freqBand64Max[i] = freqBands64[i];
+
+            //Set audio bands to value between 0 and 1
+            audioBands64[i] = freqBands64[i] / freqBand64Max[i];
+            audioBand64Buffer[i] = freqBand64Buffer[i] / freqBand64Max[i];
+        }
+    }
+
     #endregion 64 Band Analysis
+
+    private static bool arrayContains(float[] array, float target)
+    {
+        return Array.Find(array, val => val.Equals(target)) != default;
+    }
 
     private void Update()
     {
@@ -221,5 +301,13 @@ public class SpectrumAnalyzer : MonoBehaviour
 
 public struct SpectralAnalysisData
 {
+    /// <summary>
+    /// Values between 0 and 1 representing raw frequency bands.
+    /// </summary>
     public float[] audioBands;
+
+    /// <summary>
+    /// Values between 0 and 1 representing smoothed frequency band values.
+    /// </summary>
+    public float[] audioBandBuffer;
 }
