@@ -17,7 +17,11 @@ public class SpectrumAnalyzer : MonoBehaviour
     //Documentation: https://docs.unity3d.com/ScriptReference/FFTWindow.html
     [SerializeField]
     private FFTWindow FFTWindow = FFTWindow.Hamming;
-    
+
+    [SerializeField, 
+     Tooltip("Used for the initial highest frequency band values when normalizing frequency band data to values between 0 and 1.")]
+    private float audioProfile = 0f;
+
     private float[] sampleData = new float[512];
 
     public class SpectralAnalysisEventSampler : DynamicEventSampler<SpectralAnalysisData>
@@ -30,12 +34,12 @@ public class SpectrumAnalyzer : MonoBehaviour
     private float[] freqBands8 = new float[8];
     private float[] freqBand8Buffer = new float[8];
     private float[] freqBandBuffer8Decrease = new float[8];
-    private float[] freqBand8Max = new float[8];
+    [SerializeField] private float[] freqBand8Highest = new float[8];
     private float[] audioBands8 = new float[8];
     private float[] audioBand8Buffer = new float[8];
-    public float amplitude8 = 0f;
-    public float amplitudeBuffer8 = 0f;
-    public float amplitudeHighest8 = 0f;
+    private float amplitude8 = 0f;
+    private float amplitudeBuffer8 = 0f;
+    private float amplitudeHighest8 = 0f;
 
     private SpectralAnalysisEventSampler analysisBandsSampler8;
     public SpectralAnalysisEventSampler OnAnalyzeBands8
@@ -55,7 +59,7 @@ public class SpectrumAnalyzer : MonoBehaviour
     private float[] freqBands64 = new float[64];
     private float[] freqBand64Buffer = new float[64];
     private float[] freqBandBuffer64Decrease = new float[64];
-    private float[] freqBand64Max = new float[64];
+    [SerializeField] private float[] freqBand64Highest = new float[64];
     private float[] audioBands64 = new float[64];
     private float[] audioBand64Buffer = new float[64];
     private float amplitude64 = 0f;
@@ -90,6 +94,9 @@ public class SpectrumAnalyzer : MonoBehaviour
 
     private void Start()
     {
+        freqBand8Highest.setValues(audioProfile);
+        freqBand64Highest.setValues(audioProfile);
+
         Debug.Log("Clip channels: " + audioSource.clip.channels);
     }
 
@@ -108,8 +115,8 @@ public class SpectrumAnalyzer : MonoBehaviour
         getAmplitude8();
 
         //Only fire event if data does not contain float.NaN
-        bool fireEvent = !arrayContains(audioBands8, float.NaN) &&
-            !arrayContains(audioBand8Buffer, float.NaN);
+        bool fireEvent = !audioBands8.contains(float.NaN) &&
+            !audioBand8Buffer.contains(float.NaN);
 
         //Only populate if event should be fired
         SpectralAnalysisData data = fireEvent ?
@@ -148,7 +155,7 @@ public class SpectrumAnalyzer : MonoBehaviour
 
             average /= count;
             
-            freqBands8[i] = average;
+            freqBands8[i] = average * 10;
         }
     }
 
@@ -174,12 +181,12 @@ public class SpectrumAnalyzer : MonoBehaviour
     {
         for (int i = 0; i < freqBands8.Length; i++)
         {
-            if (freqBands8[i] > freqBand8Max[i]) //Track max value of frequency band
-                freqBand8Max[i] = freqBands8[i];
+            if (freqBands8[i] > freqBand8Highest[i]) //Track max value of frequency band
+                freqBand8Highest[i] = freqBands8[i];
 
             //Set audio bands to value between 0 and 1
-            audioBands8[i] = freqBands8[i] / freqBand8Max[i];
-            audioBand8Buffer[i] = freqBand8Buffer[i] / freqBand8Max[i];
+            audioBands8[i] = freqBands8[i] / freqBand8Highest[i];
+            audioBand8Buffer[i] = freqBand8Buffer[i] / freqBand8Highest[i];
         }
     }
 
@@ -216,8 +223,8 @@ public class SpectrumAnalyzer : MonoBehaviour
         getAmplitude64();
 
         //Only fire event if data does not contain float.NaN
-        bool fireEvent = !arrayContains(audioBands64, float.NaN) &&
-            !arrayContains(audioBand64Buffer, float.NaN);
+        bool fireEvent = !audioBands64.contains(float.NaN) &&
+            !audioBand64Buffer.contains(float.NaN);
 
         //Only populate if event should be fired
         SpectralAnalysisData data = fireEvent ?
@@ -263,7 +270,7 @@ public class SpectrumAnalyzer : MonoBehaviour
 
             average /= count;
 
-            freqBands64[i] = average;
+            freqBands64[i] = average * 80;
         }
     }
 
@@ -289,12 +296,12 @@ public class SpectrumAnalyzer : MonoBehaviour
     {
         for (int i = 0; i < freqBands64.Length; i++)
         {
-            if (freqBands64[i] > freqBand64Max[i]) //Track max value of frequency band
-                freqBand64Max[i] = freqBands64[i];
+            if (freqBands64[i] > freqBand64Highest[i]) //Track max value of frequency band
+                freqBand64Highest[i] = freqBands64[i];
 
             //Set audio bands to value between 0 and 1
-            audioBands64[i] = freqBands64[i] / freqBand64Max[i];
-            audioBand64Buffer[i] = freqBand64Buffer[i] / freqBand64Max[i];
+            audioBands64[i] = freqBands64[i] / freqBand64Highest[i];
+            audioBand64Buffer[i] = freqBand64Buffer[i] / freqBand64Highest[i];
         }
     }
 
@@ -320,11 +327,7 @@ public class SpectrumAnalyzer : MonoBehaviour
     }
 
     #endregion 64 Band Analysis
-
-    private static bool arrayContains(float[] array, float target)
-    {
-        return Array.Find(array, val => val.Equals(target)) != default;
-    }
+    
 
     private void Update()
     {
