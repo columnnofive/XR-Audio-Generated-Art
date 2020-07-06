@@ -12,11 +12,6 @@ public class AudioMasterController : MonoBehaviour
     
     private float previousClipTime = 0f;
 
-    private void OnValidate()
-    {
-        Debug.Log("validate");
-    }
-
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpectrumAnalyzer : MonoBehaviour
@@ -35,6 +33,9 @@ public class SpectrumAnalyzer : MonoBehaviour
     private float[] freqBand8Max = new float[8];
     private float[] audioBands8 = new float[8];
     private float[] audioBand8Buffer = new float[8];
+    public float amplitude8 = 0f;
+    public float amplitudeBuffer8 = 0f;
+    public float amplitudeHighest8 = 0f;
 
     private SpectralAnalysisEventSampler analysisBandsSampler8;
     public SpectralAnalysisEventSampler OnAnalyzeBands8
@@ -57,6 +58,9 @@ public class SpectrumAnalyzer : MonoBehaviour
     private float[] freqBand64Max = new float[64];
     private float[] audioBands64 = new float[64];
     private float[] audioBand64Buffer = new float[64];
+    private float amplitude64 = 0f;
+    private float amplitudeBuffer64 = 0f;
+    private float amplitudeHighest64 = 0f;
 
     private SpectralAnalysisEventSampler analysisBandsSampler64;
     public SpectralAnalysisEventSampler OnAnalyzeBands64
@@ -101,6 +105,7 @@ public class SpectrumAnalyzer : MonoBehaviour
         createFrequencyBands8();
         bufferFrequencyBands8();
         createRangedAudioBands8();
+        getAmplitude8();
 
         //Only fire event if data does not contain float.NaN
         bool fireEvent = !arrayContains(audioBands8, float.NaN) &&
@@ -111,22 +116,11 @@ public class SpectrumAnalyzer : MonoBehaviour
             new SpectralAnalysisData
             {
                 audioBands = audioBands8,
-                audioBandBuffer = audioBand8Buffer
+                audioBandBuffer = audioBand8Buffer,
+                amplitude = amplitude8,
+                amplitudeBuffer = amplitudeBuffer8
             } :
             default;
-
-        //Only fire event if data does not contain float.NaN
-        //bool fireEvent = !arrayContains(freqBands8, float.NaN) &&
-        //    !arrayContains(freqBand8Buffer, float.NaN);
-
-        ////Only populate if event should be fired
-        //SpectralAnalysisData data = fireEvent ?
-        //    new SpectralAnalysisData
-        //    {
-        //        audioBands = freqBands8,
-        //        audioBandBuffer = freqBand8Buffer
-        //    } :
-        //    default;
 
         return new SpectralAnalysisEventSampler.EventSampleResult
         {
@@ -189,6 +183,27 @@ public class SpectrumAnalyzer : MonoBehaviour
         }
     }
 
+    private void getAmplitude8()
+    {
+        float amplitudeSum = 0f;
+        float amplitudeBufferSum = 0f;
+
+        for (int i = 0; i < audioBands8.Length; i++)
+        {
+            amplitudeSum += audioBands8[i];
+            amplitudeBufferSum += audioBand8Buffer[i];
+        }
+
+        float amplitudeAvg = amplitudeSum / audioBands8.Length;
+        float amplitudeBufferAvg = amplitudeBufferSum / audioBands8.Length;
+
+        if (amplitudeAvg > amplitudeHighest8)
+            amplitudeHighest8 = amplitudeAvg;
+
+        amplitude8 = amplitudeAvg / amplitudeHighest8;
+        amplitudeBuffer8 = amplitudeBufferAvg / amplitudeHighest8;
+    }
+
     #endregion 8 Band Analysis
 
     #region 64 Band Analysis
@@ -198,6 +213,7 @@ public class SpectrumAnalyzer : MonoBehaviour
         createFrequencyBands64();
         bufferFrequencyBands64();
         createRangedAudioBands64();
+        getAmplitude64();
 
         //Only fire event if data does not contain float.NaN
         bool fireEvent = !arrayContains(audioBands64, float.NaN) &&
@@ -208,7 +224,9 @@ public class SpectrumAnalyzer : MonoBehaviour
             new SpectralAnalysisData
             {
                 audioBands = audioBands64,
-                audioBandBuffer = audioBand64Buffer
+                audioBandBuffer = audioBand64Buffer,
+                amplitude = amplitude8,
+                amplitudeBuffer = amplitudeBuffer8
             } :
             default;
 
@@ -280,6 +298,27 @@ public class SpectrumAnalyzer : MonoBehaviour
         }
     }
 
+    private void getAmplitude64()
+    {
+        float amplitudeSum = 0f;
+        float amplitudeBufferSum = 0f;
+
+        for (int i = 0; i < audioBands64.Length; i++)
+        {
+            amplitudeSum += audioBands64[i];
+            amplitudeBufferSum += audioBand64Buffer[i];
+        }
+
+        float amplitudeAvg = amplitudeSum / audioBands64.Length;
+        float amplitudeBufferAvg = amplitudeBufferSum / audioBands64.Length;
+
+        if (amplitudeAvg > amplitudeHighest64)
+            amplitudeHighest64 = amplitudeAvg;
+
+        amplitude64 = amplitudeAvg / amplitudeHighest64;
+        amplitudeBuffer64 = amplitudeBufferAvg / amplitudeHighest64;
+    }
+
     #endregion 64 Band Analysis
 
     private static bool arrayContains(float[] array, float target)
@@ -310,4 +349,14 @@ public struct SpectralAnalysisData
     /// Values between 0 and 1 representing smoothed frequency band values.
     /// </summary>
     public float[] audioBandBuffer;
+
+    /// <summary>
+    /// Average amplitude of the audio bands.
+    /// </summary>
+    public float amplitude;
+
+    /// <summary>
+    /// Average amplitude of the audio band buffer.
+    /// </summary>
+    public float amplitudeBuffer;
 }

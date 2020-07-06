@@ -8,6 +8,10 @@ public class SpectrumAnalyzerTest : MonoBehaviour
     public GameObject visualizerPrefab;
     public float spacing = 0.1f;
     public float scaleFactor = 1f;
+    public float rotationFactor = 1f;
+
+    [Range(0, 1)]
+    public float rotationDirectionCutoff = 0.5f;
 
     private Transform[] visualizers;
 
@@ -70,6 +74,8 @@ public class SpectrumAnalyzerTest : MonoBehaviour
                 scaleVisualizers(data.audioBandBuffer);
                 break;
         }
+
+        rotateVisualizers(data.amplitudeBuffer);
     }
 
     private void setPositionsFromScale()
@@ -95,5 +101,20 @@ public class SpectrumAnalyzerTest : MonoBehaviour
         }
 
         setPositionsFromScale();
+    }
+
+    private void rotateVisualizers(float amplitude)
+    {
+        float rotateY = amplitude * rotationFactor;
+
+        if (amplitude < rotationDirectionCutoff)
+            rotateY *= -1;
+
+        for (int i = 0; i < visualizers.Length; i++)
+        {
+            Transform visualizer = visualizers[i];
+
+            visualizer.rotation *= Quaternion.AngleAxis(rotateY, Vector3.up);
+        }
     }
 }
