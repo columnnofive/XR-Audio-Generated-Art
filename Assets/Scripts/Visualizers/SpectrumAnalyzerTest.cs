@@ -14,15 +14,14 @@ public class SpectrumAnalyzerTest : AudioVisualizer
 
     private Transform[] visualizers;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         spawnVisualizers();
     }
 
     private void spawnVisualizers()
     {
-        visualizers = new Transform[bands];
+        visualizers = new Transform[VisualizationController.bands];
 
         float halfVisualizersCount = visualizers.Length / 2;
         float startX = transform.position.x - (halfVisualizersCount + spacing * halfVisualizersCount);
@@ -36,7 +35,7 @@ public class SpectrumAnalyzerTest : AudioVisualizer
         }
     }
 
-    protected override void handleVisualizationData(VisualizationData data)
+    protected override void visualizeData(VisualizationData data)
     {
         scaleVisualizers(data.audioBands);
         rotateVisualizers(data.amplitude);
