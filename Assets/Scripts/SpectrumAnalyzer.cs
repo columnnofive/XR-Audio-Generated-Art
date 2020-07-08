@@ -116,7 +116,9 @@ public class SpectrumAnalyzer : MonoBehaviour
 
         //Only fire event if data does not contain float.NaN
         bool fireEvent = !audioBands8.contains(float.NaN) &&
-            !audioBand8Buffer.contains(float.NaN);
+            !audioBand8Buffer.contains(float.NaN) &&
+            !amplitude8.Equals(float.NaN) &&
+            !amplitudeBuffer8.Equals(float.NaN);
 
         //Only populate if event should be fired
         SpectralAnalysisData data = fireEvent ?
@@ -224,7 +226,9 @@ public class SpectrumAnalyzer : MonoBehaviour
 
         //Only fire event if data does not contain float.NaN
         bool fireEvent = !audioBands64.contains(float.NaN) &&
-            !audioBand64Buffer.contains(float.NaN);
+            !audioBand64Buffer.contains(float.NaN) &&
+            !amplitude64.Equals(float.NaN) &&
+            !amplitudeBuffer64.Equals(float.NaN);
 
         //Only populate if event should be fired
         SpectralAnalysisData data = fireEvent ?
