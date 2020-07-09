@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c76a466c8625814f9cd93e54cff4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipTime: 0.356
+  clipTime: 0.724
 --- !u!114 &359574642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,8 +410,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446235396}
-  - component: {fileID: 446235398}
   - component: {fileID: 446235399}
+  - component: {fileID: 446235398}
   - component: {fileID: 446235397}
   m_Layer: 0
   m_Name: AmbisonicLine
@@ -581,13 +581,13 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  speedFactor: 3000
+  speedFactor: 1
   directionChangeThresholdX: 0.5
   directionChangeThresholdY: 0.5
   directionChangeThresholdZ: 0.5
-  innerMovementRadius: 15
-  minOuterMovementRadius: 70
-  maxOuterMovementRadius: 130
+  innerMovementRadius: 0
+  minOuterMovementRadius: 0.1
+  maxOuterMovementRadius: 1
   movementDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &446235399
 MonoBehaviour:
@@ -606,8 +606,8 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  minWidth: 4
-  maxWidth: 5
+  minWidth: 0.006
+  maxWidth: 0.008
   colorChangeThreshold: 0.218
   colorChangeSpeed: 1
   hueMin: 0
@@ -631,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -691,7 +691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 584.28, y: -127.6, z: -2430.8}
+  m_LocalPosition: {x: 0, y: 0, z: -3.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -824,12 +824,12 @@ PrefabInstance:
     - target: {fileID: 4856322800583464904, guid: 75ab8b629b0e53042af64a4036426810,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.26
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4856322800583464904, guid: 75ab8b629b0e53042af64a4036426810,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.27
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4856322800583464904, guid: 75ab8b629b0e53042af64a4036426810,
         type: 3}
@@ -879,7 +879,7 @@ PrefabInstance:
     - target: {fileID: 4856322800583464918, guid: 75ab8b629b0e53042af64a4036426810,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4856322800613403520, guid: 75ab8b629b0e53042af64a4036426810,
         type: 3}
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c76a466c8625814f9cd93e54cff4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipTime: 0.356
+  clipTime: 0.724
 --- !u!114 &1483492282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c76a466c8625814f9cd93e54cff4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipTime: 0.356
+  clipTime: 0.724
 --- !u!114 &1572476086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719957610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2632562ba623992479521a02701226ba, type: 3}
   m_Name: 
@@ -1499,13 +1499,13 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  speedFactor: 5
+  speedFactor: 0.02
   directionChangeThresholdX: 0.5
   directionChangeThresholdY: 0.5
   directionChangeThresholdZ: 0.5
-  innerMovementRadius: 35
-  minOuterMovementRadius: 200
-  maxOuterMovementRadius: 400
+  innerMovementRadius: 0
+  minOuterMovementRadius: 0.1
+  maxOuterMovementRadius: 0.5
   movementDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1813722899
 GameObject:
@@ -1604,6 +1604,7 @@ GameObject:
   - component: {fileID: 1960726026}
   - component: {fileID: 1960726025}
   - component: {fileID: 1960726024}
+  - component: {fileID: 1960726028}
   m_Layer: 0
   m_Name: DissolveBoundary
   m_TagString: Untagged
@@ -1620,7 +1621,7 @@ Transform:
   m_GameObject: {fileID: 1960726022}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 105, y: 105, z: 105}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 1719957611}
   m_RootOrder: 0
@@ -1642,8 +1643,8 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  minScale: 300
-  maxScale: 600
+  minScale: 0.2
+  maxScale: 1
 --- !u!114 &1960726025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,6 +1712,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960726022}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1960726028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960726022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2632562ba623992479521a02701226ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wController:
+    analyzer: {fileID: 1572476086}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  xController:
+    analyzer: {fileID: 1483492282}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  yController:
+    analyzer: {fileID: 359574642}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  zController:
+    analyzer: {fileID: 2117287728}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  speedFactor: 0.02
+  directionChangeThresholdX: 0.5
+  directionChangeThresholdY: 0.5
+  directionChangeThresholdZ: 0.5
+  innerMovementRadius: 0
+  minOuterMovementRadius: 0.1
+  maxOuterMovementRadius: 0.5
+  movementDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1979082508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c76a466c8625814f9cd93e54cff4875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipTime: 0.356
+  clipTime: 0.724
 --- !u!114 &2117287728
 MonoBehaviour:
   m_ObjectHideFlags: 0
