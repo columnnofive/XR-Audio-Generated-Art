@@ -24,9 +24,6 @@ public abstract class AmbisonicAudioVisualizer : AudioVisualizerBase
 
     private VisualizationData zData { get; set; }
 
-    [SerializeField]
-    private bool autoEnable = true;
-
     /// <summary>
     /// Determines if the visualization data has been updated since last frame.
     /// </summary>
@@ -39,13 +36,10 @@ public abstract class AmbisonicAudioVisualizer : AudioVisualizerBase
         yController.setVisualizationListener(handleVisualizationDataY);
         zController.setVisualizationListener(handleVisualizationDataZ);
 
-        if (autoEnable)
-        {
-            wController.enable();
-            xController.enable();
-            yController.enable();
-            zController.enable();
-        }
+        wController.enable();
+        xController.enable();
+        yController.enable();
+        zController.enable();
     }
 
     private void LateUpdate()

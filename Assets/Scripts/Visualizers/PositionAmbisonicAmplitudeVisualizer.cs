@@ -16,13 +16,18 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
     [SerializeField, Range(0, 1)]
     private float directionChangeThresholdZ = 0.5f;
 
-    [Header("Movement Contraints")]
+    [Header("Movement Inner Boundaries")]
 
     [SerializeField]
-    private float minMovementRadius = 35f;
+    private float innerMovementRadius = 15f;
+
+    [Header("Movement Outer Boundaries")]
 
     [SerializeField]
-    private float maxMovementRadius = 65f;
+    private float minOuterMovementRadius = 35f;
+
+    [SerializeField]
+    private float maxOuterMovementRadius = 65f;
 
     private float movementRadius;
 
@@ -42,11 +47,20 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
 
     private void scaleMovementRadius(float amplitude)
     {
-        float radiusInterpolation = (maxMovementRadius - minMovementRadius) * amplitude;
-        movementRadius = minMovementRadius + radiusInterpolation;
+        float radiusInterpolation = (maxOuterMovementRadius - minOuterMovementRadius) * amplitude;
+        movementRadius = minOuterMovementRadius + radiusInterpolation;
     }
 
     private void move()
+    {
+        if (enforceOuterBoundary()) //Within outer boundary
+            enforceInnerBoundary(); //Check inner boundary
+
+        Vector3 translation = directionModifier * movementDirection * speedFactor;
+        transform.Translate(translation, Space.Self);
+    }
+
+    private bool enforceOuterBoundary()
     {
         Vector3 toOrigin = Vector3.zero - transform.localPosition;
         float distanceFromOrigin = toOrigin.magnitude;
@@ -60,10 +74,37 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
 
             //Switch directions
             directionModifier = Quaternion.AngleAxis(180f, getRandomAxis());
+
+            //Outside outer boundary
+            return false;
         }
 
-        Vector3 translation = directionModifier * movementDirection * speedFactor;
-        transform.Translate(translation, Space.Self);
+        //Within outer boundary
+        return true;
+    }
+
+    private bool enforceInnerBoundary()
+    {
+        Vector3 toOrigin = Vector3.zero - transform.localPosition;
+        float distanceFromOrigin = toOrigin.magnitude;
+
+        //Inside inner boundary
+        if (distanceFromOrigin < innerMovementRadius)
+        {
+            Vector3 normalizedToOrigin = toOrigin.normalized;
+            float distanceToMove = innerMovementRadius - distanceFromOrigin;
+            Vector3 boundaryTranslation = distanceToMove * -normalizedToOrigin; //Move away from the origin
+            transform.localPosition = transform.localPosition + boundaryTranslation;
+
+            //Switch directions
+            directionModifier = Quaternion.AngleAxis(180f, getRandomAxis());
+
+            //Inside inner boundary
+            return false;
+        }
+
+        //Outside inner boundary
+        return true;
     }
 
     protected override void visualizeDataX(VisualizationData data)
