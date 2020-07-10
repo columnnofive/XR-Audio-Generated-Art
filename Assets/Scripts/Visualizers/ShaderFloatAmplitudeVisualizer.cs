@@ -76,7 +76,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     {
         interpolating = true;
         
-        float value = 0f;
+        float value = floatValue;
 
         int i = 0;
         while (i < interpolationTargets.Length)

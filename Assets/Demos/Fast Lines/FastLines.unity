@@ -419,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &446235396
 Transform:
   m_ObjectHideFlags: 0
@@ -1721,7 +1721,7 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  minScale: 0.2
+  minScale: 0.5
   maxScale: 1
 --- !u!114 &1960726025
 MonoBehaviour:
@@ -1847,25 +1847,19 @@ MonoBehaviour:
     audioBandDataType: 1
     amplitudeDataType: 1
   floatName: _DissolveInterpolation
-  min: 0
-  max: 1
+  min: 0.2
+  max: 0.7
   trigger:
     targetAmplitude: 0.262
     requiredRepetitions: 5
     repetitions: 0
-  interpolationSpeed: 3
+  interpolationSpeed: 5
   randomizeInterpolationTargets: 1
   interpolationTargets:
-  - 0
   - 0.2
-  - 0.1
-  - 0.6
-  - 0.3
-  - 0.9
-  - 0.8
-  - 1
-  - 0.3
-  - 0.4
+  - 0.7
+  - 0.7
+  - 0.7
 --- !u!1 &1979082508
 GameObject:
   m_ObjectHideFlags: 0
