@@ -85,7 +85,7 @@ public class AudioVisualizationController
     {
         float[] audioBands = null;
 
-        if (audioBandDataType == AudioBandDataType.AudioBandsRaw)
+        if (audioBandDataType == AudioBandDataType.AudioBandRaw)
             audioBands = data.audioBandsRaw;
         else // AudioBandDataType.AudioBandBuffer
             audioBands = data.audioBandBuffer;
@@ -118,7 +118,7 @@ public enum AnalysisMode
 
 public enum AudioBandDataType
 {
-    AudioBandsRaw,
+    AudioBandRaw,
     AudioBandBuffer
 }
 
