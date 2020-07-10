@@ -1682,6 +1682,7 @@ GameObject:
   - component: {fileID: 1960726025}
   - component: {fileID: 1960726024}
   - component: {fileID: 1960726028}
+  - component: {fileID: 1960726029}
   m_Layer: 0
   m_Name: DissolveBoundary
   m_TagString: Untagged
@@ -1828,6 +1829,43 @@ MonoBehaviour:
   innerMovementRadius: 0
   minOuterMovementRadius: 0.1
   maxOuterMovementRadius: 0.5
+--- !u!114 &1960726029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960726022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b518f9ffe930364da721a1979addfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationController:
+    analyzer: {fileID: 1572476086}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  floatName: _DissolveInterpolation
+  min: 0
+  max: 1
+  trigger:
+    targetAmplitude: 0.262
+    requiredRepetitions: 5
+    repetitions: 0
+  interpolationSpeed: 3
+  randomizeInterpolationTargets: 1
+  interpolationTargets:
+  - 0
+  - 0.2
+  - 0.1
+  - 0.6
+  - 0.3
+  - 0.9
+  - 0.8
+  - 1
+  - 0.3
+  - 0.4
 --- !u!1 &1979082508
 GameObject:
   m_ObjectHideFlags: 0

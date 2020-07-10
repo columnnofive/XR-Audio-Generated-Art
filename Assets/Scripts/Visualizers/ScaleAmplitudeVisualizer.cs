@@ -10,8 +10,6 @@ public class ScaleAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private float maxScale = 1f;
 
-    private float scale = 0f;
-
     protected override void visualizeData(VisualizationData data)
     {
         setScale(data.amplitude);
@@ -20,7 +18,7 @@ public class ScaleAmplitudeVisualizer : AudioVisualizer
     private void setScale(float amplitude)
     {
         float scaleInterpolation = (maxScale - minScale) * amplitude;
-        scale = minScale + scaleInterpolation;
+        float scale = minScale + scaleInterpolation;
         transform.localScale = scale * Vector3.one;
     }
 }
