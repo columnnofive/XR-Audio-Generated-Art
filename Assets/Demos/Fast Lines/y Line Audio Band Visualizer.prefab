@@ -51,8 +51,8 @@ MonoBehaviour:
     audioBandDataType: 1
     amplitudeDataType: 1
   band: 0
-  minWidth: 0.5
-  maxWidth: 3
+  minWidth: 0.002
+  maxWidth: 0.006
   colorChangeThreshold: 0.353
   colorChangeSpeed: 1
   hueMin: 0.23
@@ -76,13 +76,13 @@ MonoBehaviour:
     audioBandDataType: 1
     amplitudeDataType: 1
   band: 0
-  speedFactor: 1000
+  speedFactor: 0.5
   minDirectionChangeAngle: -180
   maxDirectionChangeAngle: 180
   directionChangeThreshold: 0.2
-  innerMovementRadius: 35
-  minOuterMovementRadius: 70
-  maxOuterMovementRadius: 130
+  innerMovementRadius: 0
+  minOuterMovementRadius: 0.1
+  maxOuterMovementRadius: 0.5
 --- !u!96 &2870290854472642882
 TrailRenderer:
   serializedVersion: 2

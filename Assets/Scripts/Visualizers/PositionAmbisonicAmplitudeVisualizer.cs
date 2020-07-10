@@ -30,8 +30,7 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
     private float maxOuterMovementRadius = 65f;
 
     private float movementRadius;
-
-    [SerializeField]
+    
     private Vector3 movementDirection = Vector3.forward;
     private Quaternion directionModifier = Quaternion.identity;
 
