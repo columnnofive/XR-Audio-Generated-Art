@@ -11,6 +11,11 @@ public class AudioVisualizationController
     public AudioBandDataType audioBandDataType;    
     public AmplitudeDataType amplitudeDataType;
 
+    [Header("Data Filtering")]
+
+    [Tooltip("Filter to apply to the visualization data. Applied in numerical order.")]
+    public List<DataFilter> dataFilters;
+
     /// <summary>
     /// Number of audio bands contained in the analysis data.
     /// </summary>
@@ -97,11 +102,23 @@ public class AudioVisualizationController
         else // AmplitudeDataType.AmplitudeBuffer
             amplitude = data.amplitudeBuffer;
 
-        visualizationListener?.Invoke(new VisualizationData
+        VisualizationData visualizationData = new VisualizationData
         {
             audioBands = audioBands,
             amplitude = amplitude
-        });
+        };
+
+        filterData(ref visualizationData); //Apply any set data filters
+        visualizationListener?.Invoke(visualizationData); //Notify listener
+    }
+
+    private void filterData(ref VisualizationData data)
+    {
+        foreach (DataFilter filter in dataFilters)
+        {
+            if (filter) //Filter not null
+                data = filter.filterData(data);
+        }
     }
 
     public static int getBandCount(AnalysisMode analysisMode)
