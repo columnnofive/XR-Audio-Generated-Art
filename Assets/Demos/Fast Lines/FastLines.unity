@@ -419,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &446235396
 Transform:
   m_ObjectHideFlags: 0
@@ -676,7 +676,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876924711}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 973877516759717424, guid: 731ffa86ffafef74ba94b113094983f0, type: 3}
 --- !u!4 &876924714
 Transform:
   m_ObjectHideFlags: 0
@@ -684,13 +684,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876924711}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,6 +1682,7 @@ GameObject:
   - component: {fileID: 1960726025}
   - component: {fileID: 1960726024}
   - component: {fileID: 1960726028}
+  - component: {fileID: 1960726029}
   m_Layer: 0
   m_Name: DissolveBoundary
   m_TagString: Untagged
@@ -1720,7 +1721,7 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-  minScale: 0.2
+  minScale: 0.5
   maxScale: 1
 --- !u!114 &1960726025
 MonoBehaviour:
@@ -1828,6 +1829,37 @@ MonoBehaviour:
   innerMovementRadius: 0
   minOuterMovementRadius: 0.1
   maxOuterMovementRadius: 0.5
+--- !u!114 &1960726029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960726022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b518f9ffe930364da721a1979addfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationController:
+    analyzer: {fileID: 1572476086}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+  floatName: _DissolveInterpolation
+  min: 0.2
+  max: 0.7
+  trigger:
+    targetAmplitude: 0.262
+    requiredRepetitions: 5
+    repetitions: 0
+  interpolationSpeed: 5
+  randomizeInterpolationTargets: 1
+  interpolationTargets:
+  - 0.2
+  - 0.7
+  - 0.7
+  - 0.7
 --- !u!1 &1979082508
 GameObject:
   m_ObjectHideFlags: 0
