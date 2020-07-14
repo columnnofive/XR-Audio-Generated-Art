@@ -15,6 +15,9 @@ public class AudioBandVisualizerSpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject visualizerPrefab;
+
+    [SerializeField]
+    private List<DataFilter> dataFilters = new List<DataFilter>();
     
     private void Start()
     {
@@ -35,6 +38,7 @@ public class AudioBandVisualizerSpawner : MonoBehaviour
                 bandVisualizer.band = i;
                 bandVisualizer.VisualizationController.analyzer = analyzer;
                 bandVisualizer.VisualizationController.analysisMode = analysisMode;
+                bandVisualizer.VisualizationController.dataFilters = dataFilters;
                 bandVisualizer.VisualizationController.enable();
             }
         }
