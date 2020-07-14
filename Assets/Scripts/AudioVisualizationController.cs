@@ -13,7 +13,7 @@ public class AudioVisualizationController
 
     [Header("Data Filtering")]
 
-    [Tooltip("Filter to apply to the visualization data. Applied in numerical order.")]
+    [Tooltip("Filters to apply to the visualization data. Applied in numerical order.")]
     public List<DataFilter> dataFilters;
 
     /// <summary>
