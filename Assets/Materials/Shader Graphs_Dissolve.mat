@@ -24,7 +24,7 @@ Material:
     - Vector1_13E9FA73: 60
     - Vector1_2ED3F4C4: 0.01
     - Vector1_60C52027: 3
-    - _AutoInterpolate: 1
+    - _AutoInterpolate: 0
     - _DissolveInterpolation: 0.46
     - _EdgeWidth: 0.01
     - _NoiseScale: 125
