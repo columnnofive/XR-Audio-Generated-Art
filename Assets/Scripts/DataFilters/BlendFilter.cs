@@ -1,49 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BlendFilter : DataFilter
+public class BlendFilter : MultiAudioFilter
 {
-    [SerializeField]
-    private AudioVisualizationController blendDataSource;
-
     [SerializeField,
      Range(0, 1),
-     Tooltip("How much weight is given to the blend data source. 0 ignores blend data | 1 is full blend data.")]
+     Tooltip("How much weight is given to filter data source. 0 ignores filter data | 1 is full filter data.")]
     private float blendWeight = 0.5f;
 
-    private VisualizationData blendData;
-
-    private void OnEnable()
+    public override VisualizationData filter(VisualizationData dataToFilter)
     {
-        blendDataSource.setVisualizationListener(setBlendData);
-        blendDataSource.enable();
-    }
-
-    private void OnDisable()
-    {
-        blendDataSource.disable();
-    }
-
-    private void setBlendData(VisualizationData data)
-    {
-        blendData = data;
-    }
-
-    public override VisualizationData filterData(VisualizationData dataToBlend)
-    {
-        if (blendData.audioBands == null) //Blend data not set
-            return dataToBlend;
+        if (!filterDataSet) //Filter data not set, don't filter
+            return dataToFilter;
 
         if (blendWeight == 0f) //Don't filter
-            return dataToBlend;
-        else if (blendWeight == 1f) //Use full blend data
-            return blendData;
+            return dataToFilter;
+        else if (blendWeight == 1f) //Use full filter data
+            return filterData;
 
-        VisualizationData filteredData = dataToBlend;
+        VisualizationData filteredData = dataToFilter;
 
-        filteredData.audioBands = blend(dataToBlend.audioBands, blendData.audioBands, blendWeight);
-        filteredData.amplitude = blend(dataToBlend.amplitude, blendData.amplitude, blendWeight);
+        filteredData.audioBands = blend(dataToFilter.audioBands, filterData.audioBands, blendWeight);
+        filteredData.amplitude = blend(dataToFilter.amplitude, filterData.amplitude, blendWeight);
 
         return filteredData;
     }
@@ -58,9 +35,7 @@ public class BlendFilter : DataFilter
         float[] blended = new float[length];
 
         for (int i = 0; i < length; i++)
-        {
             blended[i] = blend(a[i], b[i], blendWeight);
-        }
 
         return blended;
     }

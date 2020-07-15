@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -117,7 +116,7 @@ public class AudioVisualizationController
         foreach (DataFilter filter in dataFilters)
         {
             if (filter) //Filter not null
-                data = filter.filterData(data);
+                data = filter.filter(data);
         }
     }
 
@@ -147,6 +146,42 @@ public enum AmplitudeDataType
 
 public struct VisualizationData
 {
-    public float[] audioBands;
-    public float amplitude;
+    private const float dataMin = 0f;
+    private const float dataMax = 1f;
+
+    private float[] _audioBands;
+    public float[] audioBands
+    {
+        get
+        {
+            return _audioBands;
+        }
+        set
+        {
+            if (value == null)
+                _audioBands = value;
+            else
+            {
+                _audioBands = value;
+
+                //Clamp to min and max values
+                for (int i = 0; i < _audioBands.Length; i++)
+                    _audioBands[i] = Mathf.Clamp(_audioBands[i], dataMin, dataMax);
+            }
+        }
+    }
+
+    private float _amplitude;
+    public float amplitude
+    {
+        get
+        {
+            return _amplitude;
+        }
+        set
+        {
+            //Clamp to min and max values
+            _amplitude = Mathf.Clamp(value, dataMin, dataMax);
+        }
+    }
 }
