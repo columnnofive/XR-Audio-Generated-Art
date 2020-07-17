@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 3123548735745414669, guid: bf806f5e4f2f0e044b3be182297aeb76,
         type: 3}
       propertyPath: m_Name
-      value: x Line Audio Band Visualizer
+      value: x Line Audio Band Visualizer Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3123548735745414670, guid: bf806f5e4f2f0e044b3be182297aeb76,
         type: 3}
