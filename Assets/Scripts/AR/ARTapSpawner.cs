@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 public class ARTapSpawner : MonoBehaviour
 {
@@ -14,37 +12,59 @@ public class ARTapSpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject placementIndicator;
+
+    [SerializeField]
+    private GameObject spawnObjPrefab;
+
+    [SerializeField, Tooltip("Max number of objects that can be spawned.")]
+    private int spawnLimit = 1;
+
+    private int spawned = 0; //Number of objects spawned
+
+    private Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
     
     private Pose spawnPose;
-    private List<ARRaycastHit> hitResults;
+    private List<ARRaycastHit> hits;
 
     private bool spawnPoseValid = false;
     
     private void Start()
     {
-        hitResults = new List<ARRaycastHit>();
+        hits = new List<ARRaycastHit>();
     }
     
     private void Update()
     {
-        Debug.Log("Spawn pose valid: " + spawnPoseValid);
-
-        updateSpawnPose();
-        updatePlacementIndicator();
+        if (spawned < spawnLimit)
+        {
+            updateSpawnPose();
+            updatePlacementIndicator();
+            checkForSpawn();
+        }
+        else
+        {
+            if (placementIndicator.activeSelf)
+            {
+                placementIndicator.SetActive(false);
+                Debug.Log("Spawn limit reached");
+            }
+        }
     }
 
     private void updateSpawnPose()
     {
-        Vector3 screenCenter = arOrigin.camera.ViewportToScreenPoint(new Vector3(0.5f, 0, 0.5f));
-        //Ray camForward = new Ray(arCam.transform.position, arCam.transform.forward);
-        hitResults.Clear();
-        if (raycastManager.Raycast(screenCenter, hitResults))
-        {
-            if (hitResults.Count > 0) //Raycast hit a trackable
-            {
-                spawnPose = hitResults[0].pose;
+        Vector3 screenCenter = arOrigin.camera.ViewportToScreenPoint(viewportCenter);
 
-                Debug.Log("[XR-Ambisonics] Hit trackable, updating spawn pose");
+        hits.Clear();
+        if (raycastManager.Raycast(screenCenter, hits))
+        {
+            if (hits.Count > 0) //Raycast hit a trackable
+            {
+                spawnPose = hits[0].pose;
+
+                Vector3 camForward = arOrigin.camera.transform.forward;
+                Vector3 camBearing = new Vector3(camForward.x, 0, camForward.z).normalized;
+                spawnPose.rotation = Quaternion.LookRotation(camBearing);
 
                 spawnPoseValid = true;
             }
@@ -57,12 +77,28 @@ public class ARTapSpawner : MonoBehaviour
 
     private void updatePlacementIndicator()
     {
-        //placementIndicator.SetActive(spawnPoseValid);
+        placementIndicator.SetActive(spawnPoseValid);
 
         if (spawnPoseValid)
         {
             placementIndicator.transform.position = spawnPose.position;
             placementIndicator.transform.rotation = spawnPose.rotation;
         }
+    }
+
+    private void checkForSpawn()
+    {
+        //Spawn pose valid and screen touched
+        if (spawnPoseValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            spawn();
+    }
+
+    private void spawn()
+    {
+        GameObject spawnedObj = Instantiate(spawnObjPrefab);
+        spawnedObj.transform.position = spawnPose.position;
+        spawnedObj.transform.rotation = spawnPose.rotation;
+
+        spawned++;
     }
 }
