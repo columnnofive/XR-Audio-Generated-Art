@@ -6,11 +6,6 @@ public class SpectrumAnalyzer : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
-    /// <summary>
-    /// 0 - Stereo
-    /// 1 - Left
-    /// 2 - Right
-    /// </summary>
     [SerializeField]
     private int channel = 0; //0 is average?? other channels specify ambisonic channel, wxyz??
 
