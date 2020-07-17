@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StereoRenderingMode: 1
   InitializationType: 1
-  EditorAppKey: application.generated.unity.legacy.xrambisonics.557180224.exe
+  EditorAppKey: application.generated.unity.legacy.xrambisonics.1573817728.exe
   IsLegacy: 1
   ActionManifestFileRelativeFilePath: D:/Documents/UnityProjects/XR-Ambisonics/Assets/StreamingAssets\SteamVR\legacy_manifest.json
   MirrorViewMode: 3
