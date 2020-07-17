@@ -1707,6 +1707,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1033001907473742816, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001907473742819, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001907877262814, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001907877262814, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_Name
+      value: w analyzer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001907930884822, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001907930884826, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1033001908139333240, guid: 4455e388e90aa494fa896a2bbfb0c709,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1766,6 +1796,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AmbisonicAudioVisualization
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908372643392, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908372643420, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908820217090, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908820217118, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1033001908969677417, guid: 4455e388e90aa494fa896a2bbfb0c709,
         type: 3}

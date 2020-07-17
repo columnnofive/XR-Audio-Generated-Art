@@ -2,27 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioMasterController : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public class AudioTimeController : MonoBehaviour
 {
-    [SerializeField]
-    private AudioSource[] audioSources;
+    private AudioSource audioSource;
 
     [Range(0, 1), SerializeField]
     private float clipTime = 0f;
     
     private float previousClipTime = 0f;
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void updateClipTime()
     {
-        foreach (AudioSource audioSource in audioSources)
+        if (audioSource.clip)
         {
             if (clipTime != previousClipTime) //Clip time was set manually
-                audioSource.time = audioSource.clip.length * clipTime;
+                audioSource.time = (audioSource.clip.length - 1) * clipTime;
             else //set clipTime to follow audioSource.time
                 clipTime = audioSource.time / (audioSource.clip.length - 1);
-        }
 
-        previousClipTime = clipTime;
+            previousClipTime = clipTime;
+        }
     }
     
     private void Update()
