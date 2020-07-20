@@ -5,10 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
 {
+    [SerializeField, HideInInspector]
     private Material material;
 
-    [SerializeField, Tooltip("Name of the shader float being set.")]
-    private string floatName = "";
+    [SerializeField, HideInInspector]
+    private Renderer rend;
+
+    [SerializeField,
+     ShaderProperty(propertyType = ShaderPropertyType.Color),
+     Tooltip("Name of the shader float being set.")]
+    private ShaderPropertyField floatNameField = new ShaderPropertyField
+    {
+        fieldName = "_EmissionColor"
+    };
 
     [SerializeField]
     private float min = 0f;
@@ -34,11 +43,11 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     {
         get
         {
-            return material.GetFloat(floatName);
+            return material.GetFloat(floatNameField.fieldName);
         }
         set
         {
-            material.SetFloat(floatName, value);
+            material.SetFloat(floatNameField.fieldName, value);
         }
     }
 
@@ -54,6 +63,22 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
             else if (target > max)
                 interpolationTargets[i] = max;
         }
+
+        if (!rend)
+        {
+            rend = GetComponent<Renderer>();
+            if (rend)
+                material = rend.sharedMaterial;
+            else
+                material = null;
+        }
+
+        if (rend && rend.sharedMaterial)
+        {
+            floatNameField.shader = material.shader;
+        }
+        else
+            floatNameField.shader = null;
     }
 
     private void Start()

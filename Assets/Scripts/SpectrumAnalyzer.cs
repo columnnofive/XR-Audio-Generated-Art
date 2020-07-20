@@ -6,8 +6,10 @@ public class SpectrumAnalyzer : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
-    [SerializeField]
-    private int channel = 0; //0 is average?? other channels specify ambisonic channel, wxyz??
+    public enum AudioOutputChannel { Stereo, Left, Right }
+
+    [SerializeField, Tooltip("The AudioSource output channel to analyze.")]
+    private AudioOutputChannel channel = AudioOutputChannel.Stereo;
 
     //Documentation: https://docs.unity3d.com/ScriptReference/FFTWindow.html
     [SerializeField]
@@ -74,30 +76,29 @@ public class SpectrumAnalyzer : MonoBehaviour
 
     #endregion 64 Band Analysis
 
-    private void OnValidate()
-    {        
-        if (audioSource.clip)
-        {
-            //Constrain channel to a value between 0 and the number of channels in the clip
-            int clipChannels = audioSource.clip.channels;
-            if (channel > clipChannels - 1)
-                channel = clipChannels - 1;
-            else if (channel < 0)
-                channel = 0;
-        }
-    }
-
     private void Start()
     {
         freqBand8Highest.setValues(audioProfile);
         freqBand64Highest.setValues(audioProfile);
-
-        Debug.Log("Clip channels: " + audioSource.clip.channels);
     }
 
     private void getSampleData()
     {
-        audioSource.GetSpectrumData(sampleData, channel, FFTWindow);
+        if (channel == AudioOutputChannel.Left)
+            audioSource.GetSpectrumData(sampleData, 0, FFTWindow);
+        else if (channel == AudioOutputChannel.Right)
+            audioSource.GetSpectrumData(sampleData, 1, FFTWindow);
+        else //Stereo
+        {
+            float[] leftSampleData = new float[512];
+            float[] rightSampleData = new float[512];
+
+            audioSource.GetSpectrumData(leftSampleData, 0, FFTWindow);
+            audioSource.GetSpectrumData(rightSampleData, 1, FFTWindow);
+
+            for (int i = 0; i < sampleData.Length; i++)
+                sampleData[i] += (leftSampleData[i] + rightSampleData[i]) / 2;
+        }
     }
 
     #region 8 Band Analysis
