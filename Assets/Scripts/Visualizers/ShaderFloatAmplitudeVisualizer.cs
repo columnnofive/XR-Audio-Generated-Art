@@ -12,7 +12,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     private Renderer rend;
 
     [SerializeField,
-     ShaderProperty(propertyType = ShaderPropertyType.Color),
+     ShaderProperty(ShaderPropertyType.Range, ShaderPropertyType.Float),
      Tooltip("Name of the shader float being set.")]
     private ShaderPropertyField floatNameField = new ShaderPropertyField
     {

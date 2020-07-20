@@ -32,7 +32,7 @@ public class LineAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private float emissionIntensity = 1f;
 
-    [SerializeField, ShaderProperty(propertyType = ShaderPropertyType.Color)]
+    [SerializeField, ShaderProperty(ShaderPropertyType.Color)]
     private ShaderPropertyField shaderColorField = new ShaderPropertyField
     {
         fieldName = "_EmissionColor"
