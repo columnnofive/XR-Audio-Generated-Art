@@ -52,6 +52,7 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 0
+  trailRenderer: {fileID: 3123548735745414671}
   minWidth: 0.002
   maxWidth: 0.006
   colorChangeThreshold: 0.353
@@ -59,6 +60,10 @@ MonoBehaviour:
   hueMin: 0
   hueMax: 1
   emissionIntensity: 3
+  shaderColorField:
+    fieldName: _EmissionColor
+    shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+    selectedIndex: 2
 --- !u!114 &3123548735745414657
 MonoBehaviour:
   m_ObjectHideFlags: 0

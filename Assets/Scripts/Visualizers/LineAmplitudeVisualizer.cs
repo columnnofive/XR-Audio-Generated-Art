@@ -32,7 +32,31 @@ public class LineAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private float emissionIntensity = 1f;
 
+    [SerializeField, ShaderProperty(propertyType = ShaderPropertyType.Color)]
+    private ShaderPropertyField shaderColorField = new ShaderPropertyField
+    {
+        fieldName = "_EmissionColor"
+    };
+
     private Color targetColor;
+
+    private void OnValidate()
+    {
+        if (!trailRenderer)
+            trailRenderer = GetComponent<TrailRenderer>();
+
+        if (trailRenderer)
+        {
+            if (trailRenderer.sharedMaterial)
+            {
+                shaderColorField.shader = trailRenderer.sharedMaterial.shader;
+            }
+            else
+            {
+                shaderColorField.shader = null;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -59,9 +83,9 @@ public class LineAmplitudeVisualizer : AudioVisualizer
             targetColor = Random.ColorHSV(hueMin, hueMax, 1f, 1f, 0, 1, 1, 1) * emissionIntensity;
 
         //Lerp to target color
-        Color currentColor = trailRenderer.material.GetColor("_EmissionColor");
+        Color currentColor = trailRenderer.material.GetColor(shaderColorField.fieldName);
         Color color = Color.Lerp(currentColor, targetColor, Time.deltaTime * colorChangeSpeed);
 
-        trailRenderer.material.SetColor("_EmissionColor", color);
+        trailRenderer.material.SetColor(shaderColorField.fieldName, color);
     }
 }
