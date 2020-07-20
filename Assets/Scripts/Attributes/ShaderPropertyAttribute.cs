@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ShaderPropertyAttribute : PropertyAttribute
 {
-    public ShaderPropertyType propertyType { get; set; }
+    public ShaderPropertyType[] propertyTypes { get; set; }
+
+    public ShaderPropertyAttribute(params ShaderPropertyType[] propertyTypes)
+    {
+        this.propertyTypes = propertyTypes;
+    }
 }
 
 [System.Serializable]
