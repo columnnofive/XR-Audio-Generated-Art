@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/AR Test/AR Test.unity
     guid: 61a325762afe75d49826720aa986f81d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/AR Visualization/AR Visualization.unity
     guid: 497b19b59fa4e3941ac571914bde7ec5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AR Visualization/AR Visualization 1.unity
     guid: 4230ac6a2ae001744911f7fe52ff30ef
   m_configObjects:
