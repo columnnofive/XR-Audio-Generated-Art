@@ -1722,11 +1722,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: w analyzer
       objectReference: {fileID: 0}
-    - target: {fileID: 1033001907930884822, guid: 4455e388e90aa494fa896a2bbfb0c709,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1033001907930884826, guid: 4455e388e90aa494fa896a2bbfb0c709,
         type: 3}
       propertyPath: m_IsActive
@@ -1792,6 +1787,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbisonicAudioVisualization
       objectReference: {fileID: 0}
+    - target: {fileID: 1033001908139333247, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1033001908261318497, guid: 4455e388e90aa494fa896a2bbfb0c709,
         type: 3}
       propertyPath: floatNameField.fieldName
@@ -1822,6 +1822,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a750228a4eb8f3149a98f9abf545b18f, type: 2}
+    - target: {fileID: 1033001908969677419, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: shaderColorField.fieldName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908969677419, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: shaderColorField.selectedIndex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4455e388e90aa494fa896a2bbfb0c709, type: 3}
 --- !u!23 &1804209078734681399
