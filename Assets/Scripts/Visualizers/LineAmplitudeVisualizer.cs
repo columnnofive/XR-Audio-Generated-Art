@@ -71,7 +71,7 @@ public class LineAmplitudeVisualizer : AudioVisualizer
 
     private void setWidth(float amplitude)
     {
-        float widthInterpolation = (maxWidth - minWidth) * amplitude;
+        float widthInterpolation = (maxWidth - minWidth) * visualizerScaleFactor * amplitude;
         trailRenderer.widthMultiplier = minWidth + widthInterpolation;
     }
 

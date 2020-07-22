@@ -72,7 +72,7 @@ public class LineBandVisualizer : AudioBandVisualizer
 
     private void setWidth(float bandAmplitude)
     {
-        float widthInterpolation = (maxWidth - minWidth) * bandAmplitude;
+        float widthInterpolation = (maxWidth - minWidth) * visualizerScaleFactor * bandAmplitude;
         trailRenderer.widthMultiplier = minWidth + widthInterpolation;
     }
 
