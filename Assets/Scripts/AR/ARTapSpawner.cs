@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.ARFoundation;
 
 public class ARTapSpawner : MonoBehaviour
@@ -15,6 +16,9 @@ public class ARTapSpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject spawnObjPrefab;
+
+    [SerializeField]
+    private ARObjParent arObjParentPrefab;
 
     [SerializeField, Tooltip("Max number of objects that can be spawned.")]
     private int spawnLimit = 1;
@@ -95,9 +99,11 @@ public class ARTapSpawner : MonoBehaviour
 
     private void spawn()
     {
-        GameObject spawnedObj = Instantiate(spawnObjPrefab);
-        spawnedObj.transform.position = spawnPose.position;
-        spawnedObj.transform.rotation = spawnPose.rotation;
+        ARObjParent arObjParent = Instantiate(arObjParentPrefab);
+        arObjParent.transform.position = spawnPose.position;
+        arObjParent.transform.rotation = spawnPose.rotation;
+
+        GameObject spawnedObj = Instantiate(spawnObjPrefab, arObjParent.objManipulator.transform);       
 
         spawned++;
     }
