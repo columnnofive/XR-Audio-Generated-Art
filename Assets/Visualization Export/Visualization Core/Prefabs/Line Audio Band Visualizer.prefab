@@ -50,14 +50,23 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
+    dataFilters: []
   band: 0
-  minWidth: 0.5
-  maxWidth: 3
-  colorChangeThreshold: 0.353
-  colorChangeSpeed: 1
-  hueMin: 0.106
-  hueMax: 0.814
-  emissionIntensity: 3
+  lineVisualizer:
+    trailRenderer: {fileID: 103213902170876718}
+    controlWidth: 1
+    minWidth: 0.5
+    maxWidth: 1
+    controlColor: 1
+    colorChangeThreshold: 0.5
+    colorChangeSpeed: 1
+    hueMin: 0
+    hueMax: 1
+    emissionIntensity: 1
+    shaderColorField:
+      fieldName: _BaseColor
+      shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+      selectedIndex: 0
 --- !u!114 &103213902170876704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,14 +84,18 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
+    dataFilters: []
   band: 0
-  speedFactor: 1000
-  minDirectionChangeAngle: -180
-  maxDirectionChangeAngle: 180
-  directionChangeThreshold: 0.2
-  innerMovementRadius: 35
-  minOuterMovementRadius: 70
-  maxOuterMovementRadius: 130
+  positionVisualizer:
+    speedFactor: 0.1
+    minDirectionChangeAngle: -90
+    maxDirectionChangeAngle: 90
+    directionChangeThreshold: 0.5
+    movementConstraintMode: 0
+    movementConstraintAngle: 180
+    innerMovementRadius: 0.03
+    minOuterMovementRadius: 0.05
+    maxOuterMovementRadius: 0.2
 --- !u!96 &103213902170876718
 TrailRenderer:
   serializedVersion: 2
