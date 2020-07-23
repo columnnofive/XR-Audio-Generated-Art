@@ -77,5 +77,15 @@ PrefabInstance:
       propertyPath: hueMax
       value: 0.76
       objectReference: {fileID: 0}
+    - target: {fileID: 103213902170876719, guid: eba681646c73e7040a75b08c3d645e45,
+        type: 3}
+      propertyPath: lineVisualizer.hueMax
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 103213902170876719, guid: eba681646c73e7040a75b08c3d645e45,
+        type: 3}
+      propertyPath: lineVisualizer.hueMin
+      value: 0.33
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eba681646c73e7040a75b08c3d645e45, type: 3}
