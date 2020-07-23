@@ -438,6 +438,236 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 79a3fa2e905ed8c4d963863ba180d489, type: 2}
+--- !u!1 &1478456432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478456433}
+  - component: {fileID: 1478456436}
+  - component: {fileID: 1478456435}
+  - component: {fileID: 1478456434}
+  m_Layer: 0
+  m_Name: Rectangle Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478456433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478456432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2300006252806205830}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!96 &1478456434
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478456432}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fb8f784c05c07e447b1a6fe8d9043f3e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Time: 6.07
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 0.1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.105971105
+        value: 0.33684158
+        inSlope: 1.4977125
+        outSlope: 1.4977125
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.9074074
+        outWeight: 0.070739545
+      - serializedVersion: 3
+        time: 0.4074999
+        value: 0.17578745
+        inSlope: 2.1212099
+        outSlope: 2.1212099
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.43811053
+      - serializedVersion: 3
+        time: 0.87845296
+        value: 0.35789478
+        inSlope: -1.057424
+        outSlope: -1.057424
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 49151
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 70
+    numCapVertices: 90
+    alignment: 0
+    textureMode: 0
+    shadowBias: 1.79
+    generateLightingData: 0
+  m_MinVertexDistance: 0.03
+  m_Autodestruct: 0
+  m_Emitting: 1
+--- !u!114 &1478456435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478456432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599b26b37cf053d4c9ef8f5ada580002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationController:
+    analyzer: {fileID: 2300006251760239191}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+    dataFilters: []
+  band: 5
+  positionVisualizer:
+    speedFactor: 0.11
+    minDirectionChangeAngle: 90
+    maxDirectionChangeAngle: 90
+    directionChangeThreshold: 0.288
+    movementConstraintMode: 1
+    movementConstraintAngle: 180
+    innerMovementRadius: 0.03
+    minOuterMovementRadius: 0.01
+    maxOuterMovementRadius: 0.2
+--- !u!114 &1478456436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478456432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8263e52171b76e4da6de094ec5a184a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationController:
+    analyzer: {fileID: 2300006251760239191}
+    analysisMode: 0
+    audioBandDataType: 1
+    amplitudeDataType: 1
+    dataFilters: []
+  band: 0
+  lineVisualizer:
+    trailRenderer: {fileID: 1831195678}
+    controlWidth: 1
+    minWidth: 0.002
+    maxWidth: 0.4
+    controlColor: 0
+    colorChangeThreshold: 0.139
+    colorChangeSpeed: 0.11
+    hueMin: 0
+    hueMax: 0.43
+    emissionIntensity: 8.36
+    shaderColorField:
+      fieldName: _BaseColor
+      shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
+        type: 3}
+      selectedIndex: 0
 --- !u!1 &1714503619
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,13 +853,16 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 3
-  speedFactor: 5.8
-  minDirectionChangeAngle: 2.7
-  maxDirectionChangeAngle: 42.31
-  directionChangeThreshold: 0.142
-  innerMovementRadius: 2.5
-  minOuterMovementRadius: -2.35
-  maxOuterMovementRadius: 28.72
+  positionVisualizer:
+    speedFactor: 1
+    minDirectionChangeAngle: -90
+    maxDirectionChangeAngle: 90
+    directionChangeThreshold: 0.5
+    movementConstraintMode: 0
+    movementConstraintAngle: 180
+    innerMovementRadius: 15
+    minOuterMovementRadius: 35
+    maxOuterMovementRadius: 65
 --- !u!114 &1714503623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,18 +882,21 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 5
-  trailRenderer: {fileID: 1714503621}
-  minWidth: -0.04
-  maxWidth: -0.08
-  colorChangeThreshold: 0.353
-  colorChangeSpeed: 2.56
-  hueMin: 0.17
-  hueMax: 0.48
-  emissionIntensity: 2.4
-  shaderColorField:
-    fieldName: _EmissionColor
-    shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-    selectedIndex: 2
+  lineVisualizer:
+    trailRenderer: {fileID: 1714503621}
+    controlWidth: 1
+    minWidth: 0.5
+    maxWidth: 1
+    controlColor: 1
+    colorChangeThreshold: 0.5
+    colorChangeSpeed: 1
+    hueMin: 0
+    hueMax: 1
+    emissionIntensity: 1
+    shaderColorField:
+      fieldName: _BaseColor
+      shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+      selectedIndex: 0
 --- !u!1 &1831195676
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,13 +1082,16 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 5
-  speedFactor: 0.11
-  minDirectionChangeAngle: -16.91
-  maxDirectionChangeAngle: 20
-  directionChangeThreshold: 0.2
-  innerMovementRadius: 0.03
-  minOuterMovementRadius: 0.01
-  maxOuterMovementRadius: 0.2
+  positionVisualizer:
+    speedFactor: 0.11
+    minDirectionChangeAngle: -16
+    maxDirectionChangeAngle: 20
+    directionChangeThreshold: 0.288
+    movementConstraintMode: 0
+    movementConstraintAngle: 180
+    innerMovementRadius: 0.03
+    minOuterMovementRadius: 0.01
+    maxOuterMovementRadius: 0.2
 --- !u!114 &1831195680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,19 +1111,22 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 0
-  trailRenderer: {fileID: 1831195678}
-  minWidth: 0.002
-  maxWidth: 0.4
-  colorChangeThreshold: 0.139
-  colorChangeSpeed: 0.11
-  hueMin: 0
-  hueMax: 0.43
-  emissionIntensity: 8.36
-  shaderColorField:
-    fieldName: _BaseColor
-    shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
-      type: 3}
-    selectedIndex: 0
+  lineVisualizer:
+    trailRenderer: {fileID: 1831195678}
+    controlWidth: 1
+    minWidth: 0.002
+    maxWidth: 0.4
+    controlColor: 0
+    colorChangeThreshold: 0.139
+    colorChangeSpeed: 0.11
+    hueMin: 0
+    hueMax: 0.43
+    emissionIntensity: 8.36
+    shaderColorField:
+      fieldName: _BaseColor
+      shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
+        type: 3}
+      selectedIndex: 0
 --- !u!114 &246010072054577093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1162,6 +1404,7 @@ Transform:
   m_Children:
   - {fileID: 1831195677}
   - {fileID: 1714503620}
+  - {fileID: 1478456433}
   m_Father: {fileID: 2300006252629966585}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
