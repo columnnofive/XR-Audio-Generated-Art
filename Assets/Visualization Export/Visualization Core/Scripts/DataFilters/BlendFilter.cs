@@ -2,10 +2,9 @@
 
 public class BlendFilter : MultiAudioFilter
 {
-    [SerializeField,
-     Range(0, 1),
+    [Range(0, 1),
      Tooltip("How much weight is given to filter data source. 0 ignores filter data | 1 is full filter data.")]
-    private float blendWeight = 0.5f;
+    public float blendWeight = 0.5f;
 
     public override VisualizationData filter(VisualizationData dataToFilter)
     {

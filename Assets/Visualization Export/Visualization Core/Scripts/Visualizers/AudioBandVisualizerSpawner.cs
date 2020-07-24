@@ -35,7 +35,7 @@ public class AudioBandVisualizerSpawner : MonoBehaviour
 
             foreach (AudioBandVisualizer bandVisualizer in bandVisualizers)
             {
-                bandVisualizer.band = i;
+                bandVisualizer.setBand(i);
                 bandVisualizer.VisualizationController.analyzer = analyzer;
                 bandVisualizer.VisualizationController.analysisMode = analysisMode;
                 bandVisualizer.VisualizationController.dataFilters = dataFilters;

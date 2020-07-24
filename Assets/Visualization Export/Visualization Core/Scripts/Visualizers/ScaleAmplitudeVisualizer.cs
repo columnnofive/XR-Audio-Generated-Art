@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class ScaleAmplitudeVisualizer : AudioVisualizer
 {
-    [SerializeField]
-    private float minScale = 0f;
-
-    [SerializeField]
-    private float maxScale = 1f;
+    public float minScale = 0f;
+    
+    public float maxScale = 1f;
 
     protected override void visualizeData(VisualizationData data)
     {

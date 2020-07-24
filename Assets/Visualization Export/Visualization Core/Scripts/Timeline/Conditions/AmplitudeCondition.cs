@@ -26,11 +26,25 @@ public class AmplitudeCondition : AudioCondition
     private bool initialized = false;
     private bool conditionMet = false;
 
+    private void OnValidate()
+    {
+        if (audioDataController != null)
+        {
+            //Constrain band to valid value
+            int bandCount = AudioVisualizationController.getBandCount(audioDataController.analysisMode);
+            if (band < 0)
+                band = 0;
+            else if (band > bandCount - 1)
+                band = bandCount - 1;
+        }
+    }
+
     public override bool isMet()
     {
         if (!initialized)
         {
             StartCoroutine(checkConditions());
+            initialized = true;
         }
 
         return conditionMet;
@@ -40,8 +54,11 @@ public class AmplitudeCondition : AudioCondition
     {
         while (!conditionMet)
         {
-            float amplitude = amplitudeMode == AmplitudeMode.BandAverage ? 
-                audioData.amplitude : audioData.audioBands[band];
+            float amplitude = 0f;
+            if (amplitudeMode == AmplitudeMode.BandAverage)
+                amplitude = audioData.amplitude;
+            else if (audioData.audioBands != null)
+                amplitude = audioData.audioBands[band];
 
             if (amplitude >= targetAmplitude)
             {

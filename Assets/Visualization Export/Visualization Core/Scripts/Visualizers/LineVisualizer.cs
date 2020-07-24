@@ -11,31 +11,27 @@ public class LineVisualizer
     [Header("Width")]
     
     public bool controlWidth = true;
-
-    [SerializeField]
-    private float minWidth = 0.5f;
-
-    [SerializeField]
-    private float maxWidth = 1f;
+    
+    public float minWidth = 0.5f;
+    
+    public float maxWidth = 1f;
 
     [Header("Color")]
     
     public bool controlColor = true;
 
-    [SerializeField, Range(0, 1)]
-    private float colorChangeThreshold = 0.5f;
+    [Range(0, 1)]
+    public float colorChangeThreshold = 0.5f;
+    
+    public float colorChangeSpeed = 1f;
 
-    [SerializeField]
-    private float colorChangeSpeed = 1f;
+    [Range(0, 1)]
+    public float hueMin = 0f;
 
-    [SerializeField, Range(0, 1)]
-    private float hueMin = 0f;
-
-    [SerializeField, Range(0, 1)]
-    private float hueMax = 1f;
-
-    [SerializeField]
-    private float emissionIntensity = 1f;
+    [Range(0, 1)]
+    public float hueMax = 1f;
+    
+    public float emissionIntensity = 1f;
 
     [ShaderProperty(ShaderPropertyType.Color)]
     public ShaderPropertyField shaderColorField = new ShaderPropertyField

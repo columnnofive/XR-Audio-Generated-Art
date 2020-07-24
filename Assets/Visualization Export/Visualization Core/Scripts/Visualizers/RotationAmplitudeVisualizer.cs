@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class RotationAmplitudeVisualizer : AudioVisualizer
 {
-    [SerializeField, Range(0, 1)]
-    private float rotationThreshold = 0.5f;
-
-    [SerializeField]
-    private float minRotationChange = -45f;
-
-    [SerializeField]
-    private float maxRotationChange = 45f;
+    [Range(0, 1)]
+    public float rotationThreshold = 0.5f;
+    
+    public float minRotationChange = -45f;
+    
+    public float maxRotationChange = 45f;
 
     protected override void visualizeData(VisualizationData data)
     {
@@ -25,5 +23,10 @@ public class RotationAmplitudeVisualizer : AudioVisualizer
             float angle = Random.Range(minRotationChange, maxRotationChange);
             transform.rotation *= Quaternion.AngleAxis(angle, getRandomAxis());
         }
+    }
+
+    public void setRotationThreshold(float threshold)
+    {
+        rotationThreshold = Mathf.Clamp(threshold, 0f, 1f);
     }
 }

@@ -14,6 +14,8 @@ public abstract class AudioVisualizer : AudioVisualizerBase
         }
     }
 
+    protected virtual void OnValidate() { }
+
     protected virtual void OnEnable()
     {
         visualizationController.setVisualizationListener(visualizeData);
@@ -25,7 +27,21 @@ public abstract class AudioVisualizer : AudioVisualizerBase
         visualizationController.disable();
     }
 
-    protected abstract void visualizeData(VisualizationData data); 
+    protected abstract void visualizeData(VisualizationData data);
+
+    #region Editor Accessible Setters
+
+    public void setAudioBandDataType(AudioBandDataType dataType)
+    {
+        VisualizationController.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataType(AmplitudeDataType dataType)
+    {
+        VisualizationController.amplitudeDataType = dataType;
+    }
+
+    #endregion Editor Accessible Setters
 }
 
 [System.Serializable]
