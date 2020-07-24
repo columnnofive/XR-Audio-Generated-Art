@@ -98,4 +98,48 @@ public abstract class AmbisonicAudioVisualizer : AudioVisualizerBase
     protected virtual void visualizeDataX(VisualizationData data) { }
     protected virtual void visualizeDataY(VisualizationData data) { }
     protected virtual void visualizeDataZ(VisualizationData data) { }
+
+    #region Editor Accessible Setters
+
+    public void setAudioBandDataTypeW(AudioBandDataType dataType)
+    {
+        wController.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataTypeW(AmplitudeDataType dataType)
+    {
+        wController.amplitudeDataType = dataType;
+    }
+
+    public void setAudioBandDataTypeX(AudioBandDataType dataType)
+    {
+        xController.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataTypeX(AmplitudeDataType dataType)
+    {
+        xController.amplitudeDataType = dataType;
+    }
+
+    public void setAudioBandDataTypeY(AudioBandDataType dataType)
+    {
+        yController.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataTypeY(AmplitudeDataType dataType)
+    {
+        yController.amplitudeDataType = dataType;
+    }
+
+    public void setAudioBandDataTypeZ(AudioBandDataType dataType)
+    {
+        zController.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataTypeZ(AmplitudeDataType dataType)
+    {
+        zController.amplitudeDataType = dataType;
+    }
+
+    #endregion Editor Accessible Setters
 }

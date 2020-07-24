@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 512408780}
   - component: {fileID: 512408781}
   m_Layer: 0
-  m_Name: Turn on line Event
+  m_Name: Turn on line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,6 +479,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 512408779}
+  - {fileID: 1413506031}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -645,6 +646,87 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 0}
+--- !u!1 &1413506030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413506031}
+  - component: {fileID: 1413506033}
+  - component: {fileID: 1413506032}
+  m_Layer: 0
+  m_Name: Turn of line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1413506031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413506030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1091320954}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1413506032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413506030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa4a5a5a1357bd4ca674d59994cc8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioDataController:
+    analyzer: {fileID: 2300006251760239191}
+    analysisMode: 0
+    audioBandDataType: 0
+    amplitudeDataType: 0
+    dataFilters: []
+  amplitudeMode: 0
+  band: 5
+  targetAmplitude: 0.692
+  requiredRepetitions: 600
+  repetitions: 0
+--- !u!114 &1413506033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413506030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea204ce04df6e64787eff617ade7792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEventFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1831195676}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1478456432
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +969,7 @@ GameObject:
   - component: {fileID: 1787039478}
   - component: {fileID: 1787039479}
   m_Layer: 0
-  m_Name: Turn off line event
+  m_Name: Turn off line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,8 +10,8 @@ public class DivideFilter : MultiAudioFilter
         FilterDataByDataToFilter
     }
 
-    [SerializeField, Tooltip("How the division will be carried out. Data to filter / filter data or filter data / data to filter.")]
-    private DivisionMode divisionMode;
+    [Tooltip("How the division will be carried out. Data to filter / filter data or filter data / data to filter.")]
+    public DivisionMode divisionMode;
 
     public override VisualizationData filter(VisualizationData dataToFilter)
     {

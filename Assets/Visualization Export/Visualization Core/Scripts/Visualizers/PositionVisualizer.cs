@@ -11,38 +11,32 @@ public enum MovementConstraintMode
 [System.Serializable]
 public class PositionVisualizer
 {
-    [SerializeField]
-    private float speedFactor = 0.1f;
+    public float speedFactor = 0.1f;
 
     [Header("Direction")]
 
-    [SerializeField]
-    private float minDirectionChangeAngle = -90f;
+    public float minDirectionChangeAngle = -90f;
 
-    [SerializeField]
-    private float maxDirectionChangeAngle = 90f;
+    public float maxDirectionChangeAngle = 90f;
 
-    [SerializeField, Range(0, 1)]
-    private float directionChangeThreshold = 0.5f;
+    [Range(0, 1)]
+    public float directionChangeThreshold = 0.5f;
 
-    [SerializeField, Tooltip("Determines how movement is constrained to the movement radius.")]
-    private MovementConstraintMode movementConstraintMode = MovementConstraintMode.SpecificAngle;
+    [Tooltip("Determines how movement is constrained to the movement radius.")]
+    public MovementConstraintMode movementConstraintMode = MovementConstraintMode.SpecificAngle;
 
-    [SerializeField, Tooltip("Angle used for the Specific Angle movement constraint mode.")]
-    private float movementConstraintAngle = 180f;
+    [Tooltip("Angle used for the Specific Angle movement constraint mode.")]
+    public float movementConstraintAngle = 180f;
 
     [Header("Movement Inner Boundary")]
 
-    [SerializeField]
-    private float innerMovementRadius = 0.03f;
+    public float innerMovementRadius = 0.03f;
 
     [Header("Movement Outer Boundaries")]
 
-    [SerializeField]
-    private float minOuterMovementRadius = 0.05f;
+    public float minOuterMovementRadius = 0.05f;
 
-    [SerializeField]
-    private float maxOuterMovementRadius = 0.2f;
+    public float maxOuterMovementRadius = 0.2f;
 
     private float movementRadius;
     private Vector3 movementDirection = Vector3.forward;
