@@ -30,4 +30,18 @@ public abstract class MultiAudioFilter : DataFilter
     {
         filterData = data;
     }
+
+    #region Editor Accessible Setters
+
+    public void setAudioBandDataType(AudioBandDataType dataType)
+    {
+        filterDataSource.audioBandDataType = dataType;
+    }
+
+    public void setAmplitudeDataType(AmplitudeDataType dataType)
+    {
+        filterDataSource.amplitudeDataType = dataType;
+    }
+
+    #endregion Editor Accessible Setters
 }

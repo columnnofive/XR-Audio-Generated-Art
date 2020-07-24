@@ -28,14 +28,14 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private VisualizationAmplitudeTrigger trigger;
 
-    [SerializeField, Tooltip("How long it will take to interpolate to each interpolation target.")]
-    private float interpolationSpeed = 1f;
+    [Tooltip("How long it will take to interpolate to each interpolation target.")]
+    public float interpolationSpeed = 1f;
 
-    [SerializeField, Tooltip("Determines if interpolation targets will be randomly generated every time the trigger is fired.")]
-    private bool randomizeInterpolationTargets = false;
+    [Tooltip("Determines if interpolation targets will be randomly generated every time the trigger is fired.")]
+    public bool randomizeInterpolationTargets = false;
 
-    [SerializeField, Tooltip("Sets the number of interpolation targets and sets the target values, if not set randomly, that will be interpolated to once the trigger is fired.")]
-    private float[] interpolationTargets = new float[2] { 0, 1 };
+    [Tooltip("Sets the number of interpolation targets and sets the target values, if not set randomly, that will be interpolated to once the trigger is fired.")]
+    public float[] interpolationTargets = new float[2] { 0, 1 };
 
     private bool interpolating = false;
 

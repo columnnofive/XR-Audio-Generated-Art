@@ -4,30 +4,26 @@ using UnityEngine;
 
 public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
 {
-    [SerializeField]
-    private float speedFactor = 1f;
+    public float speedFactor = 1f;
 
-    [SerializeField, Range(0, 1)]
-    private float directionChangeThresholdX = 0.5f;
+    [Range(0, 1)]
+    public float directionChangeThresholdX = 0.5f;
 
-    [SerializeField, Range(0, 1)]
-    private float directionChangeThresholdY = 0.5f;
+    [Range(0, 1)]
+    public float directionChangeThresholdY = 0.5f;
 
-    [SerializeField, Range(0, 1)]
-    private float directionChangeThresholdZ = 0.5f;
+    [Range(0, 1)]
+    public float directionChangeThresholdZ = 0.5f;
 
     [Header("Movement Inner Boundaries")]
-
-    [SerializeField]
-    private float innerMovementRadius = 15f;
+    
+    public float innerMovementRadius = 15f;
 
     [Header("Movement Outer Boundaries")]
-
-    [SerializeField]
-    private float minOuterMovementRadius = 35f;
-
-    [SerializeField]
-    private float maxOuterMovementRadius = 65f;
+    
+    public float minOuterMovementRadius = 35f;
+    
+    public float maxOuterMovementRadius = 65f;
 
     private float movementRadius;
     
