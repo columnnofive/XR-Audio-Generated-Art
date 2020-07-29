@@ -64,6 +64,7 @@ public class GraphicScorePulser : MonoBehaviour
 
     private void initialize()
     {
+        material = rend.material;
         displacementValues = GraphicScoreInterpreter.getDisplacementValues(graphicScore);
     }
     
@@ -78,21 +79,21 @@ public class GraphicScorePulser : MonoBehaviour
             
             float displacement = Mathf.Lerp(currentDisplacement, targetDisplacement, interpolation);
             material.SetFloat(displacementAmountFloat.fieldName, displacement);
-            
+
             if (pulseTimer >= pulseDelay)
             {
                 if (index < displacementValues.Length - 1)
                 {
                     index++;
-                    targetDisplacement = displacementValues[index] * displacementAmountFactor;
                     pulseTimer = 0f;
                 }
                 else
                 {
                     index = 0;
-                    targetDisplacement = displacementValues[index];
                     pulseTimer = 0f;
                 }
+
+                targetDisplacement = displacementValues[index] * displacementAmountFactor;
             }
         }
     }

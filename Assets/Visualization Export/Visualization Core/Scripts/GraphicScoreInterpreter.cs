@@ -2,7 +2,10 @@
 
 public static class GraphicScoreInterpreter
 {
-    private readonly static float whiteGrayscale = 1f;
+    /// <summary>
+    /// Value at which a grayscale color will be considered white.
+    /// </summary>
+    private readonly static float whiteGrayscaleThreshold = .9f;
 
     public static float[] getDisplacementValues(Texture2D tex)
     {
@@ -18,7 +21,8 @@ public static class GraphicScoreInterpreter
             {
                 float pixelGrayscale = pixels[j][i].grayscale;
 
-                if (pixelGrayscale == whiteGrayscale)
+                //Buffer white values in case of discoloration
+                if (pixelGrayscale >= whiteGrayscaleThreshold)
                     whitePixels++;
             }
 

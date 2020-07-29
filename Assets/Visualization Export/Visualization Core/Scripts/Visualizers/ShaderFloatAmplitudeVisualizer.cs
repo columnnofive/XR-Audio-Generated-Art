@@ -51,7 +51,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
         }
     }
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
         for (int i = 0; i < interpolationTargets.Length; i++)
         {
@@ -67,18 +67,21 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
         if (!rend)
         {
             rend = GetComponent<Renderer>();
-            if (rend)
-                material = rend.sharedMaterial;
-            else
-                material = null;
         }
 
         if (rend && rend.sharedMaterial)
         {
-            floatNameField.shader = material.shader;
+            if (rend.sharedMaterial != material) //Material changed
+            {
+                material = rend.sharedMaterial;
+                floatNameField.shader = material.shader;
+            }
         }
         else
+        {
+            material = null;
             floatNameField.shader = null;
+        }
     }
 
     private void Start()

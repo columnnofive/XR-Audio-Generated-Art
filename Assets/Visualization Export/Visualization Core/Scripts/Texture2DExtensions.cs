@@ -14,13 +14,13 @@ public static class Texture2DExtensions
         Color[] unformattedPixels = tex.GetPixels();
 
         int pixelIndex = 0;
-        for (int i = 0; i < tex.height; i++)
+        for (int y = 0; y < tex.height; y++)
         {
-            pixels[i] = new Color[tex.width];
+            pixels[y] = new Color[tex.width];
 
-            for (int j = 0; j < tex.width; j++, pixelIndex++)
+            for (int x = 0; x < tex.width; x++, pixelIndex++)
             {
-                pixels[i][j] = unformattedPixels[pixelIndex];
+                pixels[y][x] = unformattedPixels[pixelIndex];
             }
         }
 
