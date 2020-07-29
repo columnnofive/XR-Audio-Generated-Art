@@ -79,13 +79,11 @@ public class GraphicScoreVisualizer : MonoBehaviour
     {
         Color[] displacementColors = getDisplacementColors();
         int dimensions = displacementColors.Length;
-        displacementTex = new Texture2D(dimensions, dimensions);
+        displacementTex = new Texture2D(dimensions, 1);
 
         for (int x = 0; x < dimensions; x++)
         {
-            Color[] pixelBlock = new Color[dimensions];
-            pixelBlock.setValues(displacementColors[x]);
-            displacementTex.SetPixels(x, 0, 1, dimensions, pixelBlock);
+            displacementTex.SetPixel(x, 0, displacementColors[x]);
         }
 
         displacementTex.Apply(); //Apply pixel values
