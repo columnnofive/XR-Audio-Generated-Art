@@ -16,11 +16,10 @@ public class PositionVisualizer
     [Header("Direction")]
 
     public float minDirectionChangeAngle = -90f;
-
     public float maxDirectionChangeAngle = 90f;
 
-    [Range(0, 1)]
-    public float directionChangeThreshold = 0.5f;
+    public VisualizationTriggerAuthoring directionChangeTrigger =
+        new VisualizationTriggerAuthoring(new TargetAmplitudeTrigger(0.5f, 1));
 
     [Tooltip("Determines how movement is constrained to the movement radius.")]
     public MovementConstraintMode movementConstraintMode = MovementConstraintMode.SpecificAngle;
@@ -35,21 +34,33 @@ public class PositionVisualizer
     [Header("Movement Outer Boundaries")]
 
     public float minOuterMovementRadius = 0.05f;
-
     public float maxOuterMovementRadius = 0.2f;
+
+    public VisualizationTriggerAuthoring movementRadiusChangeTrigger =
+        new VisualizationTriggerAuthoring(new ContinuousTrigger());
 
     private float movementRadius;
     private Vector3 movementDirection = Vector3.forward;
 
+    public void visualize(float amplitude, Transform transform)
+    {
+        scaleMovementRadius(amplitude);
+        controlDirection(amplitude);
+        move(transform, amplitude);
+    }
+
     public void scaleMovementRadius(float amplitude)
     {
-        float radiusInterpolation = (maxOuterMovementRadius - minOuterMovementRadius) * amplitude;
-        movementRadius = minOuterMovementRadius + radiusInterpolation;
+        if (movementRadiusChangeTrigger.trigger.checkTrigger(amplitude))
+        {
+            float radiusInterpolation = (maxOuterMovementRadius - minOuterMovementRadius) * amplitude;
+            movementRadius = minOuterMovementRadius + radiusInterpolation;
+        }
     }
 
     public void controlDirection(float amplitude)
     {
-        if (amplitude > directionChangeThreshold)
+        if (directionChangeTrigger.trigger.checkTrigger(amplitude))
         {
             float angle = Random.Range(minDirectionChangeAngle, maxDirectionChangeAngle);
             movementDirection = Quaternion.AngleAxis(angle, AudioVisualizerBase.getRandomAxis()) * movementDirection;

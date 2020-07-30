@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -655,10 +655,21 @@ MonoBehaviour:
   lineVisualizer:
     trailRenderer: {fileID: 1831195678}
     controlWidth: 1
+    widthChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
     minWidth: 0.002
     maxWidth: 0.4
     controlColor: 0
-    colorChangeThreshold: 0.139
+    colorChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.139
+        requiredRepetitions: 1
+        repetitions: 0
     colorChangeSpeed: 0.11
     hueMin: 0
     hueMax: 0.43
@@ -668,6 +679,15 @@ MonoBehaviour:
       shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
         type: 3}
       selectedIndex: 0
+    controlLifetime: 1
+    lifetimeChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.5
+        requiredRepetitions: 1
+        repetitions: 0
+    minLifetime: 1
+    maxLifetime: 5
 --- !u!1 &1714503619
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,10 +905,21 @@ MonoBehaviour:
   lineVisualizer:
     trailRenderer: {fileID: 1714503621}
     controlWidth: 1
+    widthChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
     minWidth: 0.5
     maxWidth: 1
     controlColor: 1
-    colorChangeThreshold: 0.5
+    colorChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.139
+        requiredRepetitions: 1
+        repetitions: 0
     colorChangeSpeed: 1
     hueMin: 0
     hueMax: 1
@@ -897,6 +928,15 @@ MonoBehaviour:
       fieldName: _BaseColor
       shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
       selectedIndex: 0
+    controlLifetime: 1
+    lifetimeChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.5
+        requiredRepetitions: 1
+        repetitions: 0
+    minLifetime: 1
+    maxLifetime: 5
 --- !u!1 &1831195676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,10 +1154,21 @@ MonoBehaviour:
   lineVisualizer:
     trailRenderer: {fileID: 1831195678}
     controlWidth: 1
+    widthChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
     minWidth: 0.002
     maxWidth: 0.4
     controlColor: 0
-    colorChangeThreshold: 0.139
+    colorChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.5
+        requiredRepetitions: 1
+        repetitions: 0
     colorChangeSpeed: 0.11
     hueMin: 0
     hueMax: 0.43
@@ -1127,6 +1178,15 @@ MonoBehaviour:
       shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
         type: 3}
       selectedIndex: 0
+    controlLifetime: 0
+    lifetimeChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.5
+        requiredRepetitions: 1
+        repetitions: 0
+    minLifetime: 1
+    maxLifetime: 5
 --- !u!114 &246010072054577093
 MonoBehaviour:
   m_ObjectHideFlags: 0

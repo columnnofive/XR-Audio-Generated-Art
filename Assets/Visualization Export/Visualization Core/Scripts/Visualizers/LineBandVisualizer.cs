@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class LineBandVisualizer : AudioBandVisualizer
@@ -35,11 +33,7 @@ public class LineBandVisualizer : AudioBandVisualizer
 
     protected override void visualizeData(VisualizationData data)
     {
-        if (lineVisualizer.controlWidth)
-            lineVisualizer.setWidth(data.audioBands[band], visualizerScaleFactor);
-
-        if (lineVisualizer.controlColor)
-            lineVisualizer.setColor(data.audioBands[band]);
+        lineVisualizer.visualize(data.audioBands[band], visualizerScaleFactor);
     }
 
     #region Editor Accessible Setters
@@ -62,11 +56,6 @@ public class LineBandVisualizer : AudioBandVisualizer
     public void setControlColor(bool value)
     {
         lineVisualizer.controlColor = value;
-    }
-
-    public void setColorChangeThreshold(float value)
-    {
-        lineVisualizer.colorChangeThreshold = Mathf.Clamp(value, 0f, 1f);
     }
 
     public void setColorChangeSpeed(float value)
