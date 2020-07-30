@@ -31,6 +31,10 @@ public class GraphicScoreAmplitudeVisualizer : AudioVisualizer
             visualizer.displacementTexField.shader = null;
             visualizer.displacementAmountField.shader = null;
         }
+
+        //Constrain to positive value
+        if (visualizer.displacementStreamSize < 0)
+            visualizer.displacementStreamSize = 0;
     }
 
     private void Start()
@@ -56,6 +60,11 @@ public class GraphicScoreAmplitudeVisualizer : AudioVisualizer
     public void setDisplacementAmountFactor(float value)
     {
         visualizer.displacementAmountFactor = value;
+    }
+
+    public void setDisplacementStreamSize(int value)
+    {
+        visualizer.displacementStreamSize = value;
     }
 
     #endregion Editor Accessible Setters

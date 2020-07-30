@@ -18,12 +18,12 @@ public class GraphicScoreAudioVisualizer
         fieldName = "_DisplacementTexture"
     };
 
-    [SerializeField, Tooltip("Determines how many displacement values are visualized at once.")]
-    private int displacementStreamSize = 1024;
+    [Tooltip("Determines how many displacement values are visualized at once.")]
+    public int displacementStreamSize = 1024;
     
     public bool controlDisplacementAmount = true;
     
-    public float displacementAmountFactor = 1f;
+    public float displacementAmountFactor = 0.25f;
 
     [ShaderProperty(ShaderPropertyType.Float),
      Tooltip("Amount of displacement.")]
@@ -88,7 +88,32 @@ public class GraphicScoreAudioVisualizer
 
     private void updateDisplacementValues(float amplitude)
     {
-        displacementValues.Dequeue(); //Remove old value
+        //Stream size didn't change
+        if (displacementValues.Count == displacementStreamSize)
+        {
+            displacementValues.Dequeue(); //Remove old value
+        }
+        else if (displacementValues.Count - 1 > displacementStreamSize) //Decreased stream size
+        {
+            if (displacementStreamSize < 0) //Constrain to positive values
+                displacementStreamSize = 0;
+
+            //Remove extra values
+            while (displacementValues.Count - 1 > displacementStreamSize)
+                displacementValues.Dequeue();
+
+            //Resize texture to match stream size
+            displacementTex.Resize(displacementStreamSize, 1);
+            displacementTex.Apply(); //Apply changes         
+        }
+
         displacementValues.Enqueue(amplitude);
+
+        if (displacementValues.Count < displacementStreamSize) //Increased stream size
+        {
+            //Resize texture to match number of displacement values
+            displacementTex.Resize(displacementValues.Count, 1);
+            displacementTex.Apply(); //Apply changes
+        }
     }
 }
