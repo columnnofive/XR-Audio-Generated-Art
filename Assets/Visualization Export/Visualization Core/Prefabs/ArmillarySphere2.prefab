@@ -310,13 +310,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c35a2d8931931145b5d02789601fed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  material: {fileID: 2100000, guid: 015572d0f3c76634fbb26221ebd96f48, type: 2}
   rend: {fileID: 8760521914918841491}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementAmountFloat:
-    fieldName: _GlossMapScale
-    shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-    selectedIndex: 2
+    fieldName: _DisplacementAmount
+    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
+      type: 3}
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -740,7 +741,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -773,20 +774,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  material: {fileID: 0}
   rend: {fileID: 8760521915569147893}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementTexField:
     fieldName: _DisplacementTexture
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
+    shader: {fileID: 0}
     selectedIndex: 0
   controlDisplacementAmount: 0
   displacementAmountFactor: 0.1
   displacementAmountField:
     fieldName: _DisplacementAmount
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
+    shader: {fileID: 0}
     selectedIndex: 0
   displacementValues: []
 --- !u!114 &8760521915569147899
@@ -806,8 +805,7 @@ MonoBehaviour:
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementAmountFloat:
     fieldName: _DisplacementAmount
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
+    shader: {fileID: 0}
     selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
