@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class GraphicScoreVisualizer : MonoBehaviour
+public class GraphicScoreStream : MonoBehaviour
 {
     [SerializeField, HideInInspector]
     private Material material;
@@ -9,7 +11,7 @@ public class GraphicScoreVisualizer : MonoBehaviour
     private Renderer rend;
 
     [SerializeField]
-    private Texture2D graphicScore;
+    private Texture2D[] graphicScores;
 
     [SerializeField,
      ShaderProperty(ShaderPropertyType.TexEnv),
@@ -18,6 +20,9 @@ public class GraphicScoreVisualizer : MonoBehaviour
     {
         fieldName = "_DisplacementTexture"
     };
+
+    [SerializeField, Tooltip("Determines how many displacement values are visualized at once.")]
+    private int displacementStreamSize = 1024;
 
     [SerializeField]
     private bool controlDisplacementAmount = true;
@@ -36,7 +41,13 @@ public class GraphicScoreVisualizer : MonoBehaviour
     [SerializeField, ReadOnlyField]
     private float[] displacementValues;
     
+    private Queue<float> displacementValueStream;
+
+    private int streamIndex = 0;
+
     private Texture2D displacementTex;
+
+    private bool initialized = false;
 
     private void OnValidate()
     {
@@ -64,22 +75,38 @@ public class GraphicScoreVisualizer : MonoBehaviour
 
     private void Start()
     {
-        initialize();
+        StartCoroutine(initialize());
     }
 
-    private void initialize()
+    private IEnumerator initialize()
     {
-        material = rend.material;
-        displacementValues = GraphicScoreInterpreter.getDisplacementValues(graphicScore);
+        initialized = false;
 
-        generateDisplacementTexture();
+        material = rend.material;
+
+        List<float> graphicScoreDisplacementValues = new List<float>();
+        foreach (Texture2D graphicScore in graphicScores)
+        {
+            graphicScoreDisplacementValues.AddRange(GraphicScoreInterpreter.getDisplacementValues(graphicScore));
+        }        
+        displacementValues = graphicScoreDisplacementValues.ToArray();
+
+        //Initialize displacement value stream
+        displacementValueStream = new Queue<float>();
+        for (int i = 0; i < displacementStreamSize; i++)
+            displacementValueStream.Enqueue(displacementValues[i % displacementValues.Length]);
+
+        displacementTex = new Texture2D(displacementStreamSize, 1);
+
+        initialized = true;
+
+        yield return null;
     }
 
     private void generateDisplacementTexture()
     {
         Color[] displacementColors = getDisplacementColors();
         int dimensions = displacementColors.Length;
-        displacementTex = new Texture2D(dimensions, 1);
 
         displacementTex.SetPixels(displacementColors);
 
@@ -89,22 +116,38 @@ public class GraphicScoreVisualizer : MonoBehaviour
 
     private Color[] getDisplacementColors()
     {
-        Color[] colors = new Color[displacementValues.Length];
+        float[] displacementStream = displacementValueStream.ToArray();
 
-        for (int i = 0; i < displacementValues.Length; i++)
+        Color[] colors = new Color[displacementStream.Length];
+
+        for (int i = 0; i < displacementStream.Length; i++)
         {
-            float displacement = displacementValues[i];
+            float displacement = displacementStream[i];
             colors[i] = new Color(displacement, displacement, displacement, displacement);
         }
 
         return colors;
     }
 
+    private void updateDisplacementValueStream()
+    {
+        displacementValueStream.Dequeue(); //Remove old value
+        displacementValueStream.Enqueue(displacementValues[streamIndex]);
+        streamIndex++;
+        streamIndex = streamIndex % displacementValues.Length; //Constrain index to displacement values
+    }
+
     private void Update()
     {
-        if (controlDisplacementAmount)
+        if (initialized)
         {
-            material.SetFloat(displacementAmountField.fieldName, displacementAmountFactor);
+            updateDisplacementValueStream();
+            generateDisplacementTexture();
+
+            if (controlDisplacementAmount)
+            {
+                material.SetFloat(displacementAmountField.fieldName, displacementAmountFactor);
+            }
         }
     }
 }

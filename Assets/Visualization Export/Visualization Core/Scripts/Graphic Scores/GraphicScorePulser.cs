@@ -40,7 +40,7 @@ public class GraphicScorePulser : MonoBehaviour
 
     private void OnValidate()
     {
-        if (!rend)
+        if (!rend || rend.transform != transform)
         {
             rend = GetComponent<Renderer>();
             if (rend)

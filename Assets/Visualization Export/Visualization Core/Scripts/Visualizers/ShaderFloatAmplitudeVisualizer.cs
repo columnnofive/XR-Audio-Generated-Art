@@ -64,7 +64,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
                 interpolationTargets[i] = max;
         }
 
-        if (!rend)
+        if (!rend || rend.transform != transform)
         {
             rend = GetComponent<Renderer>();
         }

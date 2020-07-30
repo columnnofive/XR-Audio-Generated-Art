@@ -8,7 +8,7 @@ public class LineAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private LineVisualizer lineVisualizer;
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
         if (!lineVisualizer.trailRenderer)
             lineVisualizer.trailRenderer = GetComponent<TrailRenderer>();
