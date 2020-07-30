@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  material: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   rend: {fileID: 171563920}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementTexField:
@@ -447,7 +447,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  - {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1149,10 +1149,10 @@ MonoBehaviour:
   rend: {fileID: 570689398}
   graphicScore: {fileID: 2800000, guid: 6133d243dade6f446b0664b5b82ff6f1, type: 3}
   displacementAmountFloat:
-    fieldName: Vector1_FB3E7438
+    fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -1444,7 +1444,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -1727,7 +1727,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -1847,7 +1847,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  material: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   rend: {fileID: 695972745}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementTexField:
@@ -1899,7 +1899,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  - {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2074,7 +2074,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -2357,7 +2357,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -2745,7 +2745,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -4991,7 +4991,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -5373,11 +5373,69 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementTexField.fieldName
+      value: _DisplacementTexture
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementTexField.selectedIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountField.fieldName
+      value: _DisplacementAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountField.selectedIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementTexField.shader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
+        type: 3}
+    - target: {fileID: 8760521915569147892, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountField.shader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
+        type: 3}
+    - target: {fileID: 8760521915569147893, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
     - target: {fileID: 8760521915569147899, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147899, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountFloat.fieldName
+      value: _DisplacementAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147899, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountFloat.selectedIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760521915569147899, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
+        type: 3}
+      propertyPath: displacementAmountFloat.shader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
+        type: 3}
     - target: {fileID: 8760521915575055743, guid: 146dc6220c6bc864ab4bf38e0aa73d66,
         type: 3}
       propertyPath: m_Enabled

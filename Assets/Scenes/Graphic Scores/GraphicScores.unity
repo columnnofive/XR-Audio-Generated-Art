@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -501,7 +501,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  material: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   rend: {fileID: 171563920}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementTexField:
@@ -553,7 +553,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  - {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2166,7 +2166,7 @@ MonoBehaviour:
     fieldName: _DisplacementAmount
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
-    selectedIndex: 0
+    selectedIndex: 1
   pulseDelay: 0.1
   displacementAmountFactor: 0.3
   targetDisplacement: 0
@@ -2184,7 +2184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  material: {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   rend: {fileID: 695972745}
   graphicScore: {fileID: 2800000, guid: ac71a47c22c2dd744baebc5a0d014a16, type: 3}
   displacementTexField:
@@ -2218,7 +2218,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 393f3f9d8ec499b40a3a1f64c52905d6, type: 2}
+  - {fileID: 2100000, guid: 9d1b54e98f890cd48b4bdfd609583780, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
