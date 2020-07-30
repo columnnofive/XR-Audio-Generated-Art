@@ -43,34 +43,3 @@ public abstract class AudioVisualizer : AudioVisualizerBase
 
     #endregion Editor Accessible Setters
 }
-
-[System.Serializable]
-public struct VisualizationAmplitudeTrigger
-{
-    [Range(0, 1), Tooltip("Amplitude that must be reached for the trigger.")]
-    public float targetAmplitude;
-
-    [Tooltip("Number of times the target amplitude must be reached for the trigger to be active.")]
-    public float requiredRepetitions;
-
-    [HideInInspector]
-    public float repetitions;
-
-    public bool checkTrigger(float amplitude)
-    {
-        if (amplitude < targetAmplitude)
-            return false;
-
-        //targetAmplitude reached
-        repetitions++;
-        
-        //Triggered
-        if (repetitions == requiredRepetitions)
-        {
-            repetitions = 0;
-            return true;
-        }
-        else //Not triggered
-            return false;
-    }
-}

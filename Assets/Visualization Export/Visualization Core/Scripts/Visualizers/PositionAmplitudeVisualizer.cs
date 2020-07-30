@@ -7,9 +7,7 @@ public class PositionAmplitudeVisualizer : AudioVisualizer
 
     protected override void visualizeData(VisualizationData data)
     {
-        positionVisualizer.scaleMovementRadius(data.amplitude);
-        positionVisualizer.controlDirection(data.amplitude);
-        positionVisualizer.move(transform, data.amplitude);
+        positionVisualizer.visualize(data.amplitude, transform);
     }
 
     #region Editor Accessible Setters
@@ -27,11 +25,6 @@ public class PositionAmplitudeVisualizer : AudioVisualizer
     public void setMaxDirectionChangeAngle(float value)
     {
         positionVisualizer.maxDirectionChangeAngle = value;
-    }
-
-    public void setDirectionChangeThreshold(float value)
-    {
-        positionVisualizer.directionChangeThreshold = Mathf.Clamp(value, 0f, 1f);
     }
 
     public void setMovementConstraintMode(MovementConstraintMode value)

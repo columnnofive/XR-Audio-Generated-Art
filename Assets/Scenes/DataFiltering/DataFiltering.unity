@@ -1797,6 +1797,21 @@ PrefabInstance:
       propertyPath: floatNameField.fieldName
       value: _DissolveInterpolation
       objectReference: {fileID: 0}
+    - target: {fileID: 1033001908261318497, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: triggerAuthoring.triggerType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908261318497, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: triggerAuthoring.targetAmplitudeTrigger.targetAmplitude
+      value: 0.378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033001908261318497, guid: 4455e388e90aa494fa896a2bbfb0c709,
+        type: 3}
+      propertyPath: triggerAuthoring.targetAmplitudeTrigger.requiredRepetitions
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1033001908372643392, guid: 4455e388e90aa494fa896a2bbfb0c709,
         type: 3}
       propertyPath: m_IsActive

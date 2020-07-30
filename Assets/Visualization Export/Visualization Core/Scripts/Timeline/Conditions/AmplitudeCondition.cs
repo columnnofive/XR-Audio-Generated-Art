@@ -18,10 +18,10 @@ public class AmplitudeCondition : AudioCondition
     private float targetAmplitude;
 
     [SerializeField, Tooltip("Number of times the target amplitude must be reached for the trigger to be active.")]
-    private float requiredRepetitions;
+    private int requiredRepetitions;
     
     [SerializeField, ReadOnlyField]
-    private float repetitions = 0f;
+    private int repetitions = 0;
 
     private bool initialized = false;
     private bool conditionMet = false;
