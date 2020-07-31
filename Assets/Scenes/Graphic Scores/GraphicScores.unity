@@ -2217,7 +2217,7 @@ MonoBehaviour:
       shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
         type: 3}
       selectedIndex: 0
-    displacementStreamSize: 1024
+    displacementStreamSize: 256
     controlDisplacementAmount: 1
     displacementAmountFactor: 0.25
     displacementAmountField:
@@ -3949,8 +3949,6 @@ GameObject:
   - component: {fileID: 890346452}
   - component: {fileID: 890346451}
   - component: {fileID: 890346450}
-  - component: {fileID: 890346449}
-  - component: {fileID: 890346448}
   m_Layer: 0
   m_Name: GraphicScoreRing
   m_TagString: Untagged
@@ -3973,45 +3971,6 @@ Transform:
   m_Father: {fileID: 1854057660}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &890346448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890346446}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6b3212dd684cdd448c7ff444bda6380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  rotationAxis: 5
---- !u!114 &890346449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890346446}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c35a2d8931931145b5d02789601fed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: cd0b5c6bef9125b489d113c688b786c9, type: 2}
-  rend: {fileID: 890346451}
-  graphicScore: {fileID: 2800000, guid: 2e1854ccdab0105439a9461f55266c2a, type: 3}
-  displacementAmountFloat:
-    fieldName: _DisplacementAmount
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
-    selectedIndex: 1
-  pulseDelay: 0.1
-  displacementAmountFactor: 0.3
-  targetDisplacement: 0
-  index: 0
-  displacementValues: []
 --- !u!114 &890346450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6789,8 +6748,6 @@ GameObject:
   - component: {fileID: 1958039471}
   - component: {fileID: 1958039475}
   - component: {fileID: 1958039474}
-  - component: {fileID: 1958039473}
-  - component: {fileID: 1958039472}
   - component: {fileID: 1958039476}
   m_Layer: 0
   m_Name: GraphicScoreSphere
@@ -6813,59 +6770,6 @@ Transform:
   m_Father: {fileID: 1854057660}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1958039472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958039470}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c35a2d8931931145b5d02789601fed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: cd0b5c6bef9125b489d113c688b786c9, type: 2}
-  rend: {fileID: 1958039474}
-  graphicScore: {fileID: 2800000, guid: 2e1854ccdab0105439a9461f55266c2a, type: 3}
-  displacementAmountFloat:
-    fieldName: _DisplacementAmount
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
-    selectedIndex: 1
-  pulseDelay: 0.1
-  displacementAmountFactor: 0.3
-  targetDisplacement: 0
-  index: 0
-  displacementValues: []
---- !u!114 &1958039473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958039470}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d932f3918fc1ea641b79eed5123cc891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 67fdb5e087946254e861645980063c90, type: 2}
-  rend: {fileID: 1958039474}
-  graphicScore: {fileID: 2800000, guid: 2e1854ccdab0105439a9461f55266c2a, type: 3}
-  displacementTexField:
-    fieldName: _DisplacementTexture
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
-    selectedIndex: 0
-  controlDisplacementAmount: 0
-  displacementAmountFactor: 0.1
-  displacementAmountField:
-    fieldName: _DisplacementAmount
-    shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
-      type: 3}
-    selectedIndex: 0
-  displacementValues: []
 --- !u!23 &1958039474
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6941,7 +6845,7 @@ MonoBehaviour:
     shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
       type: 3}
     selectedIndex: 0
-  displacementStreamSize: 1024
+  displacementStreamSize: 256
   controlDisplacementAmount: 1
   displacementAmountFactor: 0.25
   displacementAmountField:

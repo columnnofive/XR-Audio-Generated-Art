@@ -2279,9 +2279,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7b8d114a56415b44bb475f401835fcda, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b827a913a5d363c4caae624c4b4d4952, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.131
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2760,7 +2760,7 @@ MonoBehaviour:
       shader: {fileID: -6465566751694194690, guid: 0942f710d2136e049bd87e8663fff737,
         type: 3}
       selectedIndex: 0
-    displacementStreamSize: 1024
+    displacementStreamSize: 256
     controlDisplacementAmount: 1
     displacementAmountFactor: 0.25
     displacementAmountField:
