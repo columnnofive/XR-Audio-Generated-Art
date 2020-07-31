@@ -383,13 +383,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360129042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -1}
+  m_LocalRotation: {x: 0.25797603, y: 0, z: 0, w: 0.96615136}
+  m_LocalPosition: {x: 0, y: 11.32, z: -13.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.9, y: 0, z: 0}
 --- !u!1 &1404282985
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +949,7 @@ GameObject:
   - component: {fileID: 1831195680}
   - component: {fileID: 1831195679}
   - component: {fileID: 1831195678}
+  - component: {fileID: 1831195681}
   m_Layer: 0
   m_Name: Left XMKHP Line
   m_TagString: Untagged
@@ -1178,15 +1179,42 @@ MonoBehaviour:
       shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
         type: 3}
       selectedIndex: 0
-    controlLifetime: 0
-    lifetimeChangeTrigger:
-      triggerType: 0
-      targetAmplitudeTrigger:
-        targetAmplitude: 0.5
-        requiredRepetitions: 1
-        repetitions: 0
-    minLifetime: 1
-    maxLifetime: 5
+--- !u!114 &1831195681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831195676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b518f9ffe930364da721a1979addfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizationController:
+    analyzer: {fileID: 0}
+    analysisMode: 0
+    audioBandDataType: 0
+    amplitudeDataType: 0
+    dataFilters: []
+  material: {fileID: 2100000, guid: fb8f784c05c07e447b1a6fe8d9043f3e, type: 2}
+  rend: {fileID: 1831195678}
+  floatNameField:
+    fieldName: _StripePosition
+    shader: {fileID: -6465566751694194690, guid: 5cc1c5446ff93a045a74b8151ae87b7a,
+      type: 3}
+    selectedIndex: 0
+  min: 0
+  max: 1
+  trigger:
+    targetAmplitude: 0
+    requiredRepetitions: 0
+    repetitions: 0
+  interpolationSpeed: 1
+  randomizeInterpolationTargets: 0
+  interpolationTargets:
+  - 0
+  - 1
 --- !u!114 &246010072054577093
 MonoBehaviour:
   m_ObjectHideFlags: 0

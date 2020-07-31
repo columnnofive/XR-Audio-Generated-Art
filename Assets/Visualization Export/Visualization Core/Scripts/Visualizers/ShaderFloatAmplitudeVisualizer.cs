@@ -67,21 +67,24 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
                 interpolationTargets[i] = max;
         }
 
-        if (!rend)
+        if (!rend || rend.transform != transform)
         {
             rend = GetComponent<Renderer>();
-            if (rend)
-                material = rend.sharedMaterial;
-            else
-                material = null;
         }
 
         if (rend && rend.sharedMaterial)
         {
-            floatNameField.shader = material.shader;
+            if (rend.sharedMaterial != material) //Material changed
+            {
+                material = rend.sharedMaterial;
+                floatNameField.shader = material.shader;
+            }
         }
         else
+        {
+            material = null;
             floatNameField.shader = null;
+        }
     }
 
     private void Start()
