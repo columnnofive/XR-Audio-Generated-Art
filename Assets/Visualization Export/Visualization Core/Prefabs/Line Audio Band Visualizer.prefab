@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &103213902170876716
+--- !u!1 &3123548735745414669
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 103213902170876717}
-  - component: {fileID: 103213902170876719}
-  - component: {fileID: 103213902170876704}
-  - component: {fileID: 103213902170876718}
+  - component: {fileID: 3123548735745414668}
+  - component: {fileID: 3123548735745414670}
+  - component: {fileID: 3123548735745414657}
+  - component: {fileID: 3123548735745414671}
   m_Layer: 0
   m_Name: Line Audio Band Visualizer
   m_TagString: Untagged
@@ -19,27 +19,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &103213902170876717
+--- !u!4 &3123548735745414668
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103213902170876716}
+  m_GameObject: {fileID: 3123548735745414669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.52, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &103213902170876719
+--- !u!114 &3123548735745414670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103213902170876716}
+  m_GameObject: {fileID: 3123548735745414669}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8263e52171b76e4da6de094ec5a184a, type: 3}
@@ -53,27 +53,47 @@ MonoBehaviour:
     dataFilters: []
   band: 0
   lineVisualizer:
-    trailRenderer: {fileID: 103213902170876718}
+    trailRenderer: {fileID: 3123548735745414671}
     controlWidth: 1
-    minWidth: 0.5
-    maxWidth: 1
+    widthChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
+    minWidth: 0.002
+    maxWidth: 0.005
     controlColor: 1
-    colorChangeThreshold: 0.5
-    colorChangeSpeed: 1
+    colorChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.167
+        requiredRepetitions: 1
+        repetitions: 0
+    colorChangeSpeed: 0.11
     hueMin: 0
     hueMax: 1
-    emissionIntensity: 1
+    emissionIntensity: 3
     shaderColorField:
-      fieldName: _BaseColor
+      fieldName: _EmissionColor
       shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-      selectedIndex: 0
---- !u!114 &103213902170876704
+      selectedIndex: 2
+    controlLifetime: 0
+    lifetimeChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
+    minLifetime: 1
+    maxLifetime: 5
+--- !u!114 &3123548735745414657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103213902170876716}
+  m_GameObject: {fileID: 3123548735745414669}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599b26b37cf053d4c9ef8f5ada580002, type: 3}
@@ -87,23 +107,34 @@ MonoBehaviour:
     dataFilters: []
   band: 0
   positionVisualizer:
-    speedFactor: 0.1
+    speedFactor: 0.5
     minDirectionChangeAngle: -90
     maxDirectionChangeAngle: 90
-    directionChangeThreshold: 0.5
+    directionChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.288
+        requiredRepetitions: 1
+        repetitions: 0
     movementConstraintMode: 0
     movementConstraintAngle: 180
     innerMovementRadius: 0.03
     minOuterMovementRadius: 0.05
     maxOuterMovementRadius: 0.2
---- !u!96 &103213902170876718
+    movementRadiusChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
+--- !u!96 &3123548735745414671
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103213902170876716}
+  m_GameObject: {fileID: 3123548735745414669}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1

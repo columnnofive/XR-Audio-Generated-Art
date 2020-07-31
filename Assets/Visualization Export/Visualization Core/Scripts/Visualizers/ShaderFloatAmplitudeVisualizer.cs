@@ -26,7 +26,8 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     private float max = 1f;
 
     [SerializeField]
-    private VisualizationAmplitudeTrigger trigger;
+    private VisualizationTriggerAuthoring interpolationTrigger =
+        new VisualizationTriggerAuthoring(new TargetAmplitudeTrigger());
 
     [Tooltip("How long it will take to interpolate to each interpolation target.")]
     public float interpolationSpeed = 1f;
@@ -51,8 +52,10 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
         }
     }
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
+        base.OnValidate();
+
         for (int i = 0; i < interpolationTargets.Length; i++)
         {
             float target = interpolationTargets[i];
@@ -64,21 +67,24 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
                 interpolationTargets[i] = max;
         }
 
-        if (!rend)
+        if (!rend || rend.transform != transform)
         {
             rend = GetComponent<Renderer>();
-            if (rend)
-                material = rend.sharedMaterial;
-            else
-                material = null;
         }
 
         if (rend && rend.sharedMaterial)
         {
-            floatNameField.shader = material.shader;
+            if (rend.sharedMaterial != material) //Material changed
+            {
+                material = rend.sharedMaterial;
+                floatNameField.shader = material.shader;
+            }
         }
         else
+        {
+            material = null;
             floatNameField.shader = null;
+        }
     }
 
     private void Start()
@@ -88,7 +94,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
 
     protected override void visualizeData(VisualizationData data)
     {
-        if (!interpolating && trigger.checkTrigger(data.amplitude))
+        if (!interpolating && interpolationTrigger.trigger.checkTrigger(data.amplitude))
         {
             if (randomizeInterpolationTargets)
                 setRandomTargets();

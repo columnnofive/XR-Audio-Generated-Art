@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class LineAmplitudeVisualizer : AudioVisualizer
@@ -8,8 +6,10 @@ public class LineAmplitudeVisualizer : AudioVisualizer
     [SerializeField]
     private LineVisualizer lineVisualizer;
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
+        base.OnValidate();
+
         if (!lineVisualizer.trailRenderer)
             lineVisualizer.trailRenderer = GetComponent<TrailRenderer>();
 
@@ -33,11 +33,7 @@ public class LineAmplitudeVisualizer : AudioVisualizer
 
     protected override void visualizeData(VisualizationData data)
     {
-        if (lineVisualizer.controlWidth)
-            lineVisualizer.setWidth(data.amplitude, visualizerScaleFactor);
-
-        if (lineVisualizer.controlColor)
-            lineVisualizer.setColor(data.amplitude);
+        lineVisualizer.visualize(data.amplitude, visualizerScaleFactor);
     }
 
     #region Editor Accessible Setters
@@ -60,11 +56,6 @@ public class LineAmplitudeVisualizer : AudioVisualizer
     public void setControlColor(bool value)
     {
         lineVisualizer.controlColor = value;
-    }
-
-    public void setColorChangeThreshold(float value)
-    {
-        lineVisualizer.colorChangeThreshold = Mathf.Clamp(value, 0f, 1f);
     }
 
     public void setColorChangeSpeed(float value)

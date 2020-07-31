@@ -21,12 +21,13 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
 
     [Header("Movement Outer Boundaries")]
     
-    public float minOuterMovementRadius = 35f;
-    
+    public float minOuterMovementRadius = 35f;    
     public float maxOuterMovementRadius = 65f;
-
     private float movementRadius;
-    
+
+    public VisualizationTriggerAuthoring movementRadiusChangeTrigger =
+        new VisualizationTriggerAuthoring(new ContinuousTrigger());
+
     private Vector3 movementDirection = Vector3.forward;
     private Quaternion directionModifier = Quaternion.identity;
 
@@ -42,8 +43,11 @@ public class PositionAmbisonicAmplitudeVisualizer : AmbisonicAudioVisualizer
 
     private void scaleMovementRadius(float amplitude)
     {
-        float radiusInterpolation = (maxOuterMovementRadius - minOuterMovementRadius) * amplitude;
-        movementRadius = minOuterMovementRadius + radiusInterpolation;
+        if (movementRadiusChangeTrigger.trigger.checkTrigger(amplitude))
+        {
+            float radiusInterpolation = (maxOuterMovementRadius - minOuterMovementRadius) * amplitude;
+            movementRadius = minOuterMovementRadius + radiusInterpolation;
+        }
     }
 
     private void move()
