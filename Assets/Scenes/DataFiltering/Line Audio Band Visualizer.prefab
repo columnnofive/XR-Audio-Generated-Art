@@ -52,18 +52,41 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 0
-  trailRenderer: {fileID: 3123548735745414671}
-  minWidth: 0.002
-  maxWidth: 0.006
-  colorChangeThreshold: 0.353
-  colorChangeSpeed: 1
-  hueMin: 0
-  hueMax: 1
-  emissionIntensity: 3
-  shaderColorField:
-    fieldName: _EmissionColor
-    shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-    selectedIndex: 2
+  lineVisualizer:
+    trailRenderer: {fileID: 3123548735745414671}
+    controlWidth: 1
+    widthChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
+    minWidth: 0.002
+    maxWidth: 0.005
+    controlColor: 1
+    colorChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.167
+        requiredRepetitions: 1
+        repetitions: 0
+    colorChangeSpeed: 0.11
+    hueMin: 0
+    hueMax: 1
+    emissionIntensity: 3
+    shaderColorField:
+      fieldName: _EmissionColor
+      shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+      selectedIndex: 2
+    controlLifetime: 0
+    lifetimeChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
+    minLifetime: 1
+    maxLifetime: 5
 --- !u!114 &3123548735745414657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,13 +106,27 @@ MonoBehaviour:
     amplitudeDataType: 1
     dataFilters: []
   band: 0
-  speedFactor: 0.5
-  minDirectionChangeAngle: -180
-  maxDirectionChangeAngle: 180
-  directionChangeThreshold: 0.2
-  innerMovementRadius: 0
-  minOuterMovementRadius: 0.1
-  maxOuterMovementRadius: 0.5
+  positionVisualizer:
+    speedFactor: 0.5
+    minDirectionChangeAngle: -90
+    maxDirectionChangeAngle: 90
+    directionChangeTrigger:
+      triggerType: 1
+      targetAmplitudeTrigger:
+        targetAmplitude: 0.288
+        requiredRepetitions: 1
+        repetitions: 0
+    movementConstraintMode: 0
+    movementConstraintAngle: 180
+    innerMovementRadius: 0.03
+    minOuterMovementRadius: 0.05
+    maxOuterMovementRadius: 0.2
+    movementRadiusChangeTrigger:
+      triggerType: 0
+      targetAmplitudeTrigger:
+        targetAmplitude: 0
+        requiredRepetitions: 0
+        repetitions: 0
 --- !u!96 &3123548735745414671
 TrailRenderer:
   serializedVersion: 2

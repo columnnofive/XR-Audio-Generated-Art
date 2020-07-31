@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ScaleAmplitudeVisualizer : AudioVisualizer
 {
-    public float minScale = 0f;
-    
+    public float minScale = 0f;    
     public float maxScale = 1f;
+
+    public VisualizationTriggerAuthoring scaleChangeTrigger =
+        new VisualizationTriggerAuthoring(new ContinuousTrigger());
 
     protected override void visualizeData(VisualizationData data)
     {
@@ -15,8 +17,11 @@ public class ScaleAmplitudeVisualizer : AudioVisualizer
 
     private void setScale(float amplitude)
     {
-        float scaleInterpolation = (maxScale - minScale) * amplitude;
-        float scale = minScale + scaleInterpolation;
-        transform.localScale = scale * Vector3.one;
+        if (scaleChangeTrigger.trigger.checkTrigger(amplitude))
+        {
+            float scaleInterpolation = (maxScale - minScale) * amplitude;
+            float scale = minScale + scaleInterpolation;
+            transform.localScale = scale * Vector3.one;
+        }
     }
 }
