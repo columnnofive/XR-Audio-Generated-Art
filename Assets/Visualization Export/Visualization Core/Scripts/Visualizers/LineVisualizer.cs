@@ -11,17 +11,19 @@ public class LineVisualizer
     [Header("Width")]
     
     public bool controlWidth = true;
-    
-    public float minWidth = 0.5f;
-    
+
+    public VisualizationTriggerAuthoring widthChangeTrigger =
+        new VisualizationTriggerAuthoring(new ContinuousTrigger());
+
+    public float minWidth = 0.5f;    
     public float maxWidth = 1f;
 
     [Header("Color")]
     
     public bool controlColor = true;
 
-    [Range(0, 1)]
-    public float colorChangeThreshold = 0.5f;
+    public VisualizationTriggerAuthoring colorChangeTrigger =
+        new VisualizationTriggerAuthoring(new TargetAmplitudeTrigger(0.5f, 1));
     
     public float colorChangeSpeed = 1f;
 
@@ -41,16 +43,44 @@ public class LineVisualizer
 
     private Color targetColor;
 
-    public void setWidth(float bandAmplitude, float visualizerScaleFactor)
+    [Header("Lifetime")]
+
+    public bool controlLifetime = true;
+
+    public VisualizationTriggerAuthoring lifetimeChangeTrigger =
+        new VisualizationTriggerAuthoring(new ContinuousTrigger());
+    
+    [Tooltip("Minimum value of the trail renderer time field.")]
+    public float minLifetime = 1f;
+
+    [Tooltip("Maximum value of the trail renderer time field.")]
+    public float maxLifetime = 5f;
+
+    public void visualize(float amplitude, float visualizerScaleFactor)
     {
-        float widthInterpolation = (maxWidth - minWidth) * visualizerScaleFactor * bandAmplitude;
-        trailRenderer.widthMultiplier = minWidth + widthInterpolation;
+        if (controlWidth)
+            setWidth(amplitude, visualizerScaleFactor);
+
+        if (controlColor)
+            setColor(amplitude);
+
+        if (controlLifetime)
+            setLifetime(amplitude);
     }
 
-    //Randomly set emission color based on audio band amplitude.
-    public void setColor(float bandAmplitude)
+    public void setWidth(float amplitude, float visualizerScaleFactor)
     {
-        if (bandAmplitude > colorChangeThreshold)
+        if (widthChangeTrigger.trigger.checkTrigger(amplitude))
+        {
+            float widthInterpolation = (maxWidth - minWidth) * visualizerScaleFactor * amplitude;
+            trailRenderer.widthMultiplier = minWidth + widthInterpolation;
+        }        
+    }
+
+    //Randomly set emission color based on audio amplitude.
+    public void setColor(float amplitude)
+    {
+        if (colorChangeTrigger.trigger.checkTrigger(amplitude))
             targetColor = Random.ColorHSV(hueMin, hueMax, 1f, 1f, 0, 1, 1, 1) * emissionIntensity;
 
         //Lerp to target color
@@ -58,5 +88,13 @@ public class LineVisualizer
         Color color = Color.Lerp(currentColor, targetColor, Time.deltaTime * colorChangeSpeed);
 
         trailRenderer.material.SetColor(shaderColorField.fieldName, color);
+    }
+
+    public void setLifetime(float amplitude)
+    {
+        if (lifetimeChangeTrigger.trigger.checkTrigger(amplitude))
+        {
+            trailRenderer.time = (maxLifetime - minLifetime) * (1 - amplitude);
+        }
     }
 }

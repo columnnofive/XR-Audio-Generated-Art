@@ -26,7 +26,8 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
     private float max = 1f;
 
     [SerializeField]
-    private VisualizationAmplitudeTrigger trigger;
+    private VisualizationTriggerAuthoring interpolationTrigger =
+        new VisualizationTriggerAuthoring(new TargetAmplitudeTrigger());
 
     [Tooltip("How long it will take to interpolate to each interpolation target.")]
     public float interpolationSpeed = 1f;
@@ -53,6 +54,8 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
 
     protected override void OnValidate()
     {
+        base.OnValidate();
+
         for (int i = 0; i < interpolationTargets.Length; i++)
         {
             float target = interpolationTargets[i];
@@ -91,7 +94,7 @@ public class ShaderFloatAmplitudeVisualizer : AudioVisualizer
 
     protected override void visualizeData(VisualizationData data)
     {
-        if (!interpolating && trigger.checkTrigger(data.amplitude))
+        if (!interpolating && interpolationTrigger.trigger.checkTrigger(data.amplitude))
         {
             if (randomizeInterpolationTargets)
                 setRandomTargets();
