@@ -69,8 +69,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3123548735745414670, guid: bf806f5e4f2f0e044b3be182297aeb76,
         type: 3}
-      propertyPath: hueMin
-      value: 0.56
+      propertyPath: lineVisualizer.hueMin
+      value: 0.66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf806f5e4f2f0e044b3be182297aeb76, type: 3}
