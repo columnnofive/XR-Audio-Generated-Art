@@ -13,6 +13,8 @@ namespace SonAR.SonicMapping
         public SonicMap sonicMap;
 
         [Header("Visualization")]
+        
+        public const string sonicMapTag = "Sonic Map";
 
         [SerializeField]
         public GameObject audioVisualizerPrefab;

@@ -25,7 +25,7 @@ public class ARTapSpawner : MonoBehaviour
 
     private int spawned = 0; //Number of objects spawned
 
-    private Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
+    private readonly Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
     
     private Pose spawnPose;
     private List<ARRaycastHit> hits;

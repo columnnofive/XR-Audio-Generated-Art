@@ -34,6 +34,7 @@ namespace SonAR.SonicMapping
             if (ctrllr.mapParent == null)
             {
                 GameObject mapParent = new GameObject(ctrllr.sonicMap.Name);
+                mapParent.tag = SonicMapController.sonicMapTag;
                 Undo.RegisterCreatedObjectUndo(mapParent, "Create SonicMap mapParent");
                 
                 ctrllr.mapParent = mapParent.transform;

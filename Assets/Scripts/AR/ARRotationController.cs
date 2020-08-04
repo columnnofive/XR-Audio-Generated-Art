@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SonAR.Location;
 using UnityEngine;
-using SonAR.Location;
 
 public class ARRotationController : MonoBehaviour
 {
@@ -28,6 +26,8 @@ public class ARRotationController : MonoBehaviour
         }
         else //ARVisualizationMode.Map
         {
+            //Rotate rotation controller to match user's rotation in camera mode
+            gpsRotController.transform.rotation = user.rotation;
             gpsRotController.enabled = true;
         }
     }

@@ -21,9 +21,12 @@ public class ARPositionController : MonoBehaviour
 
     private float nearestVisualizer = float.PositiveInfinity;
 
+    private bool geoPositionUpdated = false;
+
     private void Start()
     {
         arVizModeCtrllr.OnModeChange += handleModeChange;
+        gpsPosController.OnPositionUpdated.AddListener(handleGeoPositionUpdated);
     }
 
     private void handleModeChange(ARVisualizationModeController.ARVisualizationMode newMode)
@@ -33,6 +36,18 @@ public class ARPositionController : MonoBehaviour
             //Reset local position from any prior AR movement
             user.localPosition = Vector3.zero;
         }
+        else //ARVisualizationMode.Map
+        {
+            //Position position controller to match user's movement in camera mode
+            gpsPosController.transform.position = user.position;
+
+            gpsPosController.enabled = true;
+        }
+    }
+
+    private void handleGeoPositionUpdated()
+    {
+        geoPositionUpdated = true;
     }
 
     //Find nearest audio visualizer
@@ -54,6 +69,13 @@ public class ARPositionController : MonoBehaviour
     {
         if (arVizModeCtrllr.mode == ARVisualizationModeController.ARVisualizationMode.Camera)
         {
+            //Reset user's offset from geo position to prevent inaccurate movement
+            if (geoPositionUpdated)
+            {
+                user.localPosition = Vector3.zero;
+                geoPositionUpdated = false;
+            }
+
             refreshDistance();
 
             //Within fine movement threshold
@@ -65,10 +87,6 @@ public class ARPositionController : MonoBehaviour
             {
                 gpsPosController.enabled = true;
             }
-        }
-        else //ARVisualizationMode.Map | Ensure gps movement is enabled
-        {
-            gpsPosController.enabled = true;
         }
     }
     

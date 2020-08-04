@@ -3,6 +3,7 @@ using Mapbox.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SonAR.Location
 {
@@ -68,6 +69,11 @@ namespace SonAR.Location
             }
         }
 
+        /// <summary>
+        /// Called everytime the position is updated.
+        /// </summary>
+        public UnityEvent OnPositionUpdated;
+
         [SerializeField]
         private TMPro.TextMeshProUGUI originDebug;
 
@@ -117,6 +123,8 @@ namespace SonAR.Location
             GeoLocationData locationData = new GeoLocationData(location);
             Position = LocationInterpreter.geoToWorldPosition(locationData, mapboxMap);
 
+            OnPositionUpdated.Invoke();
+
             //Log position
             positionDebug.text = "[Position] " + Position;
         }
@@ -124,13 +132,19 @@ namespace SonAR.Location
         private void OnEnable()
         {
             if (!receivingLocationUpdates && initialized) //Resubscribe to location updates if already initialized
+            {
                 locationService.OnLocationUpdate.AddListener(handleLocationUpdate);
+                receivingLocationUpdates = true;
+            }
         }
 
         private void OnDisable()
         {
             if (receivingLocationUpdates) //Unsubscribe from location updates
+            {
                 locationService.OnLocationUpdate.RemoveListener(handleLocationUpdate);
+                receivingLocationUpdates = false;
+            }
         }
     }
 }
