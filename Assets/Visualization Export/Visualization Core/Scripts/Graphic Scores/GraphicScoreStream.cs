@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class GraphicScoreStream : MonoBehaviour
@@ -103,28 +104,33 @@ public class GraphicScoreStream : MonoBehaviour
 
     private void generateDisplacementTexture()
     {
-        Color[] displacementColors = getDisplacementColors();
+        Color32[] displacementColors = getDisplacementColors();
         int dimensions = displacementColors.Length;
 
-        displacementTex.SetPixels(displacementColors);
+        setPixels(displacementTex, displacementColors);
 
         displacementTex.Apply(); //Apply pixel values
         material.SetTexture(displacementTexField.fieldName, displacementTex);
     }
 
-    private Color[] getDisplacementColors()
+    private Color32[] getDisplacementColors()
     {
         float[] displacementStream = displacementValueStream.ToArray();
 
-        Color[] colors = new Color[displacementStream.Length];
+        Color32[] colors = new Color32[displacementStream.Length];
 
         for (int i = 0; i < displacementStream.Length; i++)
         {
-            float displacement = displacementStream[i];
-            colors[i] = new Color(displacement, displacement, displacement, displacement);
+            colors[i] = getDisplacementColor(displacementStream[i]);
         }
 
         return colors;
+    }
+
+    private Color32 getDisplacementColor(float displacement)
+    {
+        byte displacementByte = (byte)(displacement * 255f);
+        return new Color32(displacementByte, displacementByte, displacementByte, displacementByte);
     }
 
     private void updateDisplacementValueStream()
@@ -158,6 +164,19 @@ public class GraphicScoreStream : MonoBehaviour
             displacementTex.Resize(displacementValueStream.Count, 1);
             displacementTex.Apply(); //Apply changes
         }
+    }
+
+    private void setPixels(Texture2D tex, Color32[] colors, bool applyChanges = true)
+    {
+        NativeArray<Color32> textureData = tex.GetRawTextureData<Color32>();
+
+        for (int i = 0; i < textureData.Length && i < colors.Length; i++)
+        {
+            textureData[i] = colors[i];
+        }
+
+        if (applyChanges)
+            tex.Apply();
     }
 
     private void Update()
