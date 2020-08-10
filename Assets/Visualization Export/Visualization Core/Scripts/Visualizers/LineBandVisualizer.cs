@@ -9,21 +9,7 @@ public class LineBandVisualizer : AudioBandVisualizer
     protected override void OnValidate()
     {
         base.OnValidate();
-
-        if (!lineVisualizer.trailRenderer)
-            lineVisualizer.trailRenderer = GetComponent<TrailRenderer>();
-
-        if (lineVisualizer.trailRenderer)
-        {
-            if (lineVisualizer.trailRenderer.sharedMaterial)
-            {
-                lineVisualizer.shaderColorField.shader = lineVisualizer.trailRenderer.sharedMaterial.shader;
-            }
-            else
-            {
-                lineVisualizer.shaderColorField.shader = null;
-            }
-        }
+        lineVisualizer.onValidate(gameObject);
     }
 
     private void Start()
