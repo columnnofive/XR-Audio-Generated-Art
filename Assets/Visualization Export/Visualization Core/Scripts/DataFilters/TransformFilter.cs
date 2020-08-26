@@ -45,17 +45,17 @@ public class TransformFilter : DataFilter
         switch (dataComponent)
         {
             case TransformDataComponent.Position:
-                componentData = getTransformComponentData(data.position, dataSource);
+                componentData = getTransformComponentData(data.localPosition, dataSource);
                 break;
             case TransformDataComponent.Rotation:
-                float rawComponentData = getTransformComponentData(data.eulerAngles, dataSource);
+                float rawComponentData = getTransformComponentData(data.localEulerAngles, dataSource);
                 if (rawComponentData <= 180f)
                     componentData = rawComponentData;
                 else
                     componentData = rawComponentData.remap(180f, 360f, -180f, 0f);
                 break;
             case TransformDataComponent.Scale:
-                componentData = getTransformComponentData(data.lossyScale, dataSource);
+                componentData = getTransformComponentData(data.localScale, dataSource);
                 break;
         }
 
