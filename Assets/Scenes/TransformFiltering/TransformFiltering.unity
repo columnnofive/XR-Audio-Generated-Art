@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2834,7 +2834,8 @@ MonoBehaviour:
     analysisMode: 0
     audioBandDataType: 1
     amplitudeDataType: 1
-    dataFilters: []
+    dataFilters:
+    - {fileID: 340340770}
   visualizer:
     material: {fileID: 2100000, guid: 67fdb5e087946254e861645980063c90, type: 2}
     rend: {fileID: 619399492}
