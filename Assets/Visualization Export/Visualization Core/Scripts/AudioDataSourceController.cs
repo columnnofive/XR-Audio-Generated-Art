@@ -13,6 +13,8 @@ public class AudioDataSourceController : MonoBehaviour
 
     #region Microphone Audio Settings
 
+    public bool useDefaultMicrophone = false;
+
     [System.Serializable]
     public class MicrophoneDevice
     {
@@ -51,8 +53,25 @@ public class AudioDataSourceController : MonoBehaviour
     {
         if (audioDataSource == AudioDataSource.Microphone && Microphone.devices.Length > 0)
         {
-            //micDevice = Microphone.devices[0].ToString();
-            audioSource.clip = Microphone.Start(micDevice.name, true, 10, AudioSettings.outputSampleRate);
+            string micDeviceName = "";
+
+            if (useDefaultMicrophone)
+            {
+                if (Microphone.devices.Length > 0)
+                    micDeviceName = Microphone.devices[0].ToString();
+                else
+                    Debug.LogError("Microphone not found.");
+            }
+            else
+                micDeviceName = micDevice.name;
+
+            if (micDeviceName == "")
+            {
+                Debug.LogError("Microphone name empty, could not start microphone.");
+                return;
+            }
+
+            audioSource.clip = Microphone.Start(micDeviceName, true, 10, AudioSettings.outputSampleRate);
         }
 
         audioSource.Play();

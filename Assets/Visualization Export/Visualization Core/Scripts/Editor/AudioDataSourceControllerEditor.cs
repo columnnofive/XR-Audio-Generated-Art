@@ -20,8 +20,15 @@ public class AudioDataSourceControllerEditor : Editor
         var audioDataSource = (AudioDataSourceController.AudioDataSource)audioDataSourceProp.enumValueIndex;
         if (audioDataSource == AudioDataSourceController.AudioDataSource.Microphone)
         {
-            SerializedProperty micDeviceProp = serializedObject.FindProperty("micDevice");
-            EditorGUILayout.PropertyField(micDeviceProp);
+            SerializedProperty useDefaultMicProperty = serializedObject.FindProperty("useDefaultMicrophone");
+            EditorGUILayout.PropertyField(useDefaultMicProperty);
+
+            //Only show microphone selection if use default is not selected
+            if (!controller.useDefaultMicrophone)
+            {
+                SerializedProperty micDeviceProp = serializedObject.FindProperty("micDevice");
+                EditorGUILayout.PropertyField(micDeviceProp);
+            }
         }
 
         if (!allowEdits) //reenable gui
