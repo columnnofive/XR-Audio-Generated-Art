@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ARObjManipulator : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class ARObjManipulator : MonoBehaviour
     private float minScale = 0.001f;
 
     [SerializeField]
-    private InputField scaleInput;
+    private TMP_InputField scaleInput;
     
     private float scale
     {
