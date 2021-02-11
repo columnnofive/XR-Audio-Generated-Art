@@ -8,9 +8,12 @@ public class AudioTimeController : MonoBehaviour
     private AudioSource audioSource;
 
     [Range(0, 1), SerializeField]
-    private float clipTime = 0f;
+    private float clipTimeProportion = 0f;
     
-    private float previousClipTime = 0f;
+    private float previousClipTimeProportion = 0f;
+
+    [ReadOnlyField, SerializeField]
+    private float currentClipTime = 0f;
 
     private void Start()
     {
@@ -21,12 +24,14 @@ public class AudioTimeController : MonoBehaviour
     {
         if (audioSource.clip)
         {
-            if (clipTime != previousClipTime) //Clip time was set manually
-                audioSource.time = (audioSource.clip.length - 1) * clipTime;
+            if (clipTimeProportion != previousClipTimeProportion) //Clip time was set manually
+                audioSource.time = (audioSource.clip.length - 1) * clipTimeProportion;
             else //set clipTime to follow audioSource.time
-                clipTime = audioSource.time / (audioSource.clip.length - 1);
+                clipTimeProportion = audioSource.time / (audioSource.clip.length - 1);
 
-            previousClipTime = clipTime;
+            currentClipTime = audioSource.time; //Debug purposes only
+
+            previousClipTimeProportion = clipTimeProportion;
         }
     }
     
