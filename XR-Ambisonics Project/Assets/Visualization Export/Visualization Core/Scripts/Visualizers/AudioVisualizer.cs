@@ -41,5 +41,15 @@ public abstract class AudioVisualizer : AudioVisualizerBase
         VisualizationController.amplitudeDataType = dataType;
     }
 
+    public void addDataFilter(DataFilter filter)
+    {
+        VisualizationController.dataFilters.Add(filter);
+    }
+
+    public void removeDataFilter(DataFilter filter)
+    {
+        VisualizationController.dataFilters.Remove(filter);
+    }
+
     #endregion Editor Accessible Setters
 }
