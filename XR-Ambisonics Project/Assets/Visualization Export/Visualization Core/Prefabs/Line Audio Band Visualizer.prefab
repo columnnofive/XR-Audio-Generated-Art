@@ -62,7 +62,7 @@ MonoBehaviour:
         requiredRepetitions: 0
         repetitions: 0
     minWidth: 0.002
-    maxWidth: 0.005
+    maxWidth: 0.5
     controlColor: 1
     colorChangeTrigger:
       triggerType: 1
@@ -72,8 +72,10 @@ MonoBehaviour:
         repetitions: 0
     colorChangeSpeed: 0.11
     hueMin: 0
+    hueMinPreview: {r: 1, g: 0, b: 0, a: 1}
     hueMax: 1
-    emissionIntensity: 3
+    hueMaxPreview: {r: 1, g: 0, b: 0, a: 1}
+    emissionIntensity: 4.46
     shaderColorField:
       fieldName: _EmissionColor
       shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
@@ -143,6 +145,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
