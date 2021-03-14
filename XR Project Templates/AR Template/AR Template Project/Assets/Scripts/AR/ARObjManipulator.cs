@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ARObjManipulator : MonoBehaviour
 {
@@ -12,77 +10,35 @@ public class ARObjManipulator : MonoBehaviour
     [SerializeField]
     private float minScale = 0.001f;
 
-    [SerializeField]
-    private InputField scaleInput;
-    
-    private float scale
+    private float maxScale = 1.25f; //after this value the object disappear. Maybe the object gets too close to the camera to be rendered.
+
+    private void Update()
     {
-        get
+        if (Input.touchCount == 2)
         {
-            return transform.localScale.x;
-        }
-        set
-        {
-            float newScale = value > minScale ? value : minScale;
-            transform.localScale = newScale * Vector3.one;
-            updateScaleUI();
-        }
-    }
+            Touch touch0 = Input.GetTouch(0);
+            Touch touch1 = Input.GetTouch(1);
 
-    private bool isScaling = false;
+            Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
+            Vector2 touch1PrevPros = touch1.position - touch1.deltaPosition;
 
-    private void Start()
-    {
-        scaleInput.onEndEdit.AddListener(onScaleSet);
+            float prevMagnitude = (touch0PrevPos - touch1PrevPros).magnitude;
+            float currentMagnitude = (touch0.position - touch1.position).magnitude;
 
-        scale = transform.localScale.x;
-    }
+            float difference = currentMagnitude - prevMagnitude;
 
-    public void onScaleSet(string scaleInput)
-    {
-        if (float.TryParse(scaleInput, out float scaleValue))
-            scale = scaleValue;
-        else //Scale NaN
-            updateScaleUI();
-    }
-
-    public void startScaleIncrease()
-    {
-        StartCoroutine(scaleContinuous(1));
-    }
-
-    public void stopScaleIncrease()
-    {
-        isScaling = false;
-    }
-
-    public void startScaleDecrease()
-    {
-        StartCoroutine(scaleContinuous(-1));
-    }
-
-    public void stopScaleDecrease()
-    {
-        isScaling = false;
-    }
-
-    private IEnumerator scaleContinuous(int direction)
-    {
-        isScaling = true;
-
-        float scaleChange = 0f;
-
-        while (isScaling)
-        {
-            scaleChange += direction * this.scaleChange * Time.deltaTime;
-            scale += scaleChange;
-
-            yield return null;
+            Scale(difference * scaleChange * Time.deltaTime);
         }
     }
-
-    private void updateScaleUI()
+    private void Scale(float difference)
     {
-        scaleInput.text = scale.ToString();
+        if (transform.localScale.x < 1)
+        {
+            difference = difference * transform.localScale.x; //difference decreases as the local scale gets close to 0
+        }
+        transform.localScale += difference * Vector3.one;
+        if (transform.localScale.x < minScale) transform.localScale = Vector3.one * minScale;
+        else if (transform.localScale.x > maxScale) transform.localScale = Vector3.one * maxScale;
     }
+
 }
