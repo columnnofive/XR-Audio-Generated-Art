@@ -97,7 +97,7 @@ public class SpectrumAnalyzer : MonoBehaviour
             audioSource.GetSpectrumData(rightSampleData, 1, FFTWindow);
 
             for (int i = 0; i < sampleData.Length; i++)
-                sampleData[i] += (leftSampleData[i] + rightSampleData[i]) / 2;
+                sampleData[i] = (leftSampleData[i] + rightSampleData[i]);
         }
     }
 
