@@ -12,15 +12,24 @@ public class RecordController : MonoBehaviour
     private Record recordScript;
     string directoryPath;
 
+    
     public enum RecordAt
     {
-        Time,
         LastClip,
         ClipIndex
     }
 
-    public RecordAt recordAt;
-    //[ConditionaField]
+    [MyBox.Separator("Recording Options")]
+    public RecordAt recordAt = RecordAt.LastClip;
+    
+    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.ClipIndex)] public int ClipIndex = 0;
+
+    [MyBox.Separator("Debugging Only")]
+    public float GetClipAtTime = 0;
+    [ReadOnlyField]
+    public int ClipAtTime = 0;
+
+
 
     private void Awake()
     {
@@ -37,19 +46,43 @@ public class RecordController : MonoBehaviour
 
     void Start()
     {
-        
-        foreach (AnimationState state in anim)
-        {
-            //do nothing for now
-        }
+        StartRecording();
+    }
 
-        Debug.Log(anim.GetClipCount());
-        //AddClip();
+    private void StartRecording()
+    {
+        switch (recordAt)
+        {
+            case RecordAt.LastClip:
+                RecordAtLastClip();
+                    break;
+            case RecordAt.ClipIndex:
+                RecordAtClipIndex();
+                    break;
+        }
+    }
+
+    private void RecordAtLastClip()
+    {
+        int clipName = anim.GetClipCount() + 1; //Assign index to last index recorded + 1
+        AddClip(clipName);
+        EnableRecording();
+    }
+
+    private void RecordAtClipIndex()
+    {
+        AddClip(ClipIndex);
+        EnableRecording();
+    }
+
+    private void RecordAtTime()
+    {
+        //nothing
     }
 
     private void LoadAnimations()
     {
-        int i = 2;
+        int i = 1;
         while (File.Exists(GetClipPath(i)))
         {
             Object currentAnimationClip = AssetDatabase.LoadAssetAtPath(GetClipPath(i), (typeof(Object)));
@@ -63,9 +96,9 @@ public class RecordController : MonoBehaviour
         return directoryPath + "/" + index.ToString() + ".anim";
     }
 
-    private void AddClip()
+    private void AddClip(int clipIndex)
     {
-        string clipName = (anim.GetClipCount() + 1).ToString();
+        string clipName = clipIndex.ToString();
         AnimationClip animationClip = new AnimationClip();
         animationClip.name = clipName;
         animationClip.legacy = true;
@@ -75,19 +108,11 @@ public class RecordController : MonoBehaviour
         recordScript.clip = animationClip;
         //add clip in Animation component
         anim.AddClip(animationClip, clipName);
-        RecordClip();
     }
 
-    private void RecordClip()
+    private void EnableRecording()
     {
         recordScript.enabled = true;
-        StartCoroutine(turnOff());
-    }
-
-    IEnumerator turnOff()
-    {
-        yield return new WaitForSeconds(5);
-        recordScript.enabled = false;
     }
 
     // Update is called once per frame
