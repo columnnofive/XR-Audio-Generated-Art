@@ -6,7 +6,7 @@ using UnityEditor;
 
 #if UNITY_EDITOR
 [ExecuteInEditMode]
-public class AnimationTimeLine : MonoBehaviour
+public class AnimationsTimeLine : MonoBehaviour
 {
     public List<float> TimeLine;
     string directoryPath;

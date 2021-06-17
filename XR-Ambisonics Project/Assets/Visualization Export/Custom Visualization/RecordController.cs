@@ -34,6 +34,7 @@ public class RecordController : MonoBehaviour
     private void Awake()
     {
         recordScript = GetComponent<Record>();
+        recordScript.enabled = false;
         anim = GetComponent<Animation>();
         directoryPath = "Assets/Visualization Export/Custom Visualization/" + this.name;
         //Create Directory if it doesn't exist
@@ -75,11 +76,6 @@ public class RecordController : MonoBehaviour
         EnableRecording();
     }
 
-    private void RecordAtTime()
-    {
-        //nothing
-    }
-
     private void LoadAnimations()
     {
         int i = 1;
@@ -113,11 +109,5 @@ public class RecordController : MonoBehaviour
     private void EnableRecording()
     {
         recordScript.enabled = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
