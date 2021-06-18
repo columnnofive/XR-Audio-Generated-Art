@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[RequireComponent(typeof(Animation))]
 [RequireComponent(typeof(AnimationsTimeLine))]
-public class AnimateLine : MonoBehaviour
+public class AnimateLine : SaveLoadList
 {
     public enum mode
     {
@@ -19,23 +17,23 @@ public class AnimateLine : MonoBehaviour
     public mode Mode = mode.AmplitudeVisualizer;
 
     private List<float> timeLine;
-    private int animationIndex = 1;
+    private int animationIndex = 0;
 
     private void Start()
     {
-        timeLine = GetComponent<AnimationsTimeLine>().TimeLine;
+        timeLine = LoadList(this.name);
         //StartCoroutine(Spawn());
     }
 
     private void Update()
     {
-        if(audioSource.time > timeLine[animationIndex - 1])
+        if(audioSource.time > timeLine[animationIndex])
         {
             Transform temporary = (Instantiate(LineInstance, Vector3.zero, Quaternion.identity, this.transform) as GameObject).transform; //instantiate Line and save Transform so we can access LineInstance
             temporary.name = animationIndex.ToString();
             LineInstance instance = temporary.GetComponent<LineInstance>(); //access LineInstance
             instance.PlayAnimation(GetAnimation(animationIndex), spectrumAnalyzer, Mode == mode.AmplitudeVisualizer ? 0 : 1);      //play animation from LineInstance
-            Debug.Log("Playing animation index: " + (animationIndex-1));
+            Debug.Log("Playing animation index: " + (animationIndex));
             Debug.Log(audioSource.time.ToString());
             animationIndex++;
             if((animationIndex) >= timeLine.Count)
@@ -45,6 +43,7 @@ public class AnimateLine : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator Spawn()
     {
         int lastPlayedAnimation = 1;
@@ -66,7 +65,7 @@ public class AnimateLine : MonoBehaviour
             }
         }
     }
-
+    */
     private AnimationClip GetAnimation(int index) {
 
         string clipName = index.ToString();

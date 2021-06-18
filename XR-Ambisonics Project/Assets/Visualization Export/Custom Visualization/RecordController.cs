@@ -1,48 +1,52 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 
 [RequireComponent(typeof(Record))]
-[RequireComponent(typeof(Animation))]
-public class RecordController : MonoBehaviour
+[RequireComponent(typeof(AnimateLine))]
+public class RecordController : SaveLoadList
 {
-    private Animation anim;
     private Record recordScript;
     string directoryPath;
 
-    
     public enum RecordAt
     {
         LastClip,
-        ClipIndex
+        ClipIndex,
+        Time
     }
 
     [MyBox.Separator("Recording Options")]
     public RecordAt recordAt = RecordAt.LastClip;
     
-    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.ClipIndex)] public int ClipIndex = 0;
+    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.ClipIndex)] public int clipIndex = 0; //if RecordAt.ClipIndex
 
-    [MyBox.Separator("Debugging Only")]
-    public float GetClipAtTime = 0;
-    [ReadOnlyField]
-    public int ClipAtTime = 0;
+    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.Time)] public float clipTime = 0;     //if RecordAt.Time
+
+    private List<float> timeLine;
 
 
 
     private void Awake()
     {
+        if(GetComponent<AnimateLine>().isActiveAndEnabled) //prevents from overriding data
+        {
+            this.enabled = false;
+            Debug.Log("RecordController has been disabled because AnimateLine is enabled");
+        }
         recordScript = GetComponent<Record>();
+
         recordScript.enabled = false;
-        anim = GetComponent<Animation>();
+        
         directoryPath = "Assets/Visualization Export/Custom Visualization/" + this.name;
-        //Create Directory if it doesn't exist
-        if (!Directory.Exists(directoryPath))
+
+        timeLine = LoadList(this.name);
+        
+        if (!Directory.Exists(directoryPath)) //Create Directory if it doesn't exist
         {
             Directory.CreateDirectory(directoryPath);
         }
-        LoadAnimations();
     }
 
     void Start()
@@ -54,37 +58,93 @@ public class RecordController : MonoBehaviour
     {
         switch (recordAt)
         {
-            case RecordAt.LastClip:
+            case RecordAt.LastClip: //add
                 RecordAtLastClip();
-                    break;
-            case RecordAt.ClipIndex:
+                break;
+
+            case RecordAt.ClipIndex://modify
                 RecordAtClipIndex();
-                    break;
+                break;
+
+            case RecordAt.Time:     //insert
+                RecordAtTime();
+                break;
         }
     }
 
     private void RecordAtLastClip()
     {
-        int clipName = anim.GetClipCount() + 1; //Assign index to last index recorded + 1
-        AddClip(clipName);
-        EnableRecording();
+        AnimationClip animationClip = AddClipAsset(timeLine.Count); //add clip to assets and return it
+        EnableRecording(animationClip);                             //give clip to record on
+        timeLine.Add(GetAnimationsLenght());                        //add animiation starting time
     }
 
     private void RecordAtClipIndex()
     {
-        AddClip(ClipIndex);
-        EnableRecording();
+        AnimationClip animationClip = AddClipAsset(clipIndex);      //add clip to assets and return it
+        EnableRecording(animationClip);                             //give clip to record on
     }
 
-    private void LoadAnimations()
+    private void RecordAtTime()
     {
-        int i = 1;
-        while (File.Exists(GetClipPath(i)))
+        AnimationClip animationClip = AddClipAtTime();              //add clip to assets and return it + shift animation names and timeLine
+        EnableRecording(animationClip);                             //give clip to record on
+    }
+
+    private float GetAnimationsLenght()
+    {
+        float animationsLenght = 0;
+        if (timeLine.Count > 0)
         {
-            Object currentAnimationClip = AssetDatabase.LoadAssetAtPath(GetClipPath(i), (typeof(Object)));
-            anim.AddClip((AnimationClip)currentAnimationClip, i.ToString());
+            AnimationClip lastAnimation = (AnimationClip)AssetDatabase.LoadAssetAtPath(GetClipPath(timeLine.Count - 1), (typeof(Object)));
+            float lastAnimationLenght = lastAnimation.length;
+            animationsLenght = timeLine[timeLine.Count - 1] + lastAnimationLenght;
+        }
+        return animationsLenght;
+    }
+
+
+    private AnimationClip AddClipAtTime()
+    {
+        int clipIndex = GetIndexAtTime();
+        if(clipIndex == timeLine.Count) //if it is the last index
+        {
+            timeLine.Add(clipTime); //write clipTime in the right spot
+            return AddClipAsset(clipIndex);
+        }
+        else
+        {
+            ShiftFromIndex(clipIndex);
+            timeLine[clipIndex] = clipTime; //write clipTime in the right spot
+            return AddClipAsset(clipIndex);
+        }
+    }
+
+    private int GetIndexAtTime()
+    {
+        if (timeLine.Count == 0 || clipTime < timeLine[0]) return 0;
+
+        if (clipTime > timeLine[timeLine.Count-1]) return timeLine.Count;
+
+        int i = 0;
+        while (clipTime > timeLine[i])
+        {
             i++;
         }
+        return i;
+    }
+
+    private void ShiftFromIndex(int clipIndex)
+    {
+        timeLine.Add(0); //add new value at last index
+        for(int i = timeLine.Count; i > (clipIndex+1); i--)
+        {
+            timeLine[i - 1] = timeLine[i - 2]; //shift timeLine right by one
+            string path = GetClipPath(i - 2);
+            string newName = (i-1).ToString() + ".anim";
+            AssetDatabase.RenameAsset(path, newName); //shift anims right by one
+        }
+        
     }
 
     private string GetClipPath(int index)
@@ -92,7 +152,7 @@ public class RecordController : MonoBehaviour
         return directoryPath + "/" + index.ToString() + ".anim";
     }
 
-    private void AddClip(int clipIndex)
+    private AnimationClip AddClipAsset(int clipIndex)
     {
         string clipName = clipIndex.ToString();
         AnimationClip animationClip = new AnimationClip();
@@ -100,14 +160,21 @@ public class RecordController : MonoBehaviour
         animationClip.legacy = true;
         //add clip in assets
         AssetDatabase.CreateAsset(animationClip, directoryPath + "/" + animationClip.name + ".anim");
-        //add clip in recorder
-        recordScript.clip = animationClip;
-        //add clip in Animation component
-        anim.AddClip(animationClip, clipName);
+        return animationClip;
     }
 
-    private void EnableRecording()
+    private void EnableRecording(AnimationClip animationClip)
     {
+        //add clip in recorder
+        recordScript.clip = animationClip;
+        //enable record
         recordScript.enabled = true;
     }
+
+    private void OnDisable()
+    {
+        //Note that if in the future we want to make multiple recordings at once, we should save to the list and reload it after each recorded animation
+        SaveList(timeLine, this.name);
+    }
+
 }
