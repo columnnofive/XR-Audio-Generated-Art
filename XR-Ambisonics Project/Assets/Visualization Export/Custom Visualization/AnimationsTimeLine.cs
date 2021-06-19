@@ -74,11 +74,23 @@ public class AnimationsTimeLine : SaveLoadList
     {
         directoryPath = "Assets/Visualization Export/Custom Visualization/" + this.name;
         timeLine = LoadList(this.name);
+        RemoveScaleProperty();
     }
     
     private void Update() //enables to manually modify values from the Inspector
     {
         RefreshList();
+    }
+
+    //Remove scale property from animations
+    //this happens because the animations recorder records everything, but the size should be handled later by the LineInstance
+    private void RemoveScaleProperty()
+    {
+        for(int i = 0; i < timeLine.Count; i++)
+        {
+            AnimationClip anim = (AnimationClip)AssetDatabase.LoadAssetAtPath(GetClipPath(i), (typeof(Object)));
+            anim.SetCurve("", typeof(Transform), "m_LocalScale", null);
+        }
     }
 
     private void RefreshList()

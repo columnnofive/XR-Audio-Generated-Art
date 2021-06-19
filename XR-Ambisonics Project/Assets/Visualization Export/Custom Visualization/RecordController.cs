@@ -8,6 +8,7 @@ using System.IO;
 public class RecordController : SaveLoadList
 {
     private Record recordScript;
+    public AudioSource audioSource;
     string directoryPath;
 
     public enum RecordAt
@@ -75,19 +76,22 @@ public class RecordController : SaveLoadList
     private void RecordAtLastClip()
     {
         AnimationClip animationClip = AddClipAsset(timeLine.Count); //add clip to assets and return it
-        EnableRecording(animationClip);                             //give clip to record on
+        audioSource.time = GetAnimationsLenght();
         timeLine.Add(GetAnimationsLenght());                        //add animiation starting time
+        EnableRecording(animationClip);                             //give clip to record on
     }
 
     private void RecordAtClipIndex()
     {
         AnimationClip animationClip = AddClipAsset(clipIndex);      //add clip to assets and return it
+        audioSource.time = timeLine[clipIndex];
         EnableRecording(animationClip);                             //give clip to record on
     }
 
     private void RecordAtTime()
     {
         AnimationClip animationClip = AddClipAtTime();              //add clip to assets and return it + shift animation names and timeLine
+        audioSource.time = clipTime;
         EnableRecording(animationClip);                             //give clip to record on
     }
 
