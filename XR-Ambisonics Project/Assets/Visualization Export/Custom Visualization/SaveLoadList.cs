@@ -3,9 +3,9 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class SaveLoadList : MonoBehaviour
+public static class SaveLoadList
 {
-    public void SaveList(List<float> timeLine, string lineName)
+    public static void SaveList(List<float> timeLine, string lineName)
     {
         string destination = Application.persistentDataPath + "/" + lineName + ".dat";
         FileStream file;
@@ -18,7 +18,7 @@ public class SaveLoadList : MonoBehaviour
         file.Close();
     }
 
-    public List<float> LoadList(string lineName)
+    public static List<float> LoadList(string lineName)
     {
         string destination = Application.persistentDataPath + "/" + lineName + ".dat";
         FileStream file;

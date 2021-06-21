@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
 [RequireComponent(typeof(Record))]
 [RequireComponent(typeof(AnimateLine))]
-public class RecordController : SaveLoadList
+[RequireComponent(typeof(AnimationsTimeLine))]
+public class RecordController : LineIO
 {
     private Record recordScript;
     public AudioSource audioSource;
-    string directoryPath;
 
     public enum RecordAt
     {
@@ -21,37 +20,31 @@ public class RecordController : SaveLoadList
     [MyBox.Separator("Recording Options")]
     public RecordAt recordAt = RecordAt.LastClip;
     
-    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.ClipIndex)] public int clipIndex = 0; //if RecordAt.ClipIndex
+    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.ClipIndex)] public int clipIndex = 0; //RecordAt.ClipIndex
 
-    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.Time)] public float clipTime = 0;     //if RecordAt.Time
+    [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.Time)] public float clipTime = 0;     //RecordAt.Time
 
     private List<float> timeLine;
 
 
-
-    private void Awake()
+    protected override void Awake()
     {
-        if(GetComponent<AnimateLine>().isActiveAndEnabled) //prevents from overriding data
-        {
-            this.enabled = false;
-            Debug.Log("RecordController has been disabled because AnimateLine is enabled");
-        }
-        recordScript = GetComponent<Record>();
+        base.Awake();
 
+        timeLine = SaveLoadList.LoadList(this.name);
+
+        recordScript = GetComponent<Record>();
         recordScript.enabled = false;
         
-        directoryPath = "Assets/Visualization Export/Custom Visualization/" + this.name;
-
-        timeLine = LoadList(this.name);
-        
-        if (!Directory.Exists(directoryPath)) //Create Directory if it doesn't exist
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
     }
 
     void Start()
     {
+        if (GetComponent<AnimateLine>().isActiveAndEnabled) //prevents from overriding data
+        {
+            this.enabled = false;
+            Debug.Log("RecordController has been disabled because AnimateLine is enabled");
+        }
         StartRecording();
     }
 
@@ -100,7 +93,7 @@ public class RecordController : SaveLoadList
         float animationsLenght = 0;
         if (timeLine.Count > 0)
         {
-            AnimationClip lastAnimation = (AnimationClip)AssetDatabase.LoadAssetAtPath(GetClipPath(timeLine.Count - 1), (typeof(Object)));
+            AnimationClip lastAnimation = (AnimationClip)AssetDatabase.LoadAssetAtPath(base.getClipPath(timeLine.Count - 1), (typeof(Object)));
             float lastAnimationLenght = lastAnimation.length;
             animationsLenght = timeLine[timeLine.Count - 1] + lastAnimationLenght;
         }
@@ -144,16 +137,11 @@ public class RecordController : SaveLoadList
         for(int i = timeLine.Count; i > (clipIndex+1); i--)
         {
             timeLine[i - 1] = timeLine[i - 2]; //shift timeLine right by one
-            string path = GetClipPath(i - 2);
+            string path = base.getClipPath(i - 2);
             string newName = (i-1).ToString() + ".anim";
             AssetDatabase.RenameAsset(path, newName); //shift anims right by one
         }
         
-    }
-
-    private string GetClipPath(int index)
-    {
-        return directoryPath + "/" + index.ToString() + ".anim";
     }
 
     private AnimationClip AddClipAsset(int clipIndex)
@@ -163,7 +151,7 @@ public class RecordController : SaveLoadList
         animationClip.name = clipName;
         animationClip.legacy = true;
         //add clip in assets
-        AssetDatabase.CreateAsset(animationClip, directoryPath + "/" + animationClip.name + ".anim");
+        AssetDatabase.CreateAsset(animationClip, base.getClipPath(clipIndex));
         return animationClip;
     }
 
@@ -178,7 +166,7 @@ public class RecordController : SaveLoadList
     private void OnDisable()
     {
         //Note that if in the future we want to make multiple recordings at once, we should save to the list and reload it after each recorded animation
-        SaveList(timeLine, this.name);
+        SaveLoadList.SaveList(timeLine, this.name); //save all changes applied on the timeLine on Disk
     }
 
 }

@@ -774,8 +774,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLine:
+  - 0
   - 5
-  deleteOption: 2
+  - 5.066667
+  deleteOption: 0
   deleteAtIndex: 1
 --- !u!114 &3123548736625134943
 MonoBehaviour:

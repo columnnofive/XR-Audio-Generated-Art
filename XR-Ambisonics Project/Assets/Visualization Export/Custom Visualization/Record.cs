@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
 using UnityEditor.Animations;
 
 public class Record : MonoBehaviour
 {
+    [HideInInspector]
     public AnimationClip clip;
 
     private GameObjectRecorder m_Recorder;

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 
 [RequireComponent(typeof(AnimationsTimeLine))]
-public class AnimateLine : SaveLoadList
+public class AnimateLine : MonoBehaviour
 {
     public enum mode
     {
@@ -21,8 +21,7 @@ public class AnimateLine : SaveLoadList
 
     private void Start()
     {
-        timeLine = LoadList(this.name);
-        //StartCoroutine(Spawn());
+        timeLine = SaveLoadList.LoadList(this.name);
     }
 
     private void Update()
@@ -43,29 +42,6 @@ public class AnimateLine : SaveLoadList
         }
     }
 
-    /*
-    IEnumerator Spawn()
-    {
-        int lastPlayedAnimation = 1;
-        while (lastPlayedAnimation <= timeLine.Count)
-        {
-            Transform temporary = (Instantiate(LineInstance, Vector3.zero, Quaternion.identity, this.transform) as GameObject).transform; //instantiate Line and save Transform so we can access LineInstance
-            temporary.name = lastPlayedAnimation.ToString();
-            LineInstance instance = temporary.GetComponent<LineInstance>(); //access LineInstance
-            instance.PlayAnimation(GetAnimation(lastPlayedAnimation), spectrumAnalyzer, Mode == mode.AmplitudeVisualizer ? 0 : 1);      //play animation from LineInstance
-            lastPlayedAnimation++;
-            if(lastPlayedAnimation == 2)
-            {
-                yield return new WaitForSeconds(timeLine[lastPlayedAnimation - 2]);
-            }
-            else
-            {
-                Debug.Log("Starting to wait: " + (timeLine[lastPlayedAnimation - 2] - timeLine[lastPlayedAnimation - 3]) + "s");
-                yield return new WaitForSeconds(timeLine[lastPlayedAnimation-2] - timeLine[lastPlayedAnimation - 3]); //-1 because vectors are funny, -1 because we just incremented the variable.
-            }
-        }
-    }
-    */
     private AnimationClip GetAnimation(int index) {
 
         string clipName = index.ToString();
@@ -74,6 +50,5 @@ public class AnimateLine : SaveLoadList
 
         return (AnimationClip)AssetDatabase.LoadAssetAtPath(clipPath, (typeof(Object)));
     }
-
 
 }

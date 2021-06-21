@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
 #if UNITY_EDITOR
 [ExecuteInEditMode]
-public class AnimationsTimeLine : SaveLoadList
+public class AnimationsTimeLine : LineIO
 {
     public List<float> timeLine;
 
@@ -32,15 +31,62 @@ public class AnimationsTimeLine : SaveLoadList
     private int deleteAtEndIndex = 0;
     */
 
-    private string directoryPath;
-
     [MyBox.ButtonMethod]
+    private string DeleteButton() //this function is called on button press from the inspector
+    {
+        return Delete();
+        
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        timeLine = SaveLoadList.LoadList(this.name);
+        RemoveScaleProperty();
+    }
+    
+    private void Update() //enables to manually modify values from the Inspector
+    {
+        RefreshList();
+    }
+
+    private void RefreshList()
+    {
+        SaveLoadList.SaveList(timeLine, this.name);
+        timeLine = SaveLoadList.LoadList(this.name);
+    }
+
+    //Remove scale property from animations
+    //The RecordController records EVERYTHING. While we want to have a preview of the line when recording,
+    //when playing the animation we want the scale to change accordingly with the Band/Amplitude visualizer.
+    //Therefore, we get rid of the scale property alltogether.
+    private void RemoveScaleProperty()
+    {
+        for (int i = 0; i < timeLine.Count; i++)
+        {
+            AnimationClip anim = (AnimationClip)AssetDatabase.LoadAssetAtPath(base.getClipPath(i), (typeof(Object)));
+            anim.SetCurve("", typeof(Transform), "m_LocalScale", null);
+        }
+    }
+
+    private void DeleteAssetAtIndex(int clipIndex)
+    {
+        //delete asset
+        AssetDatabase.DeleteAsset(getClipPath(clipIndex));
+
+        //shift other assets by one to the left
+        for (int i = clipIndex; i < timeLine.Count; i++)
+        {
+            AssetDatabase.RenameAsset(getClipPath(i + 1), i + ".anim");
+        }
+    }
+
     private string Delete()
     {
         switch (deleteOption)
         {
             case DeleteOption.ChildSafety:
-                return "Fiù... That was close...";                                          //it's just a prank bro
+                return "Fiù... That was close...";                                          //...
                 break;
 
             case DeleteOption.AtIndex:
@@ -57,63 +103,15 @@ public class AnimationsTimeLine : SaveLoadList
                 break;
             */
             case DeleteOption.Everything:
-                if (Directory.Exists(directoryPath))  Directory.Delete(directoryPath, true);//delete directory
-                Directory.CreateDirectory(directoryPath);                                   //recreate directory
-                timeLine.Clear();                                                           //remove items
+                base.ClearDirectory();                                                          //clear folder
+                timeLine.Clear();                                                               //clear list
                 RefreshList();
-                AssetDatabase.Refresh();
                 return "All animations have been deleted";
                 break;
 
             default:
-                return "You must be a magician or sum";
+                return "You must be a magician";
         }
-    }
-
-    private void Awake()
-    {
-        directoryPath = "Assets/Visualization Export/Custom Visualization/" + this.name;
-        timeLine = LoadList(this.name);
-        RemoveScaleProperty();
-    }
-    
-    private void Update() //enables to manually modify values from the Inspector
-    {
-        RefreshList();
-    }
-
-    //Remove scale property from animations
-    //this happens because the animations recorder records everything, but the size should be handled later by the LineInstance
-    private void RemoveScaleProperty()
-    {
-        for(int i = 0; i < timeLine.Count; i++)
-        {
-            AnimationClip anim = (AnimationClip)AssetDatabase.LoadAssetAtPath(GetClipPath(i), (typeof(Object)));
-            anim.SetCurve("", typeof(Transform), "m_LocalScale", null);
-        }
-    }
-
-    private void RefreshList()
-    {
-        SaveList(timeLine, this.name);
-        timeLine = LoadList(this.name);
-    }
-
-    private void DeleteAssetAtIndex(int clipIndex)
-    {
-        //delete asset
-        AssetDatabase.DeleteAsset(GetClipPath(clipIndex));
-
-        //shift other assets by one to the left
-        for (int i = clipIndex; i < timeLine.Count; i++)
-        {
-            AssetDatabase.RenameAsset(GetClipPath(i+1), i + ".anim");
-        }
-    }
-
-    private string GetClipPath(int index)
-    {
-        return directoryPath + "/" + index.ToString() + ".anim";
     }
 
 }
