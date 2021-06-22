@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
@@ -7,7 +5,7 @@ using System.IO;
 public class LineIO : MonoBehaviour
 {
     private string directoryPath;
-    private string basePath = "Assets/Visualization Export/Custom Visualization/"; //change this if you want to store the lines somewhere else
+    private string basePath = "Assets/Visualization Export/Custom Visualization/Lines/"; //change this if you want to store the lines somewhere else
 
     protected virtual void Awake()
     {

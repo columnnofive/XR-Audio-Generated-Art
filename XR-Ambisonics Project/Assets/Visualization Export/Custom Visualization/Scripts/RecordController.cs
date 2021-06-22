@@ -5,6 +5,7 @@ using UnityEditor;
 [RequireComponent(typeof(Record))]
 [RequireComponent(typeof(AnimateLine))]
 [RequireComponent(typeof(AnimationsTimeLine))]
+[RequireComponent(typeof(FollowMouse))]
 public class RecordController : LineIO
 {
     private Record recordScript;
@@ -25,7 +26,7 @@ public class RecordController : LineIO
     [MyBox.ConditionalField(nameof(recordAt), false, RecordAt.Time)] public float clipTime = 0;     //RecordAt.Time
 
     private List<float> timeLine;
-
+    private bool isRecording = false;
 
     protected override void Awake()
     {
@@ -40,12 +41,31 @@ public class RecordController : LineIO
 
     void Start()
     {
+        audioSource.Pause();
         if (GetComponent<AnimateLine>().isActiveAndEnabled) //prevents from overriding data
         {
+            audioSource.Play();
             this.enabled = false;
             Debug.Log("RecordController has been disabled because AnimateLine is enabled");
         }
-        StartRecording();
+    }
+
+    private void Update()
+    {
+        if (!isRecording)
+            audioSource.Pause();
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!isRecording)
+            {
+                isRecording = true;
+                StartRecording();
+            }
+            else //Stop game execution, look OnDisable() for more infomations
+            {
+                EditorApplication.ExecuteMenuItem("Edit/Play");
+            }
+        }
     }
 
     private void StartRecording()
@@ -70,6 +90,7 @@ public class RecordController : LineIO
     {
         AnimationClip animationClip = AddClipAsset(timeLine.Count); //add clip to assets and return it
         audioSource.time = GetAnimationsLenght();
+        audioSource.Play();
         timeLine.Add(GetAnimationsLenght());                        //add animiation starting time
         EnableRecording(animationClip);                             //give clip to record on
     }
@@ -78,6 +99,7 @@ public class RecordController : LineIO
     {
         AnimationClip animationClip = AddClipAsset(clipIndex);      //add clip to assets and return it
         audioSource.time = timeLine[clipIndex];
+        audioSource.Play();
         EnableRecording(animationClip);                             //give clip to record on
     }
 
@@ -85,6 +107,7 @@ public class RecordController : LineIO
     {
         AnimationClip animationClip = AddClipAtTime();              //add clip to assets and return it + shift animation names and timeLine
         audioSource.time = clipTime;
+        audioSource.Play();
         EnableRecording(animationClip);                             //give clip to record on
     }
 

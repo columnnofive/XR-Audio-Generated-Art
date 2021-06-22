@@ -7,11 +7,19 @@ public static class SaveLoadList
 {
     public static void SaveList(List<float> timeLine, string lineName)
     {
-        string destination = Application.persistentDataPath + "/" + lineName + ".dat";
+        //Move to folder destination
+        string destination = "Assets/Visualization Export/Custom Visualization/Lines/IO/";
+        if (!Directory.Exists(destination)) //Create Directory if it doesn't exist
+            Directory.CreateDirectory(destination);
+
+        //Move to file path
+        destination = "Assets/Visualization Export/Custom Visualization/Lines/IO/" + lineName + ".dat";
+        
+
         FileStream file;
 
         if (File.Exists(destination)) file = File.OpenWrite(destination);
-        else file = File.Create(destination);
+        else file = File.Create(destination); //Create File if it doesn't exist
 
         BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, timeLine);
@@ -20,7 +28,14 @@ public static class SaveLoadList
 
     public static List<float> LoadList(string lineName)
     {
-        string destination = Application.persistentDataPath + "/" + lineName + ".dat";
+        //Move to folder destination
+        string destination = "Assets/Visualization Export/Custom Visualization/Lines/IO/";
+        if (!Directory.Exists(destination)) //Create Directory if it doesn't exist
+            Directory.CreateDirectory(destination);
+
+        //Move to file path
+        destination = "Assets/Visualization Export/Custom Visualization/Lines/IO/" + lineName + ".dat";
+
         FileStream file;
 
         if (File.Exists(destination)) file = File.OpenRead(destination);
