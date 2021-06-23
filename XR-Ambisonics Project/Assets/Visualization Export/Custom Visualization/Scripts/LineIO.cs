@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class LineIO : MonoBehaviour
 {
     private string directoryPath;
-    private string basePath = "Assets/Visualization Export/Custom Visualization/Lines/"; //change this if you want to store the lines somewhere else
+    private string basePath = "Assets/Resources/"; //change this if you want to store the lines somewhere else
 
     protected virtual void Awake()
     {
-        directoryPath = basePath + this.name;
+        directoryPath = basePath + SceneManager.GetActiveScene().name + "/" + this.name;
 
         if (!Directory.Exists(directoryPath)) //Create Directory if it doesn't exist
         {

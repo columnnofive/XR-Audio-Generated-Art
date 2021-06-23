@@ -47,12 +47,19 @@ public class AnimationsTimeLine : LineIO
     
     private void Update() //enables to manually modify values from the Inspector
     {
-        RefreshList();
+        if(!Application.isPlaying)
+            RefreshList();
     }
 
     private void RefreshList()
     {
         SaveLoadList.SaveList(timeLine, this.name);
+        timeLine = SaveLoadList.LoadList(this.name);
+    }
+
+    private void RefreshListNotSafe()//basically you need this if the timeLine is going to be erased completely
+    {
+        SaveLoadList.SaveListNotSafe(timeLine, this.name);
         timeLine = SaveLoadList.LoadList(this.name);
     }
 
@@ -62,10 +69,13 @@ public class AnimationsTimeLine : LineIO
     //Therefore, we get rid of the scale property alltogether.
     private void RemoveScaleProperty()
     {
-        for (int i = 0; i < timeLine.Count; i++)
+        if(timeLine.Count > 0)
         {
-            AnimationClip anim = (AnimationClip)AssetDatabase.LoadAssetAtPath(base.getClipPath(i), (typeof(Object)));
-            anim.SetCurve("", typeof(Transform), "m_LocalScale", null);
+            for (int i = 0; i < timeLine.Count; i++)
+            {
+                AnimationClip anim = (AnimationClip)AssetDatabase.LoadAssetAtPath(base.getClipPath(i), (typeof(Object)));
+                anim.SetCurve("", typeof(Transform), "m_LocalScale", null);
+            }
         }
     }
 
@@ -87,15 +97,21 @@ public class AnimationsTimeLine : LineIO
         {
             case DeleteOption.ChildSafety:
                 return "Fiù... That was close...";                                          //...
-                break;
 
             case DeleteOption.AtIndex:
-                timeLine.RemoveAt(deleteAtIndex);                                           //remove from timeline
-                RefreshList();                                                              //need to refresh to have correct timeLine.Count in next line
+                if(deleteAtIndex == 0)
+                {
+                    timeLine.RemoveAt(deleteAtIndex);                                           //remove from timeline
+                    RefreshListNotSafe();                                                       //need to refresh to have correct timeLine.Count in next line
+                }
+                else
+                {
+                    timeLine.RemoveAt(deleteAtIndex);                                           //remove from timeline
+                    RefreshList();                                                              //need to refresh to have correct timeLine.Count in next line
+                }
                 DeleteAssetAtIndex(deleteAtIndex);                                          //remove from assets
                 AssetDatabase.Refresh();
                 return "Animation " + deleteAtIndex + " has been deleted";
-                break;
 
             /*case DeleteOption.Range:
 
@@ -105,9 +121,8 @@ public class AnimationsTimeLine : LineIO
             case DeleteOption.Everything:
                 base.ClearDirectory();                                                          //clear folder
                 timeLine.Clear();                                                               //clear list
-                RefreshList();
+                RefreshListNotSafe();
                 return "All animations have been deleted";
-                break;
 
             default:
                 return "You must be a magician";

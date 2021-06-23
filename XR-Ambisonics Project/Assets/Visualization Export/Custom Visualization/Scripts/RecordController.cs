@@ -27,6 +27,7 @@ public class RecordController : LineIO
 
     private List<float> timeLine;
     private bool isRecording = false;
+    private bool isPlayingAudio = false;
 
     protected override void Awake()
     {
@@ -52,7 +53,7 @@ public class RecordController : LineIO
 
     private void Update()
     {
-        if (!isRecording)
+        if (!isRecording && !isPlayingAudio)
             audioSource.Pause();
         if (Input.GetMouseButtonDown(0))
         {
@@ -65,6 +66,40 @@ public class RecordController : LineIO
             {
                 EditorApplication.ExecuteMenuItem("Edit/Play");
             }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (!isPlayingAudio)
+            {
+                isPlayingAudio = true;
+                StartAudioSample();
+            }
+            else
+            {
+                isPlayingAudio = false;
+                audioSource.Pause();
+            }
+        }
+    }
+
+    private void StartAudioSample()
+    {
+        switch (recordAt)
+        {
+            case RecordAt.LastClip:
+                audioSource.time = GetAnimationsLenght();
+                audioSource.Play();
+                break;
+
+            case RecordAt.ClipIndex:
+                audioSource.time = timeLine[clipIndex];
+                audioSource.Play();
+                break;
+
+            case RecordAt.Time:
+                audioSource.time = clipTime;
+                audioSource.Play();
+                break;
         }
     }
 
