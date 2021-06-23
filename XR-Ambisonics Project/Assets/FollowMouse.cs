@@ -1,2 +1,0 @@
-        if (ConstrainXValue != 0)
-        {
