@@ -48,13 +48,26 @@ public class Animate_Record : MonoBehaviour
         if (audioSource.clip)
         {
             if (clipTimeProportion != previousClipTimeProportion) //Clip time was set manually
+            {
                 audioSource.time = (audioSource.clip.length - 1) * clipTimeProportion;
+                if (gameObject.GetComponent<AnimateLine>() != null)
+                    UpdateAnimations();
+            }
             else //set clipTime to follow audioSource.time
                 clipTimeProportion = audioSource.time / (audioSource.clip.length - 1);
 
             currentClipTime = audioSource.time; //Debug purposes only
 
             previousClipTimeProportion = clipTimeProportion;
+        }
+    }
+
+    private void UpdateAnimations()
+    {
+        GameObject[] lines = GameObject.FindGameObjectsWithTag("AnimatedLine");
+        foreach(GameObject line in lines)
+        {
+            line.GetComponent<AnimateLine>().TimeChangedManually();
         }
     }
 

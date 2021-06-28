@@ -9,6 +9,7 @@ using UnityEditor;
 public class RecordController : LineIO
 {
     private Record recordScript;
+    [HideInInspector]
     public AudioSource audioSource;
 
     public enum RecordAt

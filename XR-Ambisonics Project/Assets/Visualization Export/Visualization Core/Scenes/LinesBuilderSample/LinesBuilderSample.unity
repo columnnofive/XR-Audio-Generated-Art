@@ -689,6 +689,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6592060318531252025, guid: fdcbe46185b495d4a9d8b07f0efb5b94,
+        type: 3}
+      propertyPath: m_TagString
+      value: AnimatedLine
+      objectReference: {fileID: 0}
     - target: {fileID: 6592060318531252028, guid: fdcbe46185b495d4a9d8b07f0efb5b94,
         type: 3}
       propertyPath: clipTime
@@ -747,7 +752,7 @@ PrefabInstance:
         type: 3}
       propertyPath: visualizationController.analyzer
       value: 
-      objectReference: {fileID: 204407358}
+      objectReference: {fileID: 0}
     - target: {fileID: 6425441806515567244, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
       propertyPath: choice
@@ -776,18 +781,18 @@ PrefabInstance:
     - target: {fileID: 6425441806515567282, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
       propertyPath: clipTime
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6425441806515567282, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
       propertyPath: recordAt
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6425441806515567282, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 204407359}
+      objectReference: {fileID: 0}
     - target: {fileID: 6425441806515567283, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
       propertyPath: deleteOption
@@ -867,6 +872,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6425441806515567286, guid: 0da126e970c640f40ba66eafaf680272,
+        type: 3}
+      propertyPath: m_TagString
+      value: AnimatedLine
       objectReference: {fileID: 0}
     - target: {fileID: 6425441806515567287, guid: 0da126e970c640f40ba66eafaf680272,
         type: 3}
