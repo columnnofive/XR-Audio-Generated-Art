@@ -25,7 +25,6 @@ public class Animate : TimeLineBase
         List<AnimationClip> animationClips = new List<AnimationClip>();
         foreach (Clip c in timeLine)
         {
-            Debug.Log(c.name);
             animationClips.Add(GetAnimationClip(c.name));
         }
         ab.animationClipsBuild = animationClips;
