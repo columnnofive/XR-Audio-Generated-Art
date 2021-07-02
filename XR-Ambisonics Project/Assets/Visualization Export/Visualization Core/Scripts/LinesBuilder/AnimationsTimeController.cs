@@ -1,32 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioTimeController : MonoBehaviour
+public class AnimationsTimeController : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     [Range(0, 1), SerializeField]
     private float clipTimeProportion = 0f;
-    
+
     private float previousClipTimeProportion = 0f;
 
     [ReadOnlyField, SerializeField]
     private float currentClipTime = 0f;
 
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField]
+    private GameObject animatedObjectsParent;
 
     private void updateClipTime()
     {
         if (audioSource.clip)
         {
             if (clipTimeProportion != previousClipTimeProportion) //Clip time was set manually
+            {
                 audioSource.time = (audioSource.clip.length - 1) * clipTimeProportion;
-                
+                if (animatedObjectsParent != null)
+                    UpdateAnimations();
+            }
+
             else //set clipTime to follow audioSource.time
                 clipTimeProportion = audioSource.time / (audioSource.clip.length - 1);
 
@@ -35,9 +34,17 @@ public class AudioTimeController : MonoBehaviour
             previousClipTimeProportion = clipTimeProportion;
         }
     }
-    
+
     private void Update()
     {
         updateClipTime();
+    }
+
+    private void UpdateAnimations()
+    {
+        foreach (Animate animatedObjectScript in animatedObjectsParent.GetComponentsInChildren<Animate>())
+        {
+            animatedObjectScript.TimeChangedManually();
+        }
     }
 }
