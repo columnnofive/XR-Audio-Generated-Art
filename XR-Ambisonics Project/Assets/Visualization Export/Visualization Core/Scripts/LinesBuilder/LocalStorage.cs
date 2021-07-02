@@ -10,7 +10,14 @@ public class LocalStorage : MonoBehaviour
 
     protected virtual void Awake()
     {
-        basePath = "Assets/Resources/" + SceneManager.GetActiveScene().name; //change this if you want to store the lines somewhere else
+        basePath = "Assets/Visualization Export/Custom Visualization/Saves/"; //change this if you want to store the lines somewhere else
+
+        if (!Directory.Exists(basePath)) //Create Directory if it doesn't exist
+        {
+            Directory.CreateDirectory(basePath);
+        }
+
+        basePath += SceneManager.GetActiveScene().name;
 
         if (!Directory.Exists(basePath)) //Create Directory if it doesn't exist
         {
