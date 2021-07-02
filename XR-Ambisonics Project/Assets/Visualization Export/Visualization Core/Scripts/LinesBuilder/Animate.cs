@@ -12,6 +12,25 @@ public class Animate : TimeLineBase
     private int mode = 0; // 0 = amplitude visualizer, 1 = band visualizer
     private int animationIndex = 0;
 
+    [MyBox.ButtonMethod]
+    private void PrepareForBuild()
+    {
+        base.Awake();
+        gameObject.AddComponent<AnimateBuild>();
+        AnimateBuild ab = GetComponent<AnimateBuild>();
+        ab.objectInstance = objectInstance;
+        ab.audioSource = audioSource;
+        ab.spectrumAnalyzer = spectrumAnalyzer;
+        ab.timeLineBuild = LoadTimesList();
+        List<AnimationClip> animationClips = new List<AnimationClip>();
+        foreach (Clip c in timeLine)
+        {
+            Debug.Log(c.name);
+            animationClips.Add(GetAnimationClip(c.name));
+        }
+        ab.animationClipsBuild = animationClips;
+    }
+
     protected override void Awake()
     {
         base.Awake();

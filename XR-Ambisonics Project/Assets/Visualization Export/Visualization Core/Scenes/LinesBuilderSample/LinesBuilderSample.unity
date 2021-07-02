@@ -584,6 +584,50 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &2006715774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6520621364740398796, guid: 4ee11e5589b58294082a15ddd6ecb809,
+    type: 3}
+  m_PrefabInstance: {fileID: 8152911240193495959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2006715775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006715774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd0609f40ce81240b98fddba5eabd81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInstance: {fileID: 7034216123217368695, guid: 225ee72a0a09ac54492135717392f363,
+    type: 3}
+  audioSource: {fileID: 204407359}
+  spectrumAnalyzer: {fileID: 204407358}
+  timeLineBuild:
+  - 0.03
+  - 4.4300003
+  - 5.3300004
+  - 5.3300004
+  - 5.3300004
+  - 5.3300004
+  - 16.03
+  - 16.03
+  - 16.03
+  - 16.03
+  animationClipsBuild:
+  - {fileID: 7400000, guid: ec9c188dc46ac614b92aede14a82887c, type: 2}
+  - {fileID: 7400000, guid: b1777d357c15dab45a0df1db1483136e, type: 2}
+  - {fileID: 7400000, guid: 7664a84af117046488572a1313a3accf, type: 2}
+  - {fileID: 7400000, guid: 72eaac139f3502547b952ec1fb266127, type: 2}
+  - {fileID: 7400000, guid: c72f5f8d11195f54199e7dc18bd19ece, type: 2}
+  - {fileID: 7400000, guid: 838ae0259e2953949b00bd91b883f7ac, type: 2}
+  - {fileID: 7400000, guid: 82f8e667ec008f046b457b6d76e3029b, type: 2}
+  - {fileID: 7400000, guid: 395cfc6706d8f404b96abd5046597e0b, type: 2}
+  - {fileID: 7400000, guid: cec188ed52732674096a4ce1eeca739d, type: 2}
+  - {fileID: 7400000, guid: db521386edf149b43b248ace9373befe, type: 2}
 --- !u!1001 &2530299749534452258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -795,6 +839,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8171953312750538300, guid: 4ee11e5589b58294082a15ddd6ecb809,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8171953312750538300, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 204407359}
@@ -806,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
         type: 3}
@@ -818,6 +867,66 @@ PrefabInstance:
       propertyPath: spectrumAnalyzer
       value: 
       objectReference: {fileID: 204407358}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: timeLine.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[0]
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[1]
+      value: 4.4300003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[2]
+      value: 5.3300004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[3]
+      value: 5.3300004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[4]
+      value: 5.3300004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[5]
+      value: 5.3300004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[6]
+      value: 16.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[7]
+      value: 16.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[8]
+      value: 16.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520621364740398793, guid: 4ee11e5589b58294082a15ddd6ecb809,
+        type: 3}
+      propertyPath: animationsStartTimes.Array.data[9]
+      value: 16.03
+      objectReference: {fileID: 0}
     - target: {fileID: 6520621364740398794, guid: 4ee11e5589b58294082a15ddd6ecb809,
         type: 3}
       propertyPath: m_Enabled
