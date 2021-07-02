@@ -13,10 +13,6 @@ public class FollowMouse : MonoBehaviour
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         InitialPosition = transform.position + new Vector3(0f, offsetY, 0f);
-        if (GetComponent<RecordController>().isActiveAndEnabled)
-            this.enabled = true;
-        else
-            this.enabled = false;
     }
 
     private void Update()
