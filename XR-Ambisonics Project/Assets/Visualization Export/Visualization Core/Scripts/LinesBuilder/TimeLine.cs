@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -127,3 +128,4 @@ public class TimeLine : TimeLineBase
     }
 
 }
+#endif

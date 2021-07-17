@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -80,3 +81,4 @@ public class SaveLoad : LocalStorage
         return timesList;
     }
 }
+#endif

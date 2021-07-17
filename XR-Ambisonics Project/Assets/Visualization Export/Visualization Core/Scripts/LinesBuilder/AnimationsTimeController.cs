@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 
 public class AnimationsTimeController : MonoBehaviour
@@ -48,3 +49,4 @@ public class AnimationsTimeController : MonoBehaviour
         }
     }
 }
+#endif

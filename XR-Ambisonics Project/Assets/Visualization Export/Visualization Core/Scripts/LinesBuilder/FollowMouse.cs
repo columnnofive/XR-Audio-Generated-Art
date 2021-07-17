@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 
 public class FollowMouse : MonoBehaviour
@@ -46,3 +47,4 @@ public class FollowMouse : MonoBehaviour
             ConstrainYValue = 0;
     }
 }
+#endif

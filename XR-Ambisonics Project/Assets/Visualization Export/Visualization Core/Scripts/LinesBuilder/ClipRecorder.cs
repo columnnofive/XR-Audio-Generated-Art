@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor.Animations;
 
@@ -157,3 +158,4 @@ public class ClipRecorder : TimeLineBase
         }
     }
 }
+#endif
