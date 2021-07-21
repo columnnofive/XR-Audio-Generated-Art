@@ -33,6 +33,24 @@ public class LineInstance : MonoBehaviour
         animationStarted = true;
     }
 
+    public void RemoveUnnecessaryComponents()
+    {
+        if (GetComponent<AnimateBuild>())
+            Destroy(GetComponent<AnimateBuild>());
+
+        if (GetComponent<Animate>())
+            Destroy(GetComponent<Animate>());
+
+        if (GetComponent<ClipRecorder>())
+            Destroy(GetComponent<ClipRecorder>());
+
+        if (GetComponent<TimeLine>())
+            Destroy(GetComponent<TimeLine>());
+
+        if (GetComponent<AnimationsTimeController>())
+            Destroy(GetComponent<AnimationsTimeController>());
+    }
+
     private void Update()
     {
         if(animationStarted && !anim.isPlaying)

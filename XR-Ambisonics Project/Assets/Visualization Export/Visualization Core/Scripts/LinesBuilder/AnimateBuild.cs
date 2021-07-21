@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AnimateBuild : MonoBehaviour
 {
-    public Object objectInstance;
     public AudioSource audioSource;
     public SpectrumAnalyzer spectrumAnalyzer;
 
@@ -36,8 +35,10 @@ public class AnimateBuild : MonoBehaviour
     {
         if (audioSource.time > timeLineBuild[animationIndex])
         {
-            Transform temporary = (Instantiate(objectInstance, Vector3.zero, Quaternion.identity, this.transform) as GameObject).transform; //instantiate Line and save Transform so we can access LineInstance
+            GameObject temporary = Instantiate(this.gameObject); //instantiate Line and save Transform so we can access LineInstance
             temporary.name = animationIndex.ToString();
+            temporary.AddComponent<LineInstance>();
+            temporary.GetComponent<LineInstance>().RemoveUnnecessaryComponents();
             LineInstance LineInstance = temporary.GetComponent<LineInstance>(); //access LineInstance
             LineInstance.PlayAnimation(animationClipsBuild[animationIndex], spectrumAnalyzer, mode);      //play animation from LineInstance
             animationIndex++;

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6520621364740398799}
   - component: {fileID: 4485559255414419480}
   - component: {fileID: 6520621364740398798}
-  - component: {fileID: -8171953312750538300}
   - component: {fileID: 6520621364740398793}
   - component: {fileID: 6520621364740398794}
   - component: {fileID: 6520621364740398795}
@@ -264,22 +263,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &-8171953312750538300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6520621364740398796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413c6a7a5249ba545bddafb4bda5824d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  clipTimeProportion: 0
-  currentClipTime: 0
-  animatedObjectsParent: {fileID: 0}
 --- !u!114 &6520621364740398793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,8 +277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLine: []
   animationsStartTimes: []
-  objectInstance: {fileID: 7034216123217368695, guid: 225ee72a0a09ac54492135717392f363,
-    type: 3}
   audioSource: {fileID: 0}
   spectrumAnalyzer: {fileID: 0}
 --- !u!114 &6520621364740398794
@@ -336,8 +317,12 @@ MonoBehaviour:
   index: 1
   newTime: 12
   modifyButton: 1
+  rangeStartIndex: 0
+  rangeEndIndex: 0
+  offset: 0
+  offsetButton: 1
   getNameAtIndex: 1
   nameInAssets: 
-  clipToCopy: {fileID: 7400000, guid: a4ae890c87b688e46ad3d4a7431ce824, type: 2}
+  clipToCopy: {fileID: 0}
   copyToTime: 5
   copyButton: 1

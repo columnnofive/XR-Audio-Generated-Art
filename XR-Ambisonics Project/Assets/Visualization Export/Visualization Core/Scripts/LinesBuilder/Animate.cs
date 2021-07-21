@@ -6,12 +6,12 @@ using UnityEditor;
 
 public class Animate : TimeLineBase
 {
-    public Object objectInstance;
     public AudioSource audioSource;
     public SpectrumAnalyzer spectrumAnalyzer;
 
     private int mode = 0; // 0 = amplitude visualizer, 1 = band visualizer
     private int animationIndex = 0;
+    private GameObject hierarchyParent; //used to see children in the hierarchy
 
     [MyBox.ButtonMethod]
     private void PrepareForBuild()
@@ -19,7 +19,6 @@ public class Animate : TimeLineBase
         base.Awake();
         gameObject.AddComponent<AnimateBuild>();
         AnimateBuild ab = GetComponent<AnimateBuild>();
-        ab.objectInstance = objectInstance;
         ab.audioSource = audioSource;
         ab.spectrumAnalyzer = spectrumAnalyzer;
         ab.timeLineBuild = LoadTimesList();
@@ -48,7 +47,6 @@ public class Animate : TimeLineBase
             if (gameObject.GetComponent<LineBandVisualizer>().isActiveAndEnabled)
                 mode = 1;
         }
-
     }
 
     private void Start()
@@ -58,18 +56,28 @@ public class Animate : TimeLineBase
             Debug.Log("You are trying to animate a line that has no values. Maybe you meant to record?");
             EditorApplication.ExecuteMenuItem("Edit/Play");
         }
+
+        hierarchyParent = Instantiate(this.gameObject);
+        hierarchyParent.name = this.name + "_Debug";
+        foreach (var comp in hierarchyParent.GetComponents<Component>())
+        {
+            if (!(comp is Transform))
+            {
+                Destroy(comp);
+            }
+        }
     }
 
     private void Update()
     {
         if (audioSource.time > timeLine[animationIndex].time)
         {
-            Transform temporary = (Instantiate(objectInstance, Vector3.zero, Quaternion.identity, this.transform) as GameObject).transform; //instantiate Line and save Transform so we can access LineInstance
+            GameObject temporary = Instantiate(this.gameObject, hierarchyParent.transform); //instantiate Line and save Transform so we can access LineInstance
             temporary.name = animationIndex.ToString();
+            temporary.AddComponent<LineInstance>();
+            temporary.GetComponent<LineInstance>().RemoveUnnecessaryComponents();
             LineInstance LineInstance = temporary.GetComponent<LineInstance>(); //access LineInstance
             LineInstance.PlayAnimation(GetAnimationClip(timeLine[animationIndex].name), spectrumAnalyzer, mode);      //play animation from LineInstance
-            //Debug.Log("Playing animation index: " + (animationIndex));
-            //Debug.Log(audioSource.time.ToString());
             animationIndex++;
             if ((animationIndex) >= timeLine.Count)
             {
