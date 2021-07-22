@@ -28,6 +28,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
+  m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
@@ -129,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -162,6 +164,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6199011750812218960}
+        m_TargetAssemblyTypeName: 
         m_MethodName: setShowCameraView
         m_Mode: 0
         m_Arguments:
@@ -234,6 +237,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -308,6 +312,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.58431375}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -679,6 +684,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6199011749836216005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,6 +858,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
+  m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
@@ -923,6 +930,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1033,6 +1041,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1228,6 +1237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1243,6 +1257,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -1255,16 +1274,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3917793464548530648, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
@@ -1293,37 +1302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
-      propertyPath: geoAudioObjMappings.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAnnotationObjMappings.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoLineObjMappings.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: sonicMap.audio.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
       propertyPath: mapParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAudioParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAnnotationParent
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
@@ -1338,7 +1317,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
+      propertyPath: geoAudioParent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAnnotationParent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: audioVisualizerPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
       propertyPath: sonicMap.origin.latitude
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: sonicMap.audio.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
@@ -1348,7 +1347,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
-      propertyPath: audioVisualizerPrefab
+      propertyPath: geoLineObjMappings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAudioObjMappings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: sonicMap.audio.Array.data[0].name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: sonicMap.audio.Array.data[0].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAnnotationObjMappings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAudioObjMappings.Array.data[0].controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAudioObjMappings.Array.data[0].gameObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAudioObjMappings.Array.data[0].visualizer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: geoAudioObjMappings.Array.data[0].audioSource
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
@@ -1361,40 +1400,15 @@ PrefabInstance:
       propertyPath: sonicMap.audio.Array.data[0].location.longitude
       value: -94.5035
       objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAudioObjMappings.Array.data[0].gameObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAudioObjMappings.Array.data[0].controller
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAudioObjMappings.Array.data[0].audioSource
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: geoAudioObjMappings.Array.data[0].visualizer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: sonicMap.audio.Array.data[0].name
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793465421484197, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: sonicMap.audio.Array.data[0].type
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3917793466167342693, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917793466167342694, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
+      propertyPath: _tileProvider
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3917793466167342694, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
@@ -1403,18 +1417,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917793466167342694, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
-      propertyPath: _options.locationOptions.latitudeLongitude
-      value: 46.474533, -94.5035
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917793466167342694, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
       propertyPath: _previewOptions.isPreviewEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3917793466167342694, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
-      propertyPath: _tileProvider
-      value: 
+      propertyPath: _options.locationOptions.latitudeLongitude
+      value: 46.474533, -94.5035
       objectReference: {fileID: 0}
     - target: {fileID: 3917793466167342695, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
@@ -1443,6 +1452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8747713893180590135, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
+      propertyPath: m_Name
+      value: Map Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747713893180590135, guid: 5980476a06929814d9a85d48e464ffa0,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1450,11 +1464,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 8747713893180590135, guid: 5980476a06929814d9a85d48e464ffa0,
-        type: 3}
-      propertyPath: m_Name
-      value: Map Camera
       objectReference: {fileID: 0}
     - target: {fileID: 8747713893967911943, guid: 5980476a06929814d9a85d48e464ffa0,
         type: 3}
