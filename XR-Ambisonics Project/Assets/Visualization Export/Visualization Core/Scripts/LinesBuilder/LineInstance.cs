@@ -35,10 +35,10 @@ public class LineInstance : MonoBehaviour
 
     public void RemoveUnnecessaryComponents()
     {
-#if UNITY_EDITOR
         if (GetComponent<AnimateBuild>())
             Destroy(GetComponent<AnimateBuild>());
 
+#if UNITY_EDITOR
         if (GetComponent<Animate>())
             Destroy(GetComponent<Animate>());
 
