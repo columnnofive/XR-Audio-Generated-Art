@@ -35,6 +35,7 @@ public class LineInstance : MonoBehaviour
 
     public void RemoveUnnecessaryComponents()
     {
+#if UNITY_EDITOR
         if (GetComponent<AnimateBuild>())
             Destroy(GetComponent<AnimateBuild>());
 
@@ -49,6 +50,7 @@ public class LineInstance : MonoBehaviour
 
         if (GetComponent<AnimationsTimeController>())
             Destroy(GetComponent<AnimationsTimeController>());
+#endif
     }
 
     private void Update()
