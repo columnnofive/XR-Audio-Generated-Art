@@ -81,14 +81,14 @@ public class ClipRecorder : TimeLineBase
 
     public void StartRecordingAtTime(float time)
     {
-        PlayAudio();
+        PlayAudio(time); //we need to give time in this case because OvverideClipAtIndex deletes the index from which we read the time.
         AnimationClip animationClip = Insert(time);     //add clip to assets and get it
         clip = animationClip;                           //Start Recording (watch LateUpdate for more info)
     }
 
     public void OverrideClipAtIndex(int index)
     {
-        float clipStartTime = timeLine[index].time;     
+        float clipStartTime = timeLine[index].time;
         RemoveAt(index);                                //delete clip
         StartRecordingAtTime(clipStartTime);            //record new clip
     }
@@ -133,6 +133,14 @@ public class ClipRecorder : TimeLineBase
                 time = clipTime;
                 break;
         }
+        audioSource.time = time;
+        audioSource.Play();
+        isPlayingAudio = true;
+    }
+
+    //OverrideClip At Index needs to use this
+    private void PlayAudio(float time)
+    {
         audioSource.time = time;
         audioSource.Play();
         isPlayingAudio = true;
