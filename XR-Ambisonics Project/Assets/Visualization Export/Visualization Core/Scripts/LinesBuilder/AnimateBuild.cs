@@ -35,7 +35,7 @@ public class AnimateBuild : MonoBehaviour
     {
         if (audioSource.time > timeLineBuild[animationIndex])
         {
-            GameObject temporary = Instantiate(this.gameObject); //instantiate Line and save Transform so we can access LineInstance
+            GameObject temporary = Instantiate(this.gameObject, this.transform.root); //instantiate Line and save Transform so we can access LineInstance
             temporary.name = animationIndex.ToString();
             temporary.AddComponent<LineInstance>();
             temporary.GetComponent<LineInstance>().RemoveUnnecessaryComponents();
