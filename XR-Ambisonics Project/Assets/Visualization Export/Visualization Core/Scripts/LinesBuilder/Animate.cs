@@ -57,7 +57,7 @@ public class Animate : TimeLineBase
             EditorApplication.ExecuteMenuItem("Edit/Play");
         }
 
-        hierarchyParent = Instantiate(this.gameObject);
+        hierarchyParent = Instantiate(this.gameObject, this.transform.root);
         hierarchyParent.name = this.name + "_Debug";
         foreach (var comp in hierarchyParent.GetComponents<Component>())
         {
