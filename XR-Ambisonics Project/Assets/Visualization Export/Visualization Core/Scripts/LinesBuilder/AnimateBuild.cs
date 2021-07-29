@@ -29,6 +29,10 @@ public class AnimateBuild : MonoBehaviour
                 mode = 1;
         }
 
+        if (gameObject.GetComponent<TrailRenderer>() != null)
+        {
+            gameObject.GetComponent<TrailRenderer>().enabled = false;
+        }
     }
 
     private void Update()
@@ -39,6 +43,7 @@ public class AnimateBuild : MonoBehaviour
             temporary.name = animationIndex.ToString();
             temporary.AddComponent<LineInstance>();
             temporary.GetComponent<LineInstance>().RemoveUnnecessaryComponents();
+            temporary.GetComponent<TrailRenderer>().enabled = true;
             LineInstance LineInstance = temporary.GetComponent<LineInstance>(); //access LineInstance
             LineInstance.PlayAnimation(animationClipsBuild[animationIndex], spectrumAnalyzer, mode);      //play animation from LineInstance
             animationIndex++;

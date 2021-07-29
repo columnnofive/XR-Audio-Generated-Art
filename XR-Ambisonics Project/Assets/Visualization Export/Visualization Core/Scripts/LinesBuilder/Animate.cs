@@ -47,6 +47,12 @@ public class Animate : TimeLineBase
             if (gameObject.GetComponent<LineBandVisualizer>().isActiveAndEnabled)
                 mode = 1;
         }
+
+        if(gameObject.GetComponent<TrailRenderer>() != null)
+        {
+            gameObject.GetComponent<TrailRenderer>().enabled = false;
+        }
+
     }
 
     private void Start()
@@ -58,7 +64,6 @@ public class Animate : TimeLineBase
         }
 
         hierarchyParent = Instantiate(this.gameObject, this.transform.parent);
-        hierarchyParent.name = this.name + "_Debug";
         foreach (var comp in hierarchyParent.GetComponents<Component>())
         {
             if (!(comp is Transform))
@@ -76,6 +81,7 @@ public class Animate : TimeLineBase
             temporary.name = animationIndex.ToString();
             temporary.AddComponent<LineInstance>();
             temporary.GetComponent<LineInstance>().RemoveUnnecessaryComponents();
+            temporary.GetComponent<TrailRenderer>().enabled = true;
             LineInstance LineInstance = temporary.GetComponent<LineInstance>(); //access LineInstance
             LineInstance.PlayAnimation(GetAnimationClip(timeLine[animationIndex].name), spectrumAnalyzer, mode);      //play animation from LineInstance
             animationIndex++;
