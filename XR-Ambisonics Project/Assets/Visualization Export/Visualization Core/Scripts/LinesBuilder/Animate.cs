@@ -47,12 +47,6 @@ public class Animate : TimeLineBase
             if (gameObject.GetComponent<LineBandVisualizer>().isActiveAndEnabled)
                 mode = 1;
         }
-
-        if(gameObject.GetComponent<TrailRenderer>() != null)
-        {
-            gameObject.GetComponent<TrailRenderer>().enabled = false;
-        }
-
     }
 
     private void Start()
@@ -61,6 +55,11 @@ public class Animate : TimeLineBase
         {
             Debug.Log("You are trying to animate a line that has no values. Maybe you meant to record?");
             EditorApplication.ExecuteMenuItem("Edit/Play");
+        }
+
+        if (gameObject.GetComponent<TrailRenderer>() != null)
+        {
+            gameObject.GetComponent<TrailRenderer>().enabled = false;
         }
 
         hierarchyParent = Instantiate(this.gameObject, this.transform.parent);
