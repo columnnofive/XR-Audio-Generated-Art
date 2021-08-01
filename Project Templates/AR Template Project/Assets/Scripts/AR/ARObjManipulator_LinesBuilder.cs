@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class ARObjManipulator : MonoBehaviour
+public class ARObjManipulator_LinesBuilder : MonoBehaviour
 {
     [Header("Scaling")]
 
@@ -39,7 +41,5 @@ public class ARObjManipulator : MonoBehaviour
         transform.localScale += difference * Vector3.one;
         if (transform.localScale.x < minScale) transform.localScale = Vector3.one * minScale;
         else if (transform.localScale.x > maxScale) transform.localScale = Vector3.one * maxScale;
-        Debug.Log(transform.localScale);
     }
-
 }
