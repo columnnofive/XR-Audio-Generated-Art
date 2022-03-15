@@ -17,6 +17,7 @@ public class LineVisualizer
 
     public float minWidth = 0.5f;    
     public float maxWidth = 1f;
+    public bool reduceAmplitudeImpact = false;
 
     [Header("Color")]
     
@@ -92,8 +93,13 @@ public class LineVisualizer
 
     public void visualize(float amplitude, float visualizerScaleFactor)
     {
+
         if (controlWidth)
+        {
+            if (reduceAmplitudeImpact) //reduce amplitude impact on line width
+                amplitude = Mathf.Sqrt(amplitude + 1) - 1;
             setWidth(amplitude, visualizerScaleFactor);
+        }
 
         if (controlColor)
             setColor(amplitude);
@@ -106,6 +112,8 @@ public class LineVisualizer
     {
         if (widthChangeTrigger.trigger.checkTrigger(amplitude))
         {
+            if (visualizerScaleFactor > 1)
+                visualizerScaleFactor = Mathf.Sqrt(visualizerScaleFactor);
             float widthInterpolation = (maxWidth - minWidth) * visualizerScaleFactor * amplitude;
             trailRenderer.widthMultiplier = minWidth + widthInterpolation;
         }        
