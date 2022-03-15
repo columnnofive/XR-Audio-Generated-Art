@@ -10,7 +10,21 @@ public class ARObjManipulator : MonoBehaviour
     [SerializeField]
     private float minScale = 0.001f;
 
-    private float maxScale = 1.25f; //after this value the object disappear. Maybe the object gets too close to the camera to be rendered.
+    [SerializeField]
+    private float maxScale = 10f;
+
+    [SerializeField]
+    private float startScale = 1f;
+
+    [SerializeField]
+    private float startHeight = 1f;
+
+
+    private void Start()
+    {
+        transform.localScale = new Vector3(startScale, startScale, startScale);
+        transform.localPosition = new Vector3(0f, startHeight, 0f);
+    }
 
     private void Update()
     {
@@ -39,7 +53,6 @@ public class ARObjManipulator : MonoBehaviour
         transform.localScale += difference * Vector3.one;
         if (transform.localScale.x < minScale) transform.localScale = Vector3.one * minScale;
         else if (transform.localScale.x > maxScale) transform.localScale = Vector3.one * maxScale;
-        Debug.Log(transform.localScale);
     }
 
 }
