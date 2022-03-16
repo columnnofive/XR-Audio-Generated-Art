@@ -1,8 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ARObjManipulator : MonoBehaviour
 {
+    [Header("InitialSettings")]
+
+    [SerializeField]
+    private float startScale = 1f;
+
+    [SerializeField]
+    private float startHeight = 1f;
+
     [Header("Scaling")]
+
+    [SerializeField]
+    private bool enableScaling = true;
 
     [SerializeField]
     private float scaleChange = 0.1f;
@@ -13,37 +25,37 @@ public class ARObjManipulator : MonoBehaviour
     [SerializeField]
     private float maxScale = 10f;
 
-    [SerializeField]
-    private float startScale = 1f;
-
-    [SerializeField]
-    private float startHeight = 1f;
-
-
     private void Start()
     {
         transform.localScale = new Vector3(startScale, startScale, startScale);
         transform.localPosition = new Vector3(0f, startHeight, 0f);
+        if (enableScaling)
+            StartCoroutine(PinchToScale());
     }
 
-    private void Update()
+    IEnumerator PinchToScale()
     {
-        if (Input.touchCount == 2)
+        while (true)
         {
-            Touch touch0 = Input.GetTouch(0);
-            Touch touch1 = Input.GetTouch(1);
+            if (Input.touchCount == 2)
+            {
+                Touch touch0 = Input.GetTouch(0);
+                Touch touch1 = Input.GetTouch(1);
 
-            Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
-            Vector2 touch1PrevPros = touch1.position - touch1.deltaPosition;
+                Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
+                Vector2 touch1PrevPros = touch1.position - touch1.deltaPosition;
 
-            float prevMagnitude = (touch0PrevPos - touch1PrevPros).magnitude;
-            float currentMagnitude = (touch0.position - touch1.position).magnitude;
+                float prevMagnitude = (touch0PrevPos - touch1PrevPros).magnitude;
+                float currentMagnitude = (touch0.position - touch1.position).magnitude;
 
-            float difference = currentMagnitude - prevMagnitude;
+                float difference = currentMagnitude - prevMagnitude;
 
-            Scale(difference * scaleChange * Time.deltaTime);
+                Scale(difference * scaleChange * Time.deltaTime);
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
+
     private void Scale(float difference)
     {
         if (transform.localScale.x < 1)
