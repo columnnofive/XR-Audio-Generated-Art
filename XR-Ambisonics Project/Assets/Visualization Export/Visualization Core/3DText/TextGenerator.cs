@@ -90,6 +90,7 @@ public class TextGenerator : MonoBehaviour
         else name = inputWord;
         word.transform.SetParent(this.transform);
         word.name = name;
+        word.AddComponent<SequenceAnimator>();
         int position = 0;
         foreach(char c in inputWord){ //cycle input characters
             int value;
