@@ -91,6 +91,7 @@ public class TextGenerator : MonoBehaviour
         word.transform.SetParent(this.transform);
         word.name = name;
         word.AddComponent<SequenceAnimator>();
+        word.transform.Rotate(new Vector3(0f, 180f, 0f));
         int position = 0;
         foreach(char c in inputWord){ //cycle input characters
             int value;

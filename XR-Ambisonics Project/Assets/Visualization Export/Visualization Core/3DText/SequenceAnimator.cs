@@ -6,7 +6,7 @@ public class SequenceAnimator : MonoBehaviour
 {
     public float WaitBetween = 0.15f;
 
-    public float speed = 1f;
+    public float speed = 0.5f;
 
     List<Animator> animators;
 
