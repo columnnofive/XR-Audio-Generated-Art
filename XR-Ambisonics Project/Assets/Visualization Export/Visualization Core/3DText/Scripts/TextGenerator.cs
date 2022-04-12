@@ -78,7 +78,8 @@ public class TextGenerator : MonoBehaviour
             { "'", 63},
             { ",", 64},
             { ".", 65},
-            { "?", 66}
+            { "?", 66},
+            { " ", 68}
         };
 
     [MyBox.ButtonMethod]
@@ -98,10 +99,13 @@ public class TextGenerator : MonoBehaviour
             bool hasValue = dictionary.TryGetValue(c.ToString(), out value);
             if (hasValue)
             {
-                GameObject character = characters[value]; 
-                character.name = c.ToString();
-                character.transform.localPosition = new Vector3(position * spacing * -1,0f,0f); //apply spacing
-                Instantiate<GameObject>(character, word.transform); //instatiate character object
+                if (value != 68) //we ignore 68 because it represents spaces
+                {
+                    GameObject character = characters[value];
+                    character.name = c.ToString();
+                    character.transform.localPosition = new Vector3(position * spacing * -1, 0f, 0f); //apply spacing
+                    Instantiate<GameObject>(character, word.transform); //instatiate character object
+                }
             }
             else
             {
