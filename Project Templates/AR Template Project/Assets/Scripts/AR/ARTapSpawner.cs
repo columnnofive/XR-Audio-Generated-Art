@@ -57,7 +57,7 @@ public class ARTapSpawner : MonoBehaviour
 
     private void updateSpawnPose()
     {
-        Vector3 screenCenter = arOrigin.camera.ViewportToScreenPoint(viewportCenter);
+        Vector3 screenCenter = arOrigin.camera.ScreenToViewportPoint(arOrigin.camera.ViewportToScreenPoint(viewportCenter));
 
         hits.Clear();
         if (raycastManager.Raycast(screenCenter, hits))
