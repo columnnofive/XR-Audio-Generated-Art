@@ -10,48 +10,65 @@ public class ARStageSpawner : MonoBehaviour
     private ARSessionOrigin arOrigin;
 
     [SerializeField]
+    private GameObject AidDirectionInterface;
+
+    [SerializeField]
+    private GameObject placeHolder;
+
+    [SerializeField]
     private GameObject spawnObjPrefab;
 
     [SerializeField]
     private ARObjParent arObjParentPrefab;
 
     [SerializeField]
-    private float distance = 1f;
+    private float distance = 2f;
 
+    [Header("TimeSettings")]
+    [SerializeField]
+    private float startTime = 16.0f;
 
+    private int sUntilSpawnTime = 0;
 
+    private bool validPosition = false;
 
-    private bool spawned = false;
-
-    private readonly Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0f);
+    GameObject placeHolderInstance;
 
     private Pose spawnPose;
 
     private void Start()
     {
+        getSpawnTime();
         StartCoroutine(checkForSpawn());
-        StartCoroutine(debug());
+        StartCoroutine(spawnAtTime());
     }
 
-    IEnumerator debug()
+    private void getSpawnTime()
     {
-        while (true)
+        //normalize from 24:60 to 24:100
+        float decPlaces = startTime % 1;
+        startTime = startTime - decPlaces + decPlaces * 100 / 60;
+
+        System.DateTime now = System.DateTime.Now;
+        System.DateTime spawnTime = System.DateTime.Today.AddHours(startTime);
+
+        if (now > spawnTime)
         {
-            //nothing
-            yield return new WaitForSeconds(1);
+            spawnTime = spawnTime.AddDays(1f);
         }
+
+        sUntilSpawnTime = (int)((spawnTime - now).TotalSeconds);
     }
 
     IEnumerator checkForSpawn()
     {
-        while(true)
+        while (!validPosition)
         {
-            updateSpawnPose();
-            Debug.Log(Input.touchCount);
             //Spawn pose valid and screen touched
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                spawn();
-
+            {
+                updateSpawnPose();
+            }
             yield return new WaitForEndOfFrame();
         }
     }
@@ -60,19 +77,32 @@ public class ARStageSpawner : MonoBehaviour
     {
         spawnPose.position = arOrigin.camera.transform.forward * distance + arOrigin.camera.transform.position;
         spawnPose.rotation = Quaternion.LookRotation(new Vector3(spawnPose.position.x, 0, spawnPose.position.z).normalized);
-        Debug.Log(spawnPose.position);
-        Debug.Log(spawnPose.rotation);
+        validPosition = true;
+        spawn();
     }
 
+
+    IEnumerator spawnAtTime()
+    {
+        if (validPosition)
+        {
+            yield return new WaitForSeconds(sUntilSpawnTime);
+            ARObjParent arObjParent = Instantiate(arObjParentPrefab);
+            arObjParent.transform.position = spawnPose.position;
+            arObjParent.transform.rotation = spawnPose.rotation;
+            GameObject spawnedObj = Instantiate(spawnObjPrefab, arObjParent.objManipulator.transform);
+            Destroy(placeHolderInstance);
+            AidDirectionInterface.SetActive(false);
+        }
+    }
 
     private void spawn()
     {
         ARObjParent arObjParent = Instantiate(arObjParentPrefab);
         arObjParent.transform.position = spawnPose.position;
         arObjParent.transform.rotation = spawnPose.rotation;
-        GameObject spawnedObj = Instantiate(spawnObjPrefab, arObjParent.objManipulator.transform);
 
-        spawned = true;
-        distance += 1;
+        GameObject placeHolderInstance = Instantiate(placeHolder, arObjParent.objManipulator.transform);
+        placeHolderInstance.SetActive(true);
     }
 }

@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "02f03719",
         "name": "com.SCSUVizLab.XRAmbisonics",
-        "processId": 15304,
+        "processId": 26878,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -66,6 +66,18 @@
             "deviceId": "02f03719",
             "name": "com.SCSUVizLab.XRAmbisonics",
             "processId": 15304,
+            "exited": false
+        },
+        {
+            "deviceId": "02f03719",
+            "name": "com.SCSUVizLab.XRAmbisonics",
+            "processId": 20725,
+            "exited": false
+        },
+        {
+            "deviceId": "02f03719",
+            "name": "com.SCSUVizLab.XRAmbisonics",
+            "processId": 26878,
             "exited": false
         }
     ],
